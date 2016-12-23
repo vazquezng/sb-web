@@ -1,0 +1,102 @@
+@import "bootstrap";
+@import "bootstrap/theme";
+@import "../../home/scss/_home";
+body {
+    background-color: #ffffff;
+}
+
+header {
+    width: 100%;
+    height: 56px;
+    background-color: #20a2d4;
+    div {
+        position: relative;
+    }
+    .auth {
+        width: 250px;
+        float: right;
+        color: white;
+        margin-top: 20px;
+        text-align: right;
+        a {
+            color: white;
+            cursor: pointer;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        max-width: 1200px;
+        z-index: 1;
+        img {
+            width: 289px;
+            height: auto;
+            float: left;
+        }
+        ul {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            li {
+                color: #fff;
+                padding: 12px 18px;
+                border: 1px solid #fff;
+                margin-right: 5px;
+                cursor: pointer;
+                &:hover {
+                    background: #20a3d4;
+                    border: solid 1px #20a3d4;
+                }
+            }
+        }
+    }
+}
+
+.header {
+    width: 100%;
+    position: relative;
+}
+
+footer {
+    background-color: #252525;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+    img {
+        width: 270px;
+        height: auto;
+    }
+    ul {
+        padding: 0;
+        list-style: none;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        width: 50%;
+        margin: 0 auto;
+        li {
+            font-family: Open Sans;
+            font-size: 16px;
+            color: #fff;
+            line-height: 34px;
+            .vertical {
+                width: 1px;
+                background-color: silver;
+                height: 14px;
+                /* float: left; */
+                border-right: 2px ridge silver;
+                border-radius: 2px;
+                display: inline-block;
+                margin-left: 20px;
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Social Tenis</title>
+        <base href="/">
+        <script type="text/javascript">
+          window.ENV = '<%= htmlWebpackPlugin.options.ENVIRONMENT %>';
+          window.URL_BUCKET = '<%= htmlWebpackPlugin.options.URL_BUCKET %>';
+          //window.hash = '<%=htmlWebpackPlugin.options.hash %>';
+          window.API_URL = '<%=htmlWebpackPlugin.options.URL_API %>';
+        </script>
+        <LINK href="./css/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <ui-view></ui-view>
+
+        <script src="./main.bundle.js"></script>
+    </body>
+</html>

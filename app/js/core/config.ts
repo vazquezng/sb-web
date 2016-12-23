@@ -1,0 +1,20 @@
+import angular = require('angular');
+import "angular-ui-router";
+import "satellizer";
+import * as router from "angular-ui-router";
+import * as moment from 'moment';
+
+moment.locale('es');
+
+const NAME = 'ST-WEB';
+
+const APP  = {
+  NAME: NAME,
+  DEPENDENCIES: ['ui.router', 'satellizer'],
+  ADD_MODULE: function (moduleName:string, dependencies?) {
+    angular.module(moduleName, dependencies || []);
+    angular.module(NAME).requires.push(moduleName);
+  }
+};
+
+export {APP};
