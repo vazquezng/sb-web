@@ -4,7 +4,6 @@ const zlib = require('zlib');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
-const open = require('open');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const shell = require('gulp-shell');
