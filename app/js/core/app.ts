@@ -8,11 +8,12 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
 .constant('PATHS', {
         api: (<any>window).API_URL
     })
-    .config(['$httpProvider', '$locationProvider', function($httpProvider, $locationProvider) {
+    .config(['$httpProvider', '$locationProvider', '$urlRouterProvider', function($httpProvider, $locationProvider, $urlRouterProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         
         //$locationProvider.html5Mode(true).hashPrefix('*');
+        $urlRouterProvider.otherwise('/');
     }])
     .config(['$authProvider', 'PATHS', function($authProvider, PATHS){
       $authProvider.httpInterceptor = function() { return true; },

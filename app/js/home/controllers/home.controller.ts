@@ -1,8 +1,7 @@
-import * as angular from 'angular';
-
 export class HomeController 
 {   
     static $inject = [];
+    
     constructor(){
     }
 }
