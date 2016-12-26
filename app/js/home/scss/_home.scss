@@ -174,3 +174,109 @@ sb-sections {
         }
     }
 }
+
+home-blog {
+    display: block;
+    .container {
+        padding-top: 1%;
+        padding-bottom: 4%;
+    }
+    h3 {
+        color: #252525;
+        font-size: 52px;
+        font-family: "Open Sans";
+        font-weight: bold;
+    }
+    h4 {
+        color: #20a3d4;
+        font-size: 43px;
+        font-family: "Open Sans";
+    }
+    .noticias {
+        display: flex;
+        justify-content: space-between;
+        .item {
+            width: 473px;
+            img {
+                width: 473px;
+                height: auto;
+            }
+            .date {
+                font-size: 25px;
+                color: #20a3d4;
+                text-transform: uppercase;
+                margin-top: 2%;
+            }
+            .inline {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .desc {
+                    font-size: 16px;
+                    color: #252525;
+                    text-transform: uppercase;
+                    display: inline-block;
+                    width: 86%;
+                }
+                .more {
+                    display: inline-block;
+                    color: #fff;
+                    background: #20a3d4;
+                    padding: 5px 15px;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
+
+home-comunidad {
+    display: block;
+    background-color: #20a3d4;
+    .container {
+        padding-top: 1%;
+        padding-bottom: 0;
+    }
+    .group {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        .group {
+            justify-content: space-between;
+            align-items: center;
+            h4 {
+                font-weight: bold;
+                font-size: 62.5px;
+                margin: 0;
+            }
+            .unite {
+                border: 1px solid white;
+                color: white;
+                font-size: 24px;
+                padding: 5px 50px;
+                cursor: pointer;
+                &:hover {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+        .item {
+            width: 50%;
+            position: relative;
+            h3 {
+                font-size: 43px;
+                margin-bottom: 0;
+            }
+            p {
+                font-size: 14px;
+                margin-top: 6%;
+                margin-bottom: 5%;
+            }
+            img {
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    }
+}
