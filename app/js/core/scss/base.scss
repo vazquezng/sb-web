@@ -1,13 +1,52 @@
 @import "bootstrap";
 @import "bootstrap/theme";
 @import "../../home/scss/_home";
-@import "../../profile/scss/_profile";
 @import "../../match/scss/_match";
+@import "../../profile/scss/_profile";
 body {
     background-color: #ffffff;
     font-family: "Open Sans";
     .modal-content {
         padding: 5%;
+    }
+    form{
+        width: 70%;
+        margin: auto;
+        display: table;
+        padding: 20px;
+        .btn{
+            background-color: #5ca3d4;
+            color: #ffffff;
+            border-radius: 0px;
+            font-weight: bold;
+            float:right;
+            text-transform: uppercase;
+        }
+        .btn:hover{
+            color: #ffffff;
+        }
+        label{
+            text-transform: uppercase;
+        }
+        input[type='text'], .form-control{
+            background: #ffffff;
+            border-radius: 0px;
+            border: none;
+            border-bottom: solid 1px #5ca3d4;
+            box-shadow: none;
+            padding-left: 0px;
+        }
+        textarea{
+            border-radius: 0px !important;
+            border: solid 1px #5ca3d4 !important;
+        }
+        .row-form .column{
+            display: inline-block;
+            width: 49%;
+        }
+        .form-group{
+            margin: 10px;
+        }
     }
 }
 
