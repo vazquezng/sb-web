@@ -1,0 +1,96 @@
+.titleDiv{
+    text-align: center;
+    color: #5ca3d4;
+}
+form{
+    width: 70%;
+    margin: auto;
+    display: table;
+    padding: 20px;
+    
+    #imageBox{
+        height: 280px;
+        
+        .leftBracket{
+            left: 17%;
+            background-image: url(/img/profile/left-bracket.png);
+            background-repeat: no-repeat;
+            width: 27px;
+            height: 280px;
+            display: block;
+            position: absolute;
+        }
+        .rightBracket{
+            right: 17%;
+            background-image: url(/img/profile/right-bracket.png);
+            background-repeat: no-repeat;
+            width: 27px;
+            height: 280px;
+            display: block;
+            position: absolute;
+        }
+        .centerBracket{
+            width: 65%;
+            height: 280px;
+            display: block;
+            position: absolute;
+            background-image: url(/img/profile/back-profile.png);
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-position-x: 30%;
+        }
+        .centerBracket {
+            img#profileImg{
+                margin-top: 65px;
+                margin-left: 215px;
+            }
+            #uploadFileBtn{
+                position: absolute;
+                margin-top: -100px;
+                margin-left: 500px;
+                color: #5ca3d4;
+                font-size: 28px;
+            }
+        }
+    }
+    .btn{
+        background-color: #5ca3d4;
+        color: #ffffff;
+        border-radius: 0px;
+        font-weight: bold;
+        float:right;
+        text-transform: uppercase;
+    }
+    .btn:hover{
+        color: #ffffff;
+    }
+    label{
+        text-transform: uppercase;
+    }
+    input[type='text'], .form-control{
+        background: #ffffff;
+        border-radius: 0px;
+        border: none;
+        border-bottom: solid 1px #5ca3d4;
+        box-shadow: none;
+        padding-left: 0px;
+    }
+    textarea{
+        border-radius: 0px !important;
+        border: solid 1px #5ca3d4 !important;
+    }
+    .row-form .column{
+        display: inline-block;
+        width: 49%;
+    }
+    .form-group{
+        margin: 10px;
+    }
+    #inputAvailability{
+        background-image: url(/img/profile/calendar-time.png);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        padding-left: 30px;
+    }
+} 
+
