@@ -31,6 +31,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
 
       $authProvider.facebook({
         clientId: '188438681613821',
+        //clientSecret:'00f402a3c2f945e3152a530961b76aed',
         name: 'facebook',
         url: PATHS.api + '/auth/facebook',
         authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',

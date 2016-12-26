@@ -10,6 +10,8 @@ import './controllers/menu.controller.ts';
 import './directives/welcome.directive.ts';
 import './directives/want-to-play.directive.ts';
 import './directives/sb-sections.directive.ts';
+import './directives/home-blog.directive.ts';
+import './directives/home-comunidad.directive.ts';
 import './directives/footer.directive.ts';
 
 angular

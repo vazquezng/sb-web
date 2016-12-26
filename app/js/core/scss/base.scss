@@ -2,8 +2,13 @@
 @import "bootstrap/theme";
 @import "../../home/scss/_home";
 @import "../../profile/scss/_profile";
+@import "../../match/scss/_match";
 body {
     background-color: #ffffff;
+    font-family: "Open Sans";
+    .modal-content {
+        padding: 5%;
+    }
 }
 
 header {
@@ -68,8 +73,9 @@ header {
 footer {
     background-color: #252525;
     text-align: center;
-    padding: 10px 0;
+    padding: 4% 0;
     color: white;
+    border-top: 2px solid white;
     img {
         width: 270px;
         height: auto;
@@ -84,6 +90,7 @@ footer {
         justify-content: space-around;
         width: 50%;
         margin: 0 auto;
+        margin-top: 3%;
         li {
             font-family: Open Sans;
             font-size: 16px;

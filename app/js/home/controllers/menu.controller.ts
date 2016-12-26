@@ -1,16 +1,16 @@
 import * as angular from 'angular';
 
-export class MenuController 
+class MenuController 
 {   
     static $inject = [];
-    constructor(){
+    constructor(private LoginService){
 
     }
     
     public auth(){
-        console.log('open modal login.');
+       this.LoginService.init();
     }
 }
 
 angular.module('Home')
-        .controller('MenuController', [MenuController]);
+        .controller('MenuController', ['LoginService', MenuController]);
