@@ -1,0 +1,124 @@
+<div class="header">
+    <img src="/img/profile/header-profile.png" />
+</div>
+
+<div class="titleDiv">
+    <h1>Tu Perfil</h1>
+</div>
+
+<form>
+    <div id="imageBox">
+        <div class="leftBracket"></div>
+        <div class="centerBracket">
+            <img id="profileImg" src="/img/profile/profile-blank.png" />
+            <div id="uploadFileBtn">
+                <img src="/img/profile/image-icon.png" />
+                Seleccionar
+            </div>
+        </div>
+        <div class="rightBracket"></div>
+    </div>
+    <div class="row-form">
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputName" id="inputName">
+                <label for="inputName">Nombre</label>
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputSurname" id="inputSurname">
+                <label for="inputSurname">Apellido</label>
+            </div>
+        </div>
+    </div>
+    <div class="row-form">
+        <div class="column">
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputAge" id="inputAge">
+                    <label for="inputAge">Edad</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <select class="form-control" name="inputGender" id="inputGender"> 
+                        <option value="male">Masculino</option> 
+                        <option value="female">Femenino</option> 
+                    </select>
+                    <label for="inputGender">Sexo</label>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputCountry" id="inputCountry">
+                <label for="inputCountry">País</label>
+            </div>
+        </div>
+    </div>
+    <div class="row-form">
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputCity" id="inputCity">
+                <label for="inputCity">Ciudad</label>
+            </div>
+        </div>
+        <div class="column">
+            <div class="column">
+                <div class="form-group">
+                    <select class="form-control" name="inputGameLevel" id="inputGameLevel"> 
+                        <option value="2.5">2.5</option> 
+                    </select>
+                    <label for="inputGameLevel">Nivel de juego</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <select class="form-control" name="inputITN" id="inputITN"> 
+                        <option value="10">10</option> 
+                    </select>
+                    <label for="inputITN">ITN</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-form">
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor">
+                <label for="inputCoachProfessor">Coach/Professor</label>
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputAvailability" id="inputAvailability">
+                <label for="inputAvailability">Disponibilidad</label>
+            </div>
+        </div>
+    </div>
+    <div class="row-form">
+        <div class="column">
+            <div class="form-group">
+                <input type="text" class="form-control" name="inputDistance" id="inputDistance">
+                <label for="inputDistance">Distancia para jugar un partido</label>
+            </div>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <select class="form-control" name="inputGender" id="inputPartnerClub"> 
+                    <option value="male">Masculino</option> 
+                </select>
+                <label for="inputPartnerClub">Sos socio de algun club?</label>
+            </div>
+        </div>
+    </div>
+    <div class="row-form">
+        <div class="form-group">
+            <label for="inputAboutMe">About me</label>
+            <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5"> </textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn">Guardar</button>
+</form>
+<sb-footer></sb-footer>
