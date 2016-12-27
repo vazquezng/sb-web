@@ -2,9 +2,9 @@ import * as angular from 'angular';
 import "angular-ui-router";
 import { APP } from '../core/config.ts';
 
-APP.ADD_MODULE('Profile');
+APP.ADD_MODULE('Profile',['Login']);
 
-//import './controllers/profile.controller.ts';
+import './controllers/profile.controller.ts';
 angular
   .module('Profile')
   .config(['$stateProvider', function($stateProvider){
@@ -12,7 +12,7 @@ angular
     $stateProvider.state('app.profile', {
         url: '/profile',
         template: tplAppProfile,
-        //controller: 'LoginController',
-        //controllerAs: 'vm'
+        controller: 'ProfileController',
+        controllerAs: 'vm'
     });
   }]);

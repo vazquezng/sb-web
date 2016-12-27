@@ -3,8 +3,10 @@ import * as angular from 'angular';
 class MenuController 
 {   
     static $inject = [];
-    constructor(private LoginService){
 
+    public user;
+    constructor(private LoginService){
+        this.user = LoginService.getUser();
     }
     
     public auth(){

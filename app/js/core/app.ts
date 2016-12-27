@@ -15,50 +15,28 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         //$locationProvider.html5Mode(true).hashPrefix('*');
         $urlRouterProvider.otherwise('/');
     }])
-    .config(['$authProvider', 'PATHS', function($authProvider, PATHS){
-      $authProvider.httpInterceptor = function() { return true; },
-      $authProvider.withCredentials = false;
-      $authProvider.tokenRoot = null;
-      $authProvider.baseUrl = '/';
-      $authProvider.loginUrl = '/auth/login';
-      $authProvider.signupUrl = '/auth/signup';
-      $authProvider.unlinkUrl = '/auth/unlink/';
-      $authProvider.tokenName = 'token';
-      $authProvider.tokenPrefix = 'satellizer';
-      $authProvider.tokenHeader = 'Authorization';
-      $authProvider.tokenType = 'Bearer';
-      $authProvider.storageType = 'localStorage';
-
-      $authProvider.facebook({
-        clientId: '188438681613821',
-        //clientSecret:'00f402a3c2f945e3152a530961b76aed',
-        name: 'facebook',
-        url: PATHS.api + '/auth/facebook',
-        authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
-        redirectUri: window.location.origin + '/auth/facebook/facebook/callback',
-        requiredUrlParams: ['display', 'scope'],
-        scope: ['email'],
-        scopeDelimiter: ',',
-        display: 'popup',
-        oauthType: '2.0',
-        popupOptions: { width: 580, height: 400 }
-      });
-      // Twitter
-      $authProvider.twitter({
-        url: '/auth/twitter',
-        authorizationEndpoint: 'https://api.twitter.com/oauth/authenticate',
-        redirectUri: window.location.origin,
-        oauthType: '1.0',
-        popupOptions: { width: 495, height: 645 }
-      });
-    }])
-    .run(['$rootScope','$state', function($rootScope, $state){
+    .run(['$rootScope','$state', '$window', function($rootScope, $state, $window){
         //If the route change failed due to authentication error, redirect them out
         $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
             if(rejection === 'Not Authenticated'){
                 $state.go('login');
             }
         });
+        $rootScope.$on('$stateChangeSuccess', function(/*event, toState, toParams, fromState, fromParams*/) {
+          // display new view from top
+          $window.scrollTo(0, 0);
+        });
+        
+        $rootScope.URL_BUCKET = (<any>window).URL_BUCKET;
+        $window.fbAsyncInit = function() {
+            (<any>window).FB.init({ 
+              appId: (<any>window).FACEBOOK_ID,
+              status: true, 
+              cookie: true, 
+              xfbml: true,
+              version: 'v2.4'
+            });
+        };
     }]);
 
 if (!(<any>window).DEV) {

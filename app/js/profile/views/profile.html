@@ -13,8 +13,7 @@
             <div class="centerBracket">
                 <img id="profileImg" src="/img/profile/profile-blank.png" />
                 <div id="uploadFileBtn">
-                    <img src="/img/profile/image-icon.png" />
-                    Seleccionar
+                    <img src="/img/profile/image-icon.png" /> Seleccionar
                 </div>
             </div>
             <div class="rightBracket"></div>
@@ -22,13 +21,13 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputName" id="inputName">
+                    <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" />
                     <label for="inputName">Nombre</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputSurname" id="inputSurname">
+                    <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" />
                     <label for="inputSurname">Apellido</label>
                 </div>
             </div>
@@ -37,15 +36,15 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge">
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.user.years" />
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGender" id="inputGender"> 
-                            <option value="male">Masculino</option> 
-                            <option value="female">Femenino</option> 
+                        <select class="form-control" name="inputGender" id="inputGender" ng-model="vm.user.sexo" />
+                        <option value="male">Masculino</option>
+                        <option value="female">Femenino</option>
                         </select>
                         <label for="inputGender">Sexo</label>
                     </div>
@@ -53,7 +52,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCountry" id="inputCountry">
+                    <input type="text" class="form-control" name="inputCountry" id="inputCountry" ng-model="vm.user.country" />
                     <label for="inputCountry">País</label>
                 </div>
             </div>
@@ -61,14 +60,14 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity">
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" ng-model="vm.user.city" />
                     <label for="inputCity">Ciudad</label>
                 </div>
             </div>
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGameLevel" id="inputGameLevel"> 
+                        <select class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
                             <option value="2.5">2.5</option> 
                         </select>
                         <label for="inputGameLevel">Nivel de juego</label>
@@ -76,7 +75,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputITN" id="inputITN"> 
+                        <select class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn"> 
                             <option value="10">10</option> 
                         </select>
                         <label for="inputITN">ITN</label>
@@ -87,13 +86,13 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor">
+                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach">
                     <label for="inputCoachProfessor">Coach/Professor</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputAvailability" id="inputAvailability">
+                    <input type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-model="vm.user.availability">
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
@@ -101,13 +100,13 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputDistance" id="inputDistance">
+                    <input type="text" class="form-control" name="inputDistance" id="inputDistance" ng-model="vm.user.distance">
                     <label for="inputDistance">Distancia para jugar un partido</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control" name="inputGender" id="inputPartnerClub"> 
+                    <select class="form-control" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
                         <option value="male">Masculino</option> 
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>
@@ -117,10 +116,10 @@
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAboutMe">About me</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5"> </textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about"></textarea>
             </div>
         </div>
-        <button type="submit" class="btn">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save()">Guardar</button>
     </form>
 </div>
 <sb-footer></sb-footer>
