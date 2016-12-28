@@ -32,7 +32,7 @@ const config = {
 
 const URL_BUCKET = {
     dev: 'http://localhost:8083',
-    prod: 'http://slambow.com/web'
+    prod: 'http://slambow.com/'
 }
 
 
