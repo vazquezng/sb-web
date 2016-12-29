@@ -108,6 +108,12 @@ gulp.task('watchsass', () => {
     gulp.watch(paths.sass, ['sass']);
 });
 
+gulp.task('copy', shell.task([
+    'cp app/css/* dist/css',
+    'cp -R app/img/ dist/img',
+    'cp -R app/fonts/ dist/fonts',
+]));
+
 gulp.task('default', ['sass', 'fonts', 'webpack-dev-server', 'watchsass']);
 
-gulp.task('build', ['envProd', 'sass', 'fonts', 'webpack']);
+gulp.task('build', ['envProd', 'sass', 'fonts', 'webpack', 'copy']);
