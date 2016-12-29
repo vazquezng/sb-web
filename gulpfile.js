@@ -32,7 +32,7 @@ const config = {
 
 const URL_BUCKET = {
     dev: 'http://localhost:8083',
-    prod: 'http://slambow.com/web'
+    prod: 'http://web.slambow.com'
 }
 
 
@@ -40,11 +40,12 @@ process.env.ENVIRONMENT = 'dev';
 process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
 process.env.URL_API = 'http://api.socialtenis.dev/api/v1';
 process.env.FACEBOOK_ID = 188438681613821;
+process.env.TWITTER_ID = '';
 
 gulp.task('envProd', (cb) => {
     process.env.ENVIRONMENT = 'prod';
     process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
-    process.env.URL_API = 'http://api.socialtenis.com/api/v1';
+    process.env.URL_API = 'http://api.slambow.com/api/v1';
     process.env.FACEBOOK_ID = 353935338297275;
     cb();
 });
@@ -108,6 +109,12 @@ gulp.task('watchsass', () => {
     gulp.watch(paths.sass, ['sass']);
 });
 
+gulp.task('copy', shell.task([
+    'cp app/css/* dist/css',
+    'cp -R app/img/ dist/img',
+    'cp -R app/fonts/ dist/fonts',
+]));
+
 gulp.task('default', ['sass', 'fonts', 'webpack-dev-server', 'watchsass']);
 
-gulp.task('build', ['envProd', 'sass', 'fonts', 'webpack']);
+gulp.task('build', ['envProd', 'sass', 'fonts', 'webpack', 'copy']);
