@@ -1,0 +1,152 @@
+.play {
+    .titleDiv {
+        height: 186px;
+        /*padding-top: 100px;*/
+        background-image: url(../img/play/title-sides.png);
+        background-repeat: repeat-x;
+        text-align: center;
+        .centerTitle {
+            width: 772px;
+            height: 100%;
+            margin: auto;
+            display: inline-block;
+            background-image: url(../img/play/center-title.png);
+            background-repeat: no-repeat;
+        }
+    }
+    #imageBox {
+        height: 62px;
+        width: 45%;
+        margin: auto;
+        margin-top: 50px;
+        .leftBracket {
+            left: 17%;
+            background-image: url(../img/play/left-bracket.png);
+            background-repeat: no-repeat;
+            width: 27px;
+            height: 62px;
+            display: block;
+            position: absolute;
+        }
+        .centerBracket {
+            display: block;
+            position: absolute;
+            text-align: center;
+            .text{
+                width: 600px;
+                margin: auto;
+                font-size: 16px;
+            }
+        }
+        .rightBracket {
+            right: 17%;
+            background-image: url(../img/play/right-bracket.png);
+            background-repeat: no-repeat;
+            width: 27px;
+            height: 62px;
+            display: block;
+            position: absolute;
+        }
+        .centerBracket {
+            img#profileImg {
+                margin-top: 66px;
+                margin-left: 236px;
+            }
+            #uploadFileBtn {
+                position: absolute;
+                margin-top: -100px;
+                margin-left: 500px;
+                color: #5ca3d4;
+                font-size: 28px;
+            }
+        }
+        #inputAvailability {
+            background-image: url(../img/profile/calendar-time.png);
+            background-repeat: no-repeat;
+            background-size: 30px;
+            padding-left: 30px;
+        }
+        
+    }
+    .usersGrid{
+        margin: auto;
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        .userBox{
+            width: 270px;
+            height: 380px;
+            
+            .leftBracket{
+                background-image: url(../img/play/left-bracket-big.png);
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 15px;
+                height: 380px;
+                display: inline-block;
+            }
+            .rightBracket{
+                background-image: url(../img/play/right-bracket-big.png);
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 15px;
+                height: 380px;
+                display: inline-block;
+            }
+            .centerBracket{
+                display: inline-block;
+                vertical-align: top;
+                .separator{
+                    border-bottom: 1px solid #20a3d4;
+                    width: 70%;
+                    display: block;
+                    height: 1px;
+                    margin: auto;
+                }
+                .level-1{
+                    .imgContainer{
+                        margin: auto;
+                        width: 120px;
+                        height: 128px;
+                        margin-bottom: 20px;
+                        background-image: url(../img/profile/back-profile.png);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        img{
+                            margin-top: 8px;
+                            width: 116px;
+                        }
+                        .dateTime{
+                            font-size: 17px;
+                        }
+                    }
+                }
+                .level-2{
+                    margin-bottom: 20px;
+                }
+                .level-3{
+                    margin-bottom: 20px;
+                    .clubName{
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+                }
+                .level-4{
+                    .mapImg{
+                        width: 200px;
+                        height: 50px;
+                        overflow: hidden;
+                    }
+                }
+                .level-5{
+                    text-align: right;
+                    padding-right: 25px;
+                    padding-top: 10px;
+                }
+             }
+        }
+    }
+    span {
+        color: #20a3d4;
+    }
+}

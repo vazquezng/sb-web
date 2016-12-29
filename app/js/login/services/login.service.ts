@@ -1,11 +1,16 @@
 import * as angular from 'angular';
 
-function LoginService($auth, $uibModal){   
+function LoginService($uibModal, $state){   
+    let modalInstance;
+    let user;
+    
+    user = window.localStorage.getItem('user');
+    user = user !== null ? JSON.parse(user) : user;
     this.init = function(){
         const tplLogin = <string> require('../views/login.html');
         console.log('init login');
 
-        var modalInstance = $uibModal.open({
+        modalInstance = $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -16,15 +21,34 @@ function LoginService($auth, $uibModal){
         });
     };
 
-    this.authenticate = function(provider:string){
-        $auth.authenticate(provider).then(function(response) {
-            console.log(response);
-        })
-        .catch(function(response) {
-            console.log(response);
-        });
-    };
+    this.login = function(data){
+        user = data.user;
+
+        window.localStorage.setItem('token', data.token.token);
+        window.localStorage.setItem('user', JSON.stringify(data.user));
+
+        if(data.newuser){
+            $state.go('app.profile');
+        }else{
+            $state.reload();
+        }
+
+        modalInstance.close();
+    }
+
+    this.isAuth =  function(){
+        return !(user === null);
+    }
+
+    this.getUser = function(){
+        return user;
+    }
+
+    this.setUser = function(newuser){
+        user = newuser;
+        window.localStorage.setItem('user', JSON.stringify(newuser));
+    }
 }
 
 angular.module('Login')
-        .service('LoginService', ['$auth', '$uibModal', LoginService]);
+        .service('LoginService', ['$uibModal', '$state', LoginService]);

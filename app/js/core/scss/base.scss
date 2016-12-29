@@ -1,34 +1,36 @@
 @import "bootstrap";
 @import "bootstrap/theme";
 @import "../../home/scss/_home";
-@import "../../match/scss/_match";
-@import "../../profile/scss/_profile";
+@import "../../create_match/scss/_create_match";
+@import "../../view_profile/scss/_view_profile";
+@import "../../play/scss/_play";
 body {
     background-color: #ffffff;
     font-family: "Open Sans";
     .modal-content {
         padding: 5%;
     }
-    form{
+    form {
         width: 70%;
         margin: auto;
         display: table;
         padding: 20px;
-        .btn{
+        .btn {
             background-color: #5ca3d4;
             color: #ffffff;
             border-radius: 0px;
             font-weight: bold;
-            float:right;
+            float: right;
             text-transform: uppercase;
         }
-        .btn:hover{
+        .btn:hover {
             color: #ffffff;
         }
-        label{
+        label {
             text-transform: uppercase;
         }
-        input[type='text'], .form-control{
+        input[type='text'],
+        .form-control {
             background: #ffffff;
             border-radius: 0px;
             border: none;
@@ -36,15 +38,15 @@ body {
             box-shadow: none;
             padding-left: 0px;
         }
-        textarea{
+        textarea {
             border-radius: 0px !important;
             border: solid 1px #5ca3d4 !important;
         }
-        .row-form .column{
+        .row-form .column {
             display: inline-block;
             width: 49%;
         }
-        .form-group{
+        .form-group {
             margin: 10px;
         }
     }
@@ -54,7 +56,6 @@ header {
     width: 100%;
     height: 56px;
     background-color: #20a2d4;
-    padding-top: 100px;
     div {
         position: relative;
     }
@@ -98,6 +99,16 @@ header {
                 &:hover {
                     background: #20a3d4;
                     border: solid 1px #20a3d4;
+                }
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        text-decoration: none;
+                        color: #fff;
+                    }
                 }
             }
         }

@@ -32,19 +32,20 @@ const config = {
 
 const URL_BUCKET = {
     dev: 'http://localhost:8083',
-    prod: ''
+    prod: 'http://slambow.com/web'
 }
 
 
 process.env.ENVIRONMENT = 'dev';
 process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
 process.env.URL_API = 'http://api.socialtenis.dev/api/v1';
+process.env.FACEBOOK_ID = 188438681613821;
 
 gulp.task('envProd', (cb) => {
     process.env.ENVIRONMENT = 'prod';
     process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
-    process.env.URL_API = 'http://api.socialtenis.com/api';
-
+    process.env.URL_API = 'http://api.socialtenis.com/api/v1';
+    process.env.FACEBOOK_ID = 353935338297275;
     cb();
 });
 
@@ -108,3 +109,5 @@ gulp.task('watchsass', () => {
 });
 
 gulp.task('default', ['sass', 'fonts', 'webpack-dev-server', 'watchsass']);
+
+gulp.task('build', ['envProd', 'sass', 'fonts', 'webpack']);

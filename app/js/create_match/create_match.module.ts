@@ -2,15 +2,15 @@ import * as angular from 'angular';
 import "angular-ui-router";
 import { APP } from '../core/config.ts';
 
-APP.ADD_MODULE('Match');
+APP.ADD_MODULE('CreateMatch');
 
 angular
-  .module('Match')
+  .module('CreateMatch')
   .config(['$stateProvider', function($stateProvider){
-    const tplAppMatch = <string> require('./views/match.html');
-    $stateProvider.state('app.match', {
-        url: '/match',
-        template: tplAppMatch,
+    const tplAppCreateMatch = <string> require('./views/create_match.html');
+    $stateProvider.state('app.createMatch', {
+        url: '/create_match',
+        template: tplAppCreateMatch,
         //controller: 'LoginController',
         //controllerAs: 'vm'
     });

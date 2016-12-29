@@ -8,12 +8,15 @@
           window.URL_BUCKET = '<%= htmlWebpackPlugin.options.URL_BUCKET %>';
           //window.hash = '<%=htmlWebpackPlugin.options.hash %>';
           window.API_URL = '<%=htmlWebpackPlugin.options.URL_API %>';
+          window.FACEBOOK_ID = '<%=htmlWebpackPlugin.options.FACEBOOK_ID %>';
         </script>
-        <LINK href="./css/style.css" rel="stylesheet" type="text/css">
+        <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/css/style.css" rel="stylesheet" type="text/css">
+        <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/fonts/opensans/open_sans-regular.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <ui-view></ui-view>
 
-        <script src="./main.bundle.js"></script>
+        <script src="<%= htmlWebpackPlugin.options.URL_BUCKET %>/main.bundle.js"></script>
+        <script src="//connect.facebook.net/en_US/sdk.js"></script>
     </body>
 </html>

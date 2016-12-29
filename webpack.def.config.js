@@ -45,6 +45,7 @@ var webpackConfig = {
             ENVIRONMENT: process.env.ENVIRONMENT,
             URL_BUCKET: process.env.URL_BUCKET,
             URL_API: process.env.URL_API,
+            FACEBOOK_ID: process.env.FACEBOOK_ID,
             pkg,
             hash: Math.random().toString(36).substring(4),
             filename: 'index.html',

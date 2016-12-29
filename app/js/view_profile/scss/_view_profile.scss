@@ -1,44 +1,25 @@
-.profile{
-    .titleDiv{
+.viewProfile {
+    .titleDiv {
         height: 186px;
         /*padding-top: 100px;*/
-        background-image: url(/img/profile/title-sides.png);
+        background-image: url(../img/profile/title-sides.png);
         background-repeat: repeat-x;
         text-align: center;
-        .centerTitle{
+        .centerTitle {
             width: 772px;
             height: 100%;
             margin: auto;
             display: inline-block;
-            background-image: url(/img/profile/center-title.png);
+            background-image: url(../img/profile/center-title.png);
             background-repeat: no-repeat;
         }
     }
-    form{
-        #imageBox{
+    form {
+        #imageBox {
             height: 280px;
-            .leftBracket{
+            .leftBracket {
                 left: 17%;
-                background-image: url(/img/profile/left-bracket.png);
-                background-repeat: no-repeat;
-                width: 27px;
-                height: 280px;
-                display: block;
-                position: absolute;
-            }
-            .centerBracket{
-                width: 65%;
-                height: 280px;
-                display: block;
-                position: absolute;
-                background-image: url(/img/profile/back-profile.png);
-                background-repeat: no-repeat;
-                background-position-y: center;
-                background-position-x: 30%;
-            }
-            .rightBracket{
-                right: 17%;
-                background-image: url(/img/profile/right-bracket.png);
+                background-image: url(../img/profile/left-bracket.png);
                 background-repeat: no-repeat;
                 width: 27px;
                 height: 280px;
@@ -46,11 +27,30 @@
                 position: absolute;
             }
             .centerBracket {
-                img#profileImg{
-                    margin-top: 65px;
-                    margin-left: 215px;
+                width: 65%;
+                height: 280px;
+                display: block;
+                position: absolute;
+                background-image: url(../img/profile/back-profile.png);
+                background-repeat: no-repeat;
+                background-position-y: center;
+                background-position-x: 30%;
+            }
+            .rightBracket {
+                right: 17%;
+                background-image: url(../img/profile/right-bracket.png);
+                background-repeat: no-repeat;
+                width: 27px;
+                height: 280px;
+                display: block;
+                position: absolute;
+            }
+            .centerBracket {
+                img#profileImg {
+                    margin-top: 66px;
+                    margin-left: 236px;
                 }
-                #uploadFileBtn{
+                #uploadFileBtn {
                     position: absolute;
                     margin-top: -100px;
                     margin-left: 500px;
@@ -59,14 +59,11 @@
                 }
             }
         }
-        
-        #inputAvailability{
-            background-image: url(/img/profile/calendar-time.png);
+        #inputAvailability {
+            background-image: url(../img/profile/calendar-time.png);
             background-repeat: no-repeat;
             background-size: 30px;
             padding-left: 30px;
         }
-    } 
-
-
+    }
 }
