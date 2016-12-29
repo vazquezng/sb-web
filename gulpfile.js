@@ -40,11 +40,12 @@ process.env.ENVIRONMENT = 'dev';
 process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
 process.env.URL_API = 'http://api.socialtenis.dev/api/v1';
 process.env.FACEBOOK_ID = 188438681613821;
+process.env.TWITTER_ID = '';
 
 gulp.task('envProd', (cb) => {
     process.env.ENVIRONMENT = 'prod';
     process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
-    process.env.URL_API = 'http://api.socialtenis.com/api/v1';
+    process.env.URL_API = 'http://api.slambow.com/api/v1';
     process.env.FACEBOOK_ID = 353935338297275;
     cb();
 });

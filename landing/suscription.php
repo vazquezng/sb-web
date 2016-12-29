@@ -1,23 +1,36 @@
 <?php
-    
-    if(isset($_POST) && isset($_POST['name']) && isset($_POST['email'])){
-        try {
-            $mbd = new PDO('mysql:host=localhost;dbname=slambow_landing', 'slambow_db', 'Sl4mb0wdb');
-var_dump($mbd->prepare);
-            $sentencia = $mbd->prepare("INSERT INTO suscriptions ('name', 'email', 'city', 'date') VALUES (?, ?, ?, NOW())");
-            $sentencia->bindParam(1, $_POST['name']);
-            $sentencia->bindParam(2, $_POST['email']);
-            $sentencia->bindParam(3, $_POST['city']);
-            $sentencia->execute();
-            var_dump($sentencia->fullQuery);
-            $mbd = null;
-            die();
-        } catch (PDOException $e) {
-            print "¡Error!: " . $e->getMessage() . "<br/>";
-            die();
-        }
-    }
 
-    header("Location: /");
-    exit;
+	if(isset($_POST) && isset($_POST['name']) && isset($_POST['email'])){
+	  $name = Trim(stripslashes($_POST['name']));
+	  $email = Trim(stripslashes($_POST['email']));
+	  $city = Trim(stripslashes($_POST['city']));
+
+	  $link = mysqli_connect('127.0.0.1', 'slambow_db', 'Sl4mb0wdb', '') or die(mysql_error());
+
+	  if($link === false){
+		  die("ERROR: Error al conectar con la base de datos. " . mysqli_connect_error());
+	  }
+
+	  mysqli_select_db($link,'slambow_landing') or die(mysql_error());
+
+	  $time = time();
+	  $fecha = date("d-m-Y (H:i:s)", $time);
+
+	  $query="INSERT INTO suscriptions" .
+		  "(name,email,city,date)" .
+		  "VALUES
+		  ('$name','$email','$city','$fecha')";
+
+	  if(!mysqli_query($link, $query)){
+		  die("ERROR: Error al guardar en la base de datos. " . mysqli_connect_error());
+	  }
+
+	}
+	else{
+	  echo "Se produjo un error al enviar el formulario, reintenta a la brevedad.";
+	}
+
+	$link->close();
+	header("Location: /");
+	exit;
 ?>

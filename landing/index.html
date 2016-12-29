@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta name="viewport" content="width=1000, user-scalable=yes" />
+    <meta name="viewport" content="width=700, user-scalable=yes" />
     <title>:: SLAMBOW ::</title>
     <link href="images/favicon.ico" type="image/x-icon" rel="shortcut icon" />
     <style>
@@ -19,7 +19,7 @@
             -ms-transform: translate(-50%, 0%);
             transform: translate(-50%, 0%);
         }
-        
+
         .cargando {
             width: 100%;
             height: 100%;
@@ -32,7 +32,7 @@
             left: 0;
             position: fixed;
         }
-        
+
         #landing {
             position: absolute;
             z-index: 15;
@@ -40,30 +40,40 @@
             left: 50%;
             margin: -112px 0 0 -260px;
         }
-        
+
         #title-form {
             position: absolute;
             z-index: 15;
-            top: 55%;
-            left: 30.5%;
+            top: 53%;
+            left: 50%;
+            margin-left: -252px;
         }
-        
+
         #suscription {
             position: absolute;
             z-index: 15;
             top: 65%;
             left: 30.5%;
+            text-align: center;
         }
-        
+
         input {
             background: transparent;
             border: 1px solid #ffffff;
             border-radius: 5px;
             color: #ffffff;
             font-size: 18px;
-            padding: 10px;
+            padding: 2%;
             margin-bottom: 25px;
         }
+		@media (max-width:768px)
+		{
+			#suscription
+			{
+				width: 70% !important;
+            	left: 15% !important;
+			}
+		}
     </style>
 </head>
 
@@ -72,10 +82,10 @@
         <img id="landing" alt="" src="images/landing-es.png" />
         <img id="title-form" alt="" src="images/title-form-es.png" />
         <form id="suscription" style="width: 40%" method="POST" action="suscription.php">
-            <input type="text" name="name" placeholder="Nombre/Apellido" style="width: 95%;" required/>
-            <input type="email" name="email" placeholder="Correo Electr&oacute;nico" style="width: 45%;float: left; margin-right: 7px;" required/>
-            <input type="text" name="city" placeholder="Ciudad" style="width: 45%;float: left;" />
-            <input type="submit" value="Enviar" style="cursor: pointer" />
+            <input type="text" name="name" placeholder="Nombre/Apellido" style="width: 96%;" required/>
+            <input type="email" name="email" placeholder="Correo Electr&oacute;nico" style="width: 43%;float: left;" required/>
+            <input type="text" name="city" placeholder="Ciudad" style="width: 43%;float: right;" />
+            <input type="submit" value="Enviar" style="cursor: pointer; margin: 0 auto; display: block; width: 200px;" />
         </form>
         <div id="black" class="cargando">
         </div>
