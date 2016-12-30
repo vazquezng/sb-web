@@ -35,7 +35,8 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
               status: true, 
               cookie: true, 
               xfbml: true,
-              version: 'v2.4'
+              oauth: true,
+              version: 'v2.2'
             });
         };
     }]);
