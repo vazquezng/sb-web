@@ -2,11 +2,15 @@ import * as angular from 'angular';
 
 class MenuController 
 {   
-    static $inject = [];
+    static $inject = ['$rootScope'];
 
     public user;
-    constructor(private LoginService){
+    constructor(private LoginService, $rootScope){
         this.user = LoginService.getUser();
+        const vm = this;
+        $rootScope.$on('login', function(){
+            vm.user = LoginService.getUser();
+        });
     }
     
     public auth(){
@@ -15,4 +19,4 @@ class MenuController
 }
 
 angular.module('Home')
-        .controller('MenuController', ['LoginService', MenuController]);
+        .controller('MenuController', ['LoginService', '$rootScope', MenuController]);
