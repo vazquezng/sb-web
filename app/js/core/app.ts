@@ -29,16 +29,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         });
         
         $rootScope.URL_BUCKET = (<any>window).URL_BUCKET;
-        $window.fbAsyncInit = function() {
-            (<any>window).FB.init({ 
-              appId: (<any>window).FACEBOOK_ID,
-              status: true, 
-              cookie: true, 
-              xfbml: true,
-              oauth: true,
-              version: 'v2.2'
-            });
-        };
+        
     }]);
 
 if (!(<any>window).DEV) {
@@ -59,3 +50,14 @@ angular.element(document).ready(function () {
     strictDi: true
   });
 });
+
+
+(<any>window).fbAsyncInit = function() {
+      console.log('fbAsyncInit');
+    (<any>window).FB.init({ 
+      appId: (<any>window).FACEBOOK_ID,
+      status: true, 
+      cookie: true, 
+      version: 'v2.4'
+    });
+};
