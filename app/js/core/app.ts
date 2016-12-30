@@ -53,7 +53,7 @@ angular.element(document).ready(function () {
 
 
 (<any>window).fbAsyncInit = function() {
-      console.log('fbAsyncInit');
+    console.log('fbAsyncInit');
     (<any>window).FB.init({ 
       appId: (<any>window).FACEBOOK_ID,
       status: true, 
