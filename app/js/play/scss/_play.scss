@@ -74,7 +74,6 @@
         margin-top: 50px;
         margin-bottom: 50px;
         .userBox{
-            width: 270px;
             height: 380px;
             
             .leftBracket{
@@ -148,5 +147,68 @@
     }
     span {
         color: #20a3d4;
+    }
+}
+
+.modalDetail{
+    text-align: center;
+    span {
+        color: #20a3d4;
+    }
+    .separator{
+        border-bottom: 1px solid #20a3d4;
+        width: 70%;
+        display: block;
+        height: 1px;
+        margin: auto;
+    }
+    .imgContainer{
+        margin: auto;
+        width: 120px;
+        height: 128px;
+        margin-bottom: 20px;
+        background-image: url(../img/profile/back-profile.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        img{
+            margin-top: 8px;
+            width: 116px;
+        }
+        .dateTime{
+            font-size: 17px;
+        }
+    }
+    .level-2{
+        width: 300px;
+        margin: auto;
+    }
+    .level-3{
+        margin: auto;
+        width: 326px;
+        height: 60px;
+        margin-top: 25px;
+        .clubInfo,.clubMap{
+            float: left;
+        }
+        img{
+            height: 50px;
+        }
+    }
+    .level-4{
+        img{
+            width: 175px;
+            margin: auto;
+            margin-top: 25px;
+        }
+    }
+    .level-5{
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .playerGrid{
+        margin-top: 25px;
+        margin-bottom: 25px;
     }
 }

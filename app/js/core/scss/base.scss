@@ -10,19 +10,18 @@ body {
     .modal-content {
         padding: 5%;
     }
+    .btn {
+        background-color: #5ca3d4;
+        color: #ffffff;
+        border-radius: 0px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
     form {
         width: 70%;
         margin: auto;
         display: table;
         padding: 20px;
-        .btn {
-            background-color: #5ca3d4;
-            color: #ffffff;
-            border-radius: 0px;
-            font-weight: bold;
-            float: right;
-            text-transform: uppercase;
-        }
         .btn:hover {
             color: #ffffff;
         }
