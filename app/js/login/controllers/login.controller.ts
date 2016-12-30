@@ -30,7 +30,7 @@ export class LoginController
     private getUserFacebook(authResponse){
         const vm = this;
         (<any>window).FB.api('/me', {
-            fields: ['first_name','last_name', 'email']
+            fields: 'first_name, last_name, email'
         }, function(response) {
             (<any>vm).params = response;
             (<any>vm).params.accessToken = authResponse.accessToken;

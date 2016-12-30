@@ -9,7 +9,8 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li>Torneos</li>
-                <li>Quiero jugar</li>
+                <li ng-if="vm.user != null"><a ui-sref="app.createMatch">Crear Partido</a></li>
+                <li ng-if="vm.user != null"><a ui-sref="app.play">Quiero jugar</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li>
                 <li>Sobre Slambow</li>
                 <li>Blog</li>
