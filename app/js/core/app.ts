@@ -8,7 +8,8 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
 .constant('PATHS', {
         api: (<any>window).API_URL
     })
-    .config(['$httpProvider', '$locationProvider', '$urlRouterProvider', function($httpProvider, $locationProvider, $urlRouterProvider) {
+    .config(['$httpProvider', '$locationProvider', '$urlRouterProvider', '$authProvider',
+    function($httpProvider, $locationProvider, $urlRouterProvider, $authProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         

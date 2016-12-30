@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-function LoginService($uibModal, $state){   
+function LoginService($uibModal, $state, $rootScope){   
     let modalInstance;
     let user;
     
@@ -28,6 +28,7 @@ function LoginService($uibModal, $state){
         window.localStorage.setItem('user', JSON.stringify(data.user));
 
         if(data.newuser){
+            $rootScope.$broadcast('login');
             $state.go('app.profile');
         }else{
             $state.reload();
@@ -51,4 +52,4 @@ function LoginService($uibModal, $state){
 }
 
 angular.module('Login')
-        .service('LoginService', ['$uibModal', '$state', LoginService]);
+        .service('LoginService', ['$uibModal', '$state', '$rootScope', LoginService]);
