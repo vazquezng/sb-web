@@ -13,7 +13,7 @@ export class LoginController
 
     private facebook = function(){
         const vm = this;
-        /*(<any>window).FB.getLoginStatus(function(response) {
+        (<any>window).FB.getLoginStatus(function(response) {
             console.log(response);
             if (response.status === 'connected') {
                 console.log('Logged in.');
@@ -27,15 +27,6 @@ export class LoginController
                         console.log('User cancelled login or did not fully authorize.');
                     }
                 });
-            }
-        });*/
-
-        (<any>window).FB.login(function(response){
-            if (response.authResponse) {
-                console.log('Welcome!  Fetching your information.... ');
-                vm.getUserFacebook(response.authResponse);
-            } else {
-                console.log('User cancelled login or did not fully authorize.');
             }
         });
     }
