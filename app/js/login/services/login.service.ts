@@ -30,6 +30,9 @@ function LoginService($uibModal, $state, $rootScope){
         if(data.newuser){
             $rootScope.$broadcast('login');
             $state.go('app.profile');
+        }else if(data.state){
+            $rootScope.$broadcast('login');
+            $state.go(data.state);
         }else{
             $state.reload();
         }

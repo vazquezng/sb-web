@@ -42,5 +42,25 @@ export class LoginController
     }
 }
 
+class AuthTwitterController{
+    static $inject = ['User', 'LoginService', '$stateParams'];
+
+    constructor(private User, private LoginService, private $stateParams){
+        let data:any = {};
+
+        data.user = User.data.user;
+        data.token = {token: $stateParams.token};
+        if($stateParams.newuser == 'true'){
+            data.newuser =true;
+        }else{
+            data.newuser = false;
+            data.state = 'app.home';
+        }
+         
+        LoginService.login(data);
+    }
+}
+
 angular.module('Login')
-        .controller('LoginController', ['$http', 'PATHS', 'LoginService', '$auth', LoginController]);
+        .controller('LoginController', ['$http', 'PATHS', 'LoginService', '$auth', LoginController])
+        .controller('AuthTwitterController', ['User', 'LoginService', '$stateParams', AuthTwitterController]);

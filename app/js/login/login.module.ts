@@ -15,5 +15,15 @@ angular
         template: tplAppLogin,
         controller: 'LoginController',
         controllerAs: 'vm'
+    })
+    $stateProvider.state('auth-twitter', {
+        url: '/auth/twitter?token&id&newuser',
+        controller: 'AuthTwitterController',
+        controllerAs: 'vm',
+        resolve:{
+          User: ['$http', '$stateParams', 'PATHS', function($http, $stateParams, PATHS){
+            return $http.get(PATHS.api + '/user/' + $stateParams.id);
+          }]
+        }
     });
   }]);
