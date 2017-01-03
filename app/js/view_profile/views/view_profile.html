@@ -11,7 +11,9 @@
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
-                <img id="profileImg" src="/img/profile/profile-blank.png" />
+                <div class="imgContainer">
+                    <img src="/img/profile/profile-blank.png">
+                </div>
                 <div id="uploadFileBtn">
                     <img src="/img/profile/image-icon.png" /> Seleccionar
                 </div>
@@ -42,7 +44,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGender" id="inputGender" ng-model="vm.user.sexo" />
+                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" >
                         <option value="male">Masculino</option>
                         <option value="female">Femenino</option>
                         </select>
@@ -67,7 +69,7 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
+                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
                             <option value="2.5">2.5</option> 
                         </select>
                         <label for="inputGameLevel">Nivel de juego</label>
@@ -75,7 +77,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn"> 
+                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn"> 
                             <option value="10">10</option> 
                         </select>
                         <label for="inputITN">ITN</label>
@@ -106,7 +108,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
                         <option value="male">Masculino</option> 
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>

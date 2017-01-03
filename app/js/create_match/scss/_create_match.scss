@@ -69,6 +69,12 @@
         .searchBtn {
             display: inline;
             float: right;
+            background-image: url(../img/match/search-btn.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 45px;
+            width: 45px;
+            margin-top: -10px;
         }
         .btn{
             float: right;

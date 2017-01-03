@@ -31,10 +31,31 @@
                 height: 280px;
                 display: block;
                 position: absolute;
-                background-image: url(../img/profile/back-profile.png);
-                background-repeat: no-repeat;
-                background-position-y: center;
-                background-position-x: 30%;
+                .imgContainer{
+                    margin-left: 23%;
+                    margin-bottom: 20px;
+                    margin-top: 25px;
+                    width: 217px;
+                    height: 233px;
+                    background-image: url(../img/profile/back-profile.png);
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    img{
+                        margin-top: 8px;
+                        width: 215px;
+                    }
+                }
+                #uploadFileBtn {
+                    position: absolute;
+                    margin-top: -160px;
+                    margin-left: 500px;
+                    color: #5ca3d4;
+                    font-size: 28px;
+                }
+                .profileImgContainer{
+                    background-image: url(../img/profile/back-profile.png);
+                    background-repeat: no-repeat;
+                }
             }
             .rightBracket {
                 right: 17%;
@@ -45,25 +66,15 @@
                 display: block;
                 position: absolute;
             }
-            .centerBracket {
-                img#profileImg {
-                    margin-top: 66px;
-                    margin-left: 236px;
-                }
-                #uploadFileBtn {
-                    position: absolute;
-                    margin-top: -100px;
-                    margin-left: 500px;
-                    color: #5ca3d4;
-                    font-size: 28px;
-                }
-            }
         }
         #inputAvailability {
             background-image: url(../img/profile/calendar-time.png);
             background-repeat: no-repeat;
             background-size: 30px;
             padding-left: 30px;
+        }
+        .btn{
+            float: right;
         }
     }
 }
