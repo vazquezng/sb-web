@@ -37,6 +37,9 @@
             position: absolute;
             padding-top: 18px;
             font-size: 20px;
+            spam{
+                font-weight: bold;
+            }
         }
         .rightBracket {
             right: 17%;
@@ -87,6 +90,18 @@
             width: 100%;
             height: 82px;
             margin: 0;
+        }
+        #inputAboutMe::-moz-placeholder{
+            font-family: CookieRegular;
+            font-size: 20px;
+        }
+        #inputAboutMe::-webkit-input-placeholder{
+            font-family: CookieRegular;
+            font-size: 20px;
+        }
+        #inputAboutMe:-ms-input-placeholder{
+            font-family: CookieRegular;
+            font-size: 20px;
         }
         .input90 {
             width: 90%;
