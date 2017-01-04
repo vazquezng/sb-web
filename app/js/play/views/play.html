@@ -15,7 +15,7 @@
         </div>
         <div class="rightBracket"></div>
     </div>
-    
+    <div class="subtitleImg"></div>
     <div class="usersGrid container">
         <div class="row">
             <div class="userBox col-xs-3">
@@ -45,10 +45,10 @@
                         </div>
                     </div>
                     <div class="level-4">
-                        <img class="mapImg" src="/img/match/mock-map.png" />
+                        <img class="mapImg" ng-src="/img/match/mock-map.png" />
                     </div>
                     <div class="level-5">
-                        <img class="seeBtn" src="/img/play/eye-icon.png" />
+                        <img class="seeBtn" ng-click="vm.openModalPlay()" ng-src="/img/play/eye-icon.png" />
                     </div>
                 </div>
                 <div class="rightBracket"></div>
@@ -160,82 +160,81 @@
             </div>
         </div>
     </div>
-    
+
 </div>
-
-<div class="modalDetail">
-    <div class="popup-header">
-        <img src="/img/play/openQT.png"/>Quiero jugar con personas respetuosas que tengan muchas ganas de divertirse y competir<img src="/img/play/closeQT.png"/>
-    </div>
-    <div class="userInformation">
-        <div class="level-1">
-            <div class="imgContainer">
-                <img src="/img/profile/profile-blank.png">
-            </div>
-        </div>
-        <div class="level-2">
-            <div class="userName">
-                Mauro Pereira
-            </div>
-            <div class="separator"></div>
-            <div class="dateTime">
-                <span>17.12.16 - 16:30</span>
-            </div>
-        </div>
-        <div class="level-3">
-            <div class="clubInfo">
-                <div class="clubName">
-                    Tenetz Club de tenis
-                </div>
-                <div class="separator"></div>
-                <div class="address">
-                    Estado de Palestina 555
-                </div>
-            </div>
-            <div class="clubMap">
-                <img class="mapImg" src="/img/match/mock-map.png" />
-            </div>
-        </div>
-        <div class="level-4">
-            <img src="/img/play/doubles-btn.png"/>
-        </div>
-        <div class="level-5">
-            Mirá los jugadores <span>ya anotados</span>
-        </div>
-        <div class="playerGrid container">
-            <div class="row">
-                <div class="col-xs-4 col-center-block">
-                    <div class="imgContainer">
-                        <img src="/img/profile/profile-blank.png">
-                    </div>
-                    <div class="userName">
-                        Mauro Pereira
-                    </div>
-                </div>
-                <div class="col-xs-4 col-center-block">
-                    <div class="imgContainer">
-                        <img src="/img/profile/profile-blank.png">
-                    </div>
-                    <div class="userName">
-                        Mauro Pereira
-                    </div>
-                </div>
-                <div class="col-xs-4 col-center-block">
-                    <div class="imgContainer">
-                        <img src="/img/profile/profile-blank.png">
-                    </div>
-                    <div class="userName">
-                        Mauro Pereira
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn">Guardar</button>
-    </div>
-    
-</div>
-
-
 
 <sb-footer></sb-footer>
-    
+
+<script type="text/ng-template" id="play-modal">
+    <div class="modalDetail">
+        <div class="popup-header">
+            <img src="/img/play/openQT.png" />Quiero jugar con personas respetuosas que tengan muchas ganas de divertirse y competir<img src="/img/play/closeQT.png" />
+        </div>
+        <div class="userInformation">
+            <div class="level-1">
+                <div class="imgContainer">
+                    <img src="/img/profile/profile-blank.png">
+                </div>
+            </div>
+            <div class="level-2">
+                <div class="userName">
+                    Mauro Pereira
+                </div>
+                <div class="separator"></div>
+                <div class="dateTime">
+                    <span>17.12.16 - 16:30</span>
+                </div>
+            </div>
+            <div class="level-3">
+                <div class="clubInfo">
+                    <div class="clubName">
+                        Tenetz Club de tenis
+                    </div>
+                    <div class="separator"></div>
+                    <div class="address">
+                        Estado de Palestina 555
+                    </div>
+                </div>
+                <div class="clubMap">
+                    <img class="mapImg" src="/img/match/mock-map.png" />
+                </div>
+            </div>
+            <div class="level-4">
+                <img src="/img/play/doubles-btn.png" />
+            </div>
+            <div class="level-5">
+                Mirá los jugadores <span>ya anotados</span>
+            </div>
+            <div class="playerGrid">
+                <div class="row">
+                    <div class="col-xs-4 col-center-block">
+                        <div class="imgContainer">
+                            <img src="/img/profile/profile-blank.png">
+                        </div>
+                        <div class="userName">
+                            Mauro Pereira
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-center-block">
+                        <div class="imgContainer">
+                            <img src="/img/profile/profile-blank.png">
+                        </div>
+                        <div class="userName">
+                            Mauro Pereira
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-center-block">
+                        <div class="imgContainer">
+                            <img src="/img/profile/profile-blank.png">
+                        </div>
+                        <div class="userName">
+                            Mauro Pereira
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">Guardar</button>
+        </div>
+
+    </div>
+</script>

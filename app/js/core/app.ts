@@ -17,7 +17,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         $urlRouterProvider.otherwise('/');
     }])
     .config(['$httpProvider', function($httpProvider){
-      $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
+      $httpProvider.interceptors.push(['$q', '$location', '$rootScope', function ($q, $location, $rootScope) {
           return {
               'request': function (config) {
                   config.headers = config.headers || {};
@@ -28,7 +28,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
               },
               'responseError': function (response) {
                   if (response.status === 401 || response.status === 403) {
-                      $location.path('/');
+                      $rootScope.$broadcast('logout');
                   }
                   return $q.reject(response);
               }

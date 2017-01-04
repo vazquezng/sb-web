@@ -31,7 +31,7 @@ const config = {
 };
 
 const URL_BUCKET = {
-    dev: 'http://localhost:8083',
+    dev: 'http://www.socialtenis.dev:8083',
     prod: 'http://web.slambow.com'
 }
 

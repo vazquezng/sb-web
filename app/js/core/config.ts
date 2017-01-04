@@ -9,6 +9,8 @@ import 'ng-file-upload';
 
 import 'angularjs-slider';
 
+require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
+
 moment.locale('es');
 
 const NAME = 'ST-WEB';

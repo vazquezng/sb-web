@@ -1,5 +1,5 @@
 class ProfileController {
-    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload'];
+    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal'];
 
     public user;
     public image;
@@ -7,7 +7,8 @@ class ProfileController {
 
     public country;
     public city;
-    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload){
+    public address;
+    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal){
         this.user = LoginService.getUser();
         let vm =  this;
         console.log(this.user);
@@ -35,17 +36,34 @@ class ProfileController {
         })
     }
 
+    public openModalAvailable(){
+        let modalInstance = this.$uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'availability-profile',
+            size: 'md'
+        });
+    }
+
     public save(){
         this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
         this.user.country =  this.country && this.country.address_components ? this.country.address_components[this.country.address_components.length-1].long_name : this.country;
-        this.LoginService.setUser(this.user);
-        
+        this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
+        this.user.lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
+        this.user.lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
 
-        this.$state.reload();
+
+        this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
+            if(resp.data.success){
+                this.LoginService.setUser(this.user);
+                this.$state.reload();
+            }
+        });
     }
 }
 
 angular.module('Profile')
-    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', ProfileController]);
+    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', ProfileController]);
 
 

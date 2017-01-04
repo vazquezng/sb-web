@@ -4,6 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('CreateMatch');
 
+import './controllers/create_match.controller.ts';
 angular
   .module('CreateMatch')
   .config(['$stateProvider', function($stateProvider){
@@ -11,7 +12,7 @@ angular
     $stateProvider.state('app.createMatch', {
         url: '/create_match',
         template: tplAppCreateMatch,
-        //controller: 'LoginController',
-        //controllerAs: 'vm'
+        controller: 'CreateMatchController',
+        controllerAs: 'vm'
     });
   }]);

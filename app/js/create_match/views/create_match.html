@@ -11,34 +11,48 @@
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
-                Completá los datos y que el <spam>juego empiece.</spam>
+                Completá los datos y que el
+                <spam>juego empiece.</spam>
             </div>
             <div class="rightBracket"></div>
         </div>
-        <div class="row-form">
+        <div class="row-form" style="margin-top: 5%;">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputDate" id="inputDate">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" ng-model="vm.match.date">
+                    </div>
+
                     <label for="inputDate">Fecha</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputTime" id="inputTime">
-                    <label for="inputTime">Hora</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                        <input required="" type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour">
+                    </div>
+                    <label for="inputHora">Hora</label>
                 </div>
             </div>
         </div>
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputPlace" id="inputPlace">
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.match.address"> 
+                        <option value="0">Ninguno</option> 
+                    </select>
                     <label for="inputPlace">Lugar</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputAddress" id="inputAddress">
+                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-model="vm.address" id="inputAddress">
                     <label for="inputAddress">Otro</label>
                 </div>
             </div>
@@ -48,16 +62,34 @@
                 <label class="subtitle">Nivel de juego</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGameLevelFrom" id="inputGameLevelFrom"> 
-                            <option value="2.5">2.5</option> 
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom"> 
+                           <option value="2.5">2.5</option> 
+                            <option value="3.0">3.0</option> 
+                            <option value="3.5">3.5</option> 
+                            <option value="4.0">4.0</option> 
+                            <option value="4.5">4.5</option> 
+                            <option value="5.0">5.0</option> 
+                            <option value="5.5">5.5</option> 
+                            <option value="6.0">6.0</option> 
+                            <option value="6.5">6.5</option> 
+                            <option value="7.0">7.0</option>  
                         </select>
                         <label for="inputGameLevelFrom">Desde</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputGameLevelTo" id="inputGameLevelTo"> 
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo"> 
                             <option value="2.5">2.5</option> 
+                            <option value="3.0">3.0</option> 
+                            <option value="3.5">3.5</option> 
+                            <option value="4.0">4.0</option> 
+                            <option value="4.5">4.5</option> 
+                            <option value="5.0">5.0</option> 
+                            <option value="5.5">5.5</option> 
+                            <option value="6.0">6.0</option> 
+                            <option value="6.5">6.5</option> 
+                            <option value="7.0">7.0</option> 
                         </select>
                         <label for="inputGameLevelTo">Hasta</label>
                     </div>
@@ -72,13 +104,20 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputGender" id="inputGender">
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.sexo">
+                        <option value="mixto">Mixto</option>
+                        <option value="male">Masculino</option>
+                        <option value="female">Femenino</option>
+                    </select>
                     <label for="inputGender">Sexo</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputMatchType" id="inputMatchType">
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type">
+                        <option value="single" >Single</option>
+                        <option value="double">Double</option>
+                    </select>
                     <label for="inputMatchType">Tipo de partido</label>
                 </div>
             </div>
@@ -88,17 +127,13 @@
                 <label class="subtitle">Edad</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputAgeFrom" id="inputAgeFrom"> 
-                            <option value="2.5">2.5</option> 
-                        </select>
+                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_since" />
                         <label for="inputAgeFrom">Desde</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputAgeTo" id="inputAgeTo"> 
-                            <option value="2.5">2.5</option> 
-                        </select>
+                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_up" />
                         <label for="inputAgeTo">Hasta</label>
                     </div>
                 </div>
@@ -112,35 +147,28 @@
         <label class="subtitle">Busca jugadores</label>
         <div class="row-form">
             <div class="form-group">
-                <div class="searchBtn">
-                    <img src="/img/match/search-btn.png" />
-                </div>
+                <div class="searchBtn"></div>
                 <input type="text" class="form-control input90" name="playerName" id="playerName">
-                <label for="playerName">Nombre de jugador</label>
+                <label for="playerName">Nombre jugador</label>
             </div>
         </div>
-        <div class="row-form">
+        <div class="row-form" ng-if="vm.match.type == 'double'">
             <div class="form-group">
-                <div class="searchBtn">
-                    <img src="/img/match/search-btn.png" />
-                </div>
+                <div class="searchBtn"></div>
                 <input type="text" class="form-control input90" name="playerName" id="playerName">
-                <label for="playerName">Nombre de jugador</label>
+                <label for="playerName">Nombre jugador</label>
             </div>
         </div>
-        <div class="row-form">
+        <div class="row-form" ng-if="vm.match.type == 'double'">
             <div class="form-group">
-                <div class="searchBtn">
-                    <img src="/img/match/search-btn.png" />
-                </div>
+                <div class="searchBtn"></div>
                 <input type="text" class="form-control input90" name="playerName" id="playerName">
-                <label for="playerName">Nombre de jugador</label>
+                <label for="playerName">Nombre jugador</label>
             </div>
         </div>
-        
-        
+
+
         <button type="submit" class="btn">Guardar</button>
     </form>
 </div>
 <sb-footer></sb-footer>
-    

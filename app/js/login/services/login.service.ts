@@ -6,6 +6,11 @@ function LoginService($uibModal, $state, $rootScope){
     
     user = window.localStorage.getItem('user');
     user = user !== null ? JSON.parse(user) : user;
+    $rootScope.$on('logout', function(){
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
+        $state.reload();
+    });
     this.init = function(){
         const tplLogin = <string> require('../views/login.html');
         console.log('init login');

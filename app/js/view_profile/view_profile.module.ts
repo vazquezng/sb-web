@@ -13,7 +13,15 @@ angular
         url: '/view_profile',
         template: tplAppProfile,
         controller: 'ProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+            login: ['LoginService', '$state', function(LoginService, $state){
+                if(!LoginService.isAuth()){
+                    $state.go('app.home');
+                }   
+                return true;
+            }]
+        }
     });
   }]);
 

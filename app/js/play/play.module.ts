@@ -4,6 +4,8 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Play');
 
+import './controllers/play.controller.ts';
+
 angular
   .module('Play')
   .config(['$stateProvider', function($stateProvider){
@@ -11,7 +13,7 @@ angular
     $stateProvider.state('app.play', {
         url: '/play',
         template: tplAppPlay,
-        //controller: 'LoginController',
-        //controllerAs: 'vm'
+        controller: 'PlayController',
+        controllerAs: 'vm'
     });
   }]);
