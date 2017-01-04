@@ -16,3 +16,20 @@ angular
         controllerAs: 'vm'
     });
   }]);
+
+angular
+  .module('Profile').directive('file', function() {
+  return {
+        require:"ngModel",
+        restrict: 'A',
+        link: function($scope, el, attrs, ngModel){
+            el.bind('change', function(event){
+                var files = (<any>event).target.files;
+                var file = files[0];
+
+                (<any>ngModel).$setViewValue(file);
+                $scope.$apply();
+            });
+        }
+    };
+});

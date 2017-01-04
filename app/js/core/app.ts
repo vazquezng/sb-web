@@ -16,6 +16,29 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         //$locationProvider.html5Mode(true).hashPrefix('*');
         $urlRouterProvider.otherwise('/');
     }])
+    .config(['$httpProvider', function($httpProvider){
+      $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
+          return {
+              'request': function (config) {
+                  config.headers = config.headers || {};
+                  if ( window.localStorage.getItem('token')){
+                      config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token');
+                  }
+                  return config;
+              },
+              'responseError': function (response) {
+                  if (response.status === 401 || response.status === 403) {
+                      $location.path('/');
+                  }
+                  return $q.reject(response);
+              }
+          };
+      }]);
+      
+      $httpProvider.defaults.headers.patch = {
+          'Content-Type': 'application/json;charset=utf-8'
+      };
+    }])
     .run(['$rootScope','$state', '$window', function($rootScope, $state, $window){
         //If the route change failed due to authentication error, redirect them out
         $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){

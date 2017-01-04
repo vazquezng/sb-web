@@ -10,10 +10,10 @@
     <form>
         <div id="imageBox">
             <div class="leftBracket"></div>
-            <div class="centerBracket">
-                <img id="profileImg" src="/img/profile/profile-blank.png" />
+            <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
+                <img id="profileImg" ng-src="{{vm.avatar}}" />
                 <div id="uploadFileBtn">
-                    <img src="/img/profile/image-icon.png" /> Seleccionar
+                    <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar
                 </div>
             </div>
             <div class="rightBracket"></div>
@@ -36,7 +36,7 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.user.years" />
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" />
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCountry" id="inputCountry" ng-model="vm.user.country" />
+                    <input type="text" class="form-control" name="inputCountry" id="inputCountry" g-places-autocomplete ng-model="vm.country" />
                     <label for="inputCountry">País</label>
                 </div>
             </div>
@@ -60,15 +60,32 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" ng-model="vm.user.city" />
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.city" />
                     <label for="inputCity">Ciudad</label>
                 </div>
             </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" />
+                    <label for="inputCity">Dirección</label>
+                </div>
+            </div>
+        </div>
+        <div class="row-form">
             <div class="column">
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
                             <option value="2.5">2.5</option> 
+                            <option value="3.0">3.0</option> 
+                            <option value="3.5">3.5</option> 
+                            <option value="4.0">4.0</option> 
+                            <option value="4.5">4.5</option> 
+                            <option value="5.0">5.0</option> 
+                            <option value="5.5">5.5</option> 
+                            <option value="6.0">6.0</option> 
+                            <option value="6.5">6.5</option> 
+                            <option value="7.0">7.0</option> 
                         </select>
                         <label for="inputGameLevel">Nivel de juego</label>
                     </div>
@@ -76,9 +93,23 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn"> 
-                            <option value="10">10</option> 
+                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option> 
                         </select>
                         <label for="inputITN">ITN</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="column">
+                    <div class="form-group">
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" />
+                        <label for="inputCity">Single</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <input type="checkbox" class="form-control" ng-model="vm.user.double" />
+                        <label for="inputCity">Doble</label>
                     </div>
                 </div>
             </div>
@@ -100,7 +131,12 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputDistance" id="inputDistance" ng-model="vm.user.distance">
+                    <rzslider rz-slider-model="vm.user.distance" rz-slider-options="{floor: 2,
+                    ceil: 50,
+                    step: 2,
+                    minLimit: 2,
+                    maxLimit: 50,
+                    showSelectionBar: true}"></rzslider>
                     <label for="inputDistance">Distancia para jugar un partido</label>
                 </div>
             </div>

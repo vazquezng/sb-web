@@ -11,7 +11,11 @@
           window.FACEBOOK_ID = '<%=htmlWebpackPlugin.options.FACEBOOK_ID %>';
         </script>
         <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/css/style.css?v=<%=htmlWebpackPlugin.options.hash %>" rel="stylesheet" type="text/css">
+        <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/css/cookie_regular.css?v=<%=htmlWebpackPlugin.options.hash %>" rel="stylesheet" type="text/css">
+        <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/css/autocomplete.css?v=<%=htmlWebpackPlugin.options.hash %>" rel="stylesheet" type="text/css">
+        <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/css/rzslider.min.css?v=<%=htmlWebpackPlugin.options.hash %>" rel="stylesheet" type="text/css">
         <link href="<%= htmlWebpackPlugin.options.URL_BUCKET %>/fonts/opensans/open_sans-regular.css" rel="stylesheet" type="text/css">
+        <script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZOdwsf3vZEFQws7WldOWKeibaWiMjJCg"></script>
     </head>
     <body>
         <ui-view></ui-view>
