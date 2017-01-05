@@ -39,6 +39,11 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
           'Content-Type': 'application/json;charset=utf-8'
       };
     }])
+    .config(['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
+        GoogleMapApiProviders.configure({
+            argentina: true
+        });
+    }])
     .run(['$rootScope','$state', '$window', function($rootScope, $state, $window){
         //If the route change failed due to authentication error, redirect them out
         $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){

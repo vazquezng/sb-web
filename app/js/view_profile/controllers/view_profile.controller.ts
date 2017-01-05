@@ -8,7 +8,11 @@ class ProfileController {
     public country;
     public city;
     public address;
+    public modalInstance;
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal){
+        if(!LoginService.isAuth()){
+            $state.go('app.home');
+        }  
         this.user = LoginService.getUser();
         let vm =  this;
         console.log(this.user);
@@ -33,17 +37,27 @@ class ProfileController {
                     //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                 });
             }   
-        })
+        });
+
+        
+        $scope.save = function(){
+            vm.saveAvailability();
+        };
     }
 
     public openModalAvailable(){
-        let modalInstance = this.$uibModal.open({
+        this.modalInstance = this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'availability-profile',
-            size: 'md'
+            size: 'md',
+            scope:this.$scope
         });
+    }
+
+    private  saveAvailability(){
+        this.modalInstance.close();
     }
 
     public save(){
@@ -53,17 +67,17 @@ class ProfileController {
         this.user.lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
         this.user.lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
 
-
+        const vm = this;
         this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
             if(resp.data.success){
-                this.LoginService.setUser(this.user);
-                this.$state.reload();
+                vm.LoginService.setUser(vm.user);
+                vm.$state.reload();
             }
         });
     }
 }
 
 angular.module('Profile')
-    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', ProfileController]);
+    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', '$scope', ProfileController]);
 
 

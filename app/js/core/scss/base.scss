@@ -6,7 +6,7 @@
 @import "../../play/scss/_play";
 body {
     background-color: #ffffff;
-    font-family: "Open Sans";
+    font-family: Open Sans;
     .modal-content {
         padding: 5%;
     }
@@ -27,6 +27,7 @@ body {
         }
         label {
             text-transform: uppercase;
+            font-family: RobotoMedium;
         }
         input[type='text'],
         .form-control {
@@ -36,6 +37,7 @@ body {
             border-bottom: solid 1px #5ca3d4;
             box-shadow: none;
             padding-left: 0px;
+            font-family: RobotoLight;
         }
         textarea {
             border-radius: 0px !important;

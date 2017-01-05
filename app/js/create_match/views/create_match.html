@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form>
+    <form name="formMatch">
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
@@ -23,7 +23,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" ng-model="vm.match.date">
+                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" ng-model="vm.match.date" required>
                     </div>
 
                     <label for="inputDate">Fecha</label>
@@ -35,7 +35,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-time"></i>
                         </span>
-                        <input required="" type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour">
+                        <input required="" type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour" required>
                     </div>
                     <label for="inputHora">Hora</label>
                 </div>
@@ -45,14 +45,14 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.match.address"> 
-                        <option value="0">Ninguno</option> 
+                        <option value="" selected="selected">Ninguno</option> 
                     </select>
                     <label for="inputPlace">Lugar</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-model="vm.address" id="inputAddress">
+                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" id="inputAddress">
                     <label for="inputAddress">Otro</label>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <label class="subtitle">Nivel de juego</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom"> 
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" required> 
                            <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -79,7 +79,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo"> 
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" required> 
                             <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -96,15 +96,13 @@
                 </div>
             </div>
             <div class="column">
-                <div class="form-group">
-                    <img src="/img/match/mock-map.png" />
-                </div>
+                <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'></ui-gmap-google-map>
             </div>
         </div>
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.sexo">
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.sexo" required>
                         <option value="mixto">Mixto</option>
                         <option value="male">Masculino</option>
                         <option value="female">Femenino</option>
@@ -114,7 +112,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type">
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required>
                         <option value="single" >Single</option>
                         <option value="double">Double</option>
                     </select>
@@ -127,13 +125,13 @@
                 <label class="subtitle">Edad</label>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_since" />
+                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_from" required/>
                         <label for="inputAgeFrom">Desde</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_up" />
+                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_to" required/>
                         <label for="inputAgeTo">Hasta</label>
                     </div>
                 </div>
@@ -141,10 +139,10 @@
         </div>
         <div class="row-form">
             <div class="form-group">
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" placeholder="Lorem ipsumn dolo..."> </textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" placeholder="Lorem ipsumn dolo..." ng-model="vm.match.about" required></textarea>
             </div>
         </div>
-        <label class="subtitle">Busca jugadores</label>
+        <!--label class="subtitle">Busca jugadores</label>
         <div class="row-form">
             <div class="form-group">
                 <div class="searchBtn"></div>
@@ -165,10 +163,10 @@
                 <input type="text" class="form-control input90" name="playerName" id="playerName">
                 <label for="playerName">Nombre jugador</label>
             </div>
-        </div>
+        </div-->
 
 
-        <button type="submit" class="btn">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save()">Guardar</button>
     </form>
 </div>
 <sb-footer></sb-footer>

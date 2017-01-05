@@ -5,7 +5,7 @@
         background-image: url(../img/match/title-sides.png);
         background-repeat: repeat-x;
         text-align: center;
-        .centerTitle{
+        .centerTitle {
             width: 776px;
             height: 100%;
             margin: auto;
@@ -35,7 +35,11 @@
             height: 63px;
             display: block;
             position: absolute;
-            padding-top: 24px;
+            padding-top: 18px;
+            font-size: 20px;
+            spam {
+                font-weight: bold;
+            }
         }
         .rightBracket {
             right: 17%;
@@ -76,11 +80,34 @@
             width: 45px;
             margin-top: -10px;
         }
-        .btn{
+        .btn {
             float: right;
+        }
+        .mapContainer {
+            background-image: url(../img/match/mock-map.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 82px;
+            margin: 0;
+        }
+        #inputAboutMe::-moz-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
+        }
+        #inputAboutMe::-webkit-input-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
+        }
+        #inputAboutMe:-ms-input-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
         }
         .input90 {
             width: 90%;
         }
+    }
+    .angular-google-map-container {
+        height: 100px;
     }
 }
