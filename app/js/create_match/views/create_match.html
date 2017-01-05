@@ -52,7 +52,11 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" id="inputAddress">
+                    <input type="text" class="form-control" ng-model="vm.club_name" placeholder="Nombre del Club">
+                    <label for="inputAddress">Nombre del Club</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" placeholder="Direccion">
                     <label for="inputAddress">Otro</label>
                 </div>
             </div>
@@ -166,7 +170,7 @@
         </div-->
 
 
-        <button type="submit" class="btn" ng-click="vm.save()">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save(formMatch)">Guardar</button>
     </form>
 </div>
 <sb-footer></sb-footer>

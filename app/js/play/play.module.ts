@@ -14,6 +14,11 @@ angular
         url: '/play',
         template: tplAppPlay,
         controller: 'PlayController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve:{
+          Matchs:['$http', 'PATHS', function($http, PATHS){
+            return $http.get(PATHS.api + '/match');
+          }]
+        }
     });
   }]);

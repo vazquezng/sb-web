@@ -18,37 +18,37 @@
     <div class="subtitleImg"></div>
     <div class="usersGrid container">
         <div class="row">
-            <div class="userBox col-xs-3" ng-repeat="match in [1,2,3,4,5, 6, 7, 8]">
+            <div class="userBox col-xs-3" ng-repeat="match in vm.matchs">
                 <div class="leftBracket"></div>
                 <div class="centerBracket">
                     <div class="level-1">
                         <div class="imgContainer">
-                            <img src="/img/profile/profile-blank.png">
+                            <img ng-src="{{match.user.image}}" style="border-radius: 150px;
+    width: 116px;">
                         </div>
                     </div>
                     <div class="level-2">
                         <div class="userName">
-                            Sebastian Gordon
+                            {{match.user.first_name}} {{match.user.last_name}}
                         </div>
                         <div class="separator"></div>
                         <div class="dateTime">
-                            <span>17.12.16 - 16:30</span>
+                            <span>{{match.date}} - {{match.hour}}</span>
+                            <!--span>17.12.16 - 16:30</span-->
                         </div>
                     </div>
                     <div class="level-3">
-                        <div class="clubName">
-                            Tenetz Club de tenis
+                        <div class="clubName" ng-bind="match.club_name">
                         </div>
                         <div class="separator"></div>
-                        <div class="address">
-                            Estado de Palestina 555
+                        <div class="address" ng-bind="match.address.substr(0, 30)">
                         </div>
                     </div>
                     <div class="level-4">
-                        <img class="mapImg" src="/img/match/mock-map.png" />
+                        <img class="mapImg" src="/img/match/mock-map.png" ng-click="vm.openMaps(match.address_lat, match.address_lng)" />
                     </div>
                     <div class="level-5">
-                        <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit" ng-click="vm.openModalPlay()" />
+                        <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit" ng-click="vm.openModalPlay(match)" />
                     </div>
                 </div>
                 <div class="rightBracket"></div>
@@ -67,41 +67,41 @@
         </div>
         <div id="myModal" class="modal-body">
             <div class="popup-header">
-                <img src="/img/play/openQT.png" />Quiero jugar con personas respetuosas que tengan muchas ganas de divertirse y competir<img src="/img/play/closeQT.png" />
+                <img src="/img/play/openQT.png" />{{match.about}}<img src="/img/play/closeQT.png" />
             </div>
             <div class="userInformation">
                 <div class="level-1">
                     <div class="imgContainer">
-                        <img src="/img/profile/profile-blank.png">
+                        <img ng-src="{{match.user.image}}" style="border-radius: 150px;">
                     </div>
                 </div>
                 <div class="level-2">
                     <div class="userName">
-                        Mauro Pereira
+                        {{match.user.first_name}} {{match.user.last_name}}
                     </div>
                     <div class="separator"></div>
                     <div class="dateTime">
-                        <span>17.12.16 - 16:30</span>
+                        <span>{{match.date}} - {{match.hour}}</span>
                     </div>
                 </div>
                 <div class="level-3">
                     <div class="clubInfo">
-                        <div class="clubName">
-                            Tenetz Club de tenis
+                        <div class="clubName" ng-bind="match.club_name">
                         </div>
                         <div class="separator"></div>
-                        <div class="address">
-                            Estado de Palestina 555
+                        <div class="address" ng-bind="match.address.substr(0, 30)">
                         </div>
                     </div>
+                </div>
+                <div class="level-3">
                     <div class="clubMap">
-                        <img class="mapImg" src="/img/match/mock-map.png" />
+                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>{{map}}</ui-gmap-google-map>
                     </div>
                 </div>
                 <div class="level-4">
                     <img src="/img/play/doubles-btn.png" />
                 </div>
-                <div class="level-5">
+                <!--div class="level-5">
                     Mirá los jugadores <span>ya anotados</span>
                 </div>
                 <div class="playerGrid">
@@ -114,26 +114,16 @@
                                 Mauro Pereira
                             </div>
                         </div>
-                        <div class="col-xs-4 col-center-block">
-                            <div class="imgContainer">
-                                <img src="/img/profile/profile-blank.png">
-                            </div>
-                            <div class="userName">
-                                Mauro Pereira
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-center-block">
-                            <div class="imgContainer">
-                                <img src="/img/profile/profile-blank.png">
-                            </div>
-                            <div class="userName">
-                                Mauro Pereira
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn">QUIERO JUGAR</button>
+                </div -->
+                <button type="submit" class="btn" ng-click="play()">QUIERO JUGAR</button>
             </div>
         </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="playmap-modal">
+    <div id="playMaps">
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
     </div>
 </script>

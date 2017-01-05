@@ -151,6 +151,7 @@
                         width: 200px;
                         height: 50px;
                         overflow: hidden;
+                        cursor: pointer;
                     }
                 }
                 .level-5 {
@@ -262,13 +263,12 @@
     .level-3 {
         margin: auto;
         width: 350px;
-        height: 60px;
         margin-top: 25px;
+        margin-bottom: 25px;
         .clubInfo,
         .clubMap {
-            float: left;
             margin-left: 15px;
-            text-align: left;
+            text-align: center;
             .separator {
                 width: 100%;
             }
@@ -281,6 +281,9 @@
                 font-family: RobotoLight;
                 font-size: 13px;
                 line-height: 25px;
+            }
+            .angular-google-map-container {
+                height: 200px;
             }
         }
         .mapImg {
@@ -304,5 +307,14 @@
     .playerGrid {
         margin-top: 25px;
         margin-bottom: 25px;
+    }
+    .btn {
+        margin-top: 25px;
+    }
+}
+
+#playMaps {
+    .angular-google-map-container {
+        height: 400px;
     }
 }
