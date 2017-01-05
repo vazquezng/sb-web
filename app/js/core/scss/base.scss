@@ -131,25 +131,23 @@ header {
             list-style: none;
             display: flex;
             justify-content: flex-end;
-            li {
+            li a {
                 color: #fff;
                 padding: 12px 18px;
                 border: 1px solid #fff;
                 margin-right: 5px;
                 cursor: pointer;
+                color: #fff;
+                text-decoration: none;
+                &:hover,
+                &:active,
+                &:focus {
+                    text-decoration: none;
+                    color: #fff;
+                }
                 &:hover {
                     background: #20a3d4;
                     border: solid 1px #20a3d4;
-                }
-                a {
-                    color: #fff;
-                    text-decoration: none;
-                    &:hover,
-                    &:active,
-                    &:focus {
-                        text-decoration: none;
-                        color: #fff;
-                    }
                 }
             }
         }

@@ -2,18 +2,18 @@
     <div class="container">
         <div class="auth">
             <a ng-click="vm.auth()" ng-if="vm.user == null">LOGIN | REGISTRATE</a>
-            <a ng-if="vm.user != null" ng-bind="vm.user.name"></a>
+            <a ng-if="vm.user != null" ui-sref="app.profile" ng-bind="vm.user.name"></a>
         </div>
         <nav>
             <img ng-src="{{URL_BUCKET}}/img/logo.png" />
             <ul>
                 <li><a href="/">Home</a></li>
-                <li>Torneos</li>
+                <li><a href="/">Torneos</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.createMatch">Crear Partido</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.play">Quiero jugar</a></li>
-                <li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li>
-                <li>Sobre Slambow</li>
-                <li>Blog</li>
+                <!--li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li-->
+                <li><a href="/">Sobre Slambow</a></li>
+                <li><a href="/">Blog</a></li>
             </ul>
         </nav>
     </div>
