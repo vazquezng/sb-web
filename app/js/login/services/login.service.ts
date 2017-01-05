@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 
-function LoginService($uibModal, $state, $rootScope){   
+function LoginService($uibModal, $state, $rootScope, $http, PATHS){   
     let modalInstance;
     let user;
     
@@ -9,8 +9,10 @@ function LoginService($uibModal, $state, $rootScope){
     $rootScope.$on('logout', function(){
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('user');
+        (<any>window).location ='/';
         $state.reload();
     });
+   
     this.init = function(){
         const tplLogin = <string> require('../views/login.html');
         console.log('init login');
@@ -57,7 +59,13 @@ function LoginService($uibModal, $state, $rootScope){
         user = newuser;
         window.localStorage.setItem('user', JSON.stringify(newuser));
     }
+    //
+    if(user){
+         $http.get(PATHS.api + '/me').then(function(resp){
+             this.setUser(resp.data.user);
+         });
+    }
 }
 
 angular.module('Login')
-        .service('LoginService', ['$uibModal', '$state', '$rootScope', LoginService]);
+        .service('LoginService', ['$uibModal', '$state', '$rootScope', '$http','PATHS', LoginService]);
