@@ -95,7 +95,9 @@
                 </div>
                 <div class="level-3">
                     <div class="clubMap">
-                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>{{map}}</ui-gmap-google-map>
+                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>{{map}}
+                            <ui-gmap-marker idkey="timestime" coords='map.center' options="{crossOnDrag:false, draggable:false}"></ui-gmap-marker>
+                        </ui-gmap-google-map>
                     </div>
                 </div>
                 <div class="level-4">
@@ -124,6 +126,8 @@
 
 <script type="text/ng-template" id="playmap-modal">
     <div id="playMaps">
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
+        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+            <ui-gmap-marker idkey="timestime" coords='map.center' options="{crossOnDrag:false, draggable:false}"></ui-gmap-marker>
+        </ui-gmap-google-map>
     </div>
 </script>

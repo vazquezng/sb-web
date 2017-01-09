@@ -13,7 +13,8 @@ export class PlayController
     }
 
     public openMaps(lat, lng){
-        this.$scope.map = { center: { latitude: lat, longitude: lng }, zoom: 16 }
+        this.$scope.map = { center: { latitude: lat, longitude: lng }, zoom: 16 };
+        this.$scope.timestamp = new Date().getTime();
         this.modalInstance = this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -28,6 +29,7 @@ export class PlayController
         const vm = this;
         this.$scope.match = match;
         this.$scope.map = { center: { latitude: match.address_lat, longitude: match.address_lng }, zoom: 16 };
+        this.$scope.timestamp = new Date().getTime();
         this.$scope.play = function(){
             vm.$http.post(vm.PATHS.api + '/match/play', {id: vm.$scope.match.id})
                     .then(function(resp){
