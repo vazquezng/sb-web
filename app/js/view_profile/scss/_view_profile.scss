@@ -35,26 +35,32 @@
                     margin-left: 23%;
                     margin-bottom: 20px;
                     margin-top: 25px;
-                    width: 217px;
+                    width: 215px;
                     height: 233px;
                     background-image: url(../img/profile/back-profile.png);
                     background-size: contain;
                     background-repeat: no-repeat;
+                    display: inline-block;
                     img {
                         margin-top: 8px;
                         width: 215px;
                     }
                 }
                 #uploadFileBtn {
-                    position: absolute;
-                    margin-top: -160px;
-                    margin-left: 500px;
+                    display: inline-block;
+                    margin-left: 100px;
                     color: #5ca3d4;
                     font-size: 28px;
                 }
                 .profileImgContainer {
                     background-image: url(../img/profile/back-profile.png);
                     background-repeat: no-repeat;
+                }
+                img#profileImg {
+                    margin-top: 23px;
+                    margin-left: 9px;
+                    border-radius: 164px;
+                    width: 202px;
                 }
             }
             .rightBracket {
@@ -65,22 +71,6 @@
                 height: 280px;
                 display: block;
                 position: absolute;
-            }
-            .centerBracket {
-                img#profileImg {
-                    margin-top: 66px;
-                    margin-left: 205px;
-                    border-radius: 164px;
-                    width: 164px;
-                    height: auto;
-                }
-                #uploadFileBtn {
-                    position: absolute;
-                    margin-top: -100px;
-                    margin-left: 500px;
-                    color: #5ca3d4;
-                    font-size: 28px;
-                }
             }
         }
         #inputAvailability {

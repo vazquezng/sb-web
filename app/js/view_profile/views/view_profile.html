@@ -11,7 +11,9 @@
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
-                <img id="profileImg" ng-src="{{vm.avatar}}" />
+                <div class="imgContainer">
+                    <img id="profileImg" ng-src="{{vm.avatar}}" />
+                </div>
                 <div id="uploadFileBtn">
                     <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar
                 </div>
@@ -20,11 +22,20 @@
         </div>
         <div class="row-form">
             <div class="column">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" />
-                    <label for="inputName">Nombre</label>
+                <div class="column">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" />
+                        <label for="inputName">Nombre</label>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" />
+                        <label for="inputEmail">Email</label>
+                    </div>
                 </div>
             </div>
+            
             <div class="column">
                 <div class="form-group">
                     <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" />
@@ -92,7 +103,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn">
+                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn">
                             <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option>
                         </select>
                         <label for="inputITN">ITN</label>

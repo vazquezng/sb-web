@@ -1,15 +1,13 @@
 @import "bootstrap";
 @import "bootstrap/theme";
 @import "../../home/scss/_home";
+@import "../../login/scss/_login";
 @import "../../create_match/scss/_create_match";
 @import "../../view_profile/scss/_view_profile";
 @import "../../play/scss/_play";
 body {
     background-color: #ffffff;
     font-family: Open Sans;
-    .modal-content {
-        padding: 5%;
-    }
     .btn {
         background-color: #5ca3d4;
         color: #ffffff;
@@ -38,6 +36,9 @@ body {
             box-shadow: none;
             padding-left: 0px;
             font-family: RobotoLight;
+        }
+        input[type='checkbox']{
+            width: 16px;
         }
         textarea {
             border-radius: 0px !important;
