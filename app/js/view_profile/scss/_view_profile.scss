@@ -84,4 +84,9 @@
             margin-right: 10px;
         }
     }
+    .rz-bubble.rz-limit.rz-floor:after,
+    .rz-bubble.rz-limit.rz-ceil:after {
+        display: inline;
+        content: ' KM';
+    }
 }

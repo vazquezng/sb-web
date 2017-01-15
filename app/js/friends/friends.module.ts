@@ -9,16 +9,11 @@ import './controllers/friends.controller.ts';
 angular
   .module('Friends')
   .config(['$stateProvider', function($stateProvider){
-    const tplAppPlay = <string> require('./views/friends.html');
-    $stateProvider.state('app.play', {
+    const tplAppFriends = <string> require('./views/friends.html');
+    $stateProvider.state('app.friends', {
         url: '/friends',
-        template: tplAppPlay,
+        template: tplAppFriends,
         controller: 'FriendsController',
         controllerAs: 'vm',
-        resolve:{
-          Matchs:['$http', 'PATHS', function($http, PATHS){
-            return $http.get(PATHS.api + '/friends');
-          }]
-        }
-    });
+        })
   }]);

@@ -6,6 +6,7 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
     
     user = window.localStorage.getItem('user');
     user = user !== null ? JSON.parse(user) : user;
+    let vm = this;
     $rootScope.$on('logout', function(){
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('user');
@@ -62,7 +63,7 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
     //
     if(user){
          $http.get(PATHS.api + '/me').then(function(resp){
-             this.setUser(resp.data.user);
+             vm.setUser(resp.data.user);
          });
     }
 }

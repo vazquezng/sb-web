@@ -8,6 +8,10 @@ require('./js/view_profile/view_profile.module.ts');
 require('./js/create_match/create_match.module.ts');
 require('./js/play/play.module.ts');
 require('./js/login/login.module.ts');
+require('./js/friends/friends.module.ts');
+require('./js/match_history/match_history.module.ts');
+require('./js/match_detail/match_detail.module.ts');
+require('./js/my_califications/my_califications.module.ts');
 
 (<any>window).validaNumber =  function(e){
     let tecla = (document.all) ? e.keyCode : e.which;

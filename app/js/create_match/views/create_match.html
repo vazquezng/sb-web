@@ -52,7 +52,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.match.club_name" placeholder="Nombre del Club">
+                    <input type="text" class="form-control" ng-model="vm.match.club_name">
                     <label for="inputAddress">Nombre del Club</label>
                 </div>
                 <div class="form-group">
@@ -100,7 +100,9 @@
                 </div>
             </div>
             <div class="column">
-                <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom'></ui-gmap-google-map>
+                <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="{draggable:false}">
+                    <ui-gmap-marker idkey="1" coords='vm.map.center' options="{crossOnDrag:false, draggable:false}"></ui-gmap-marker>
+                </ui-gmap-google-map>
             </div>
         </div>
         <div class="row-form">
@@ -143,7 +145,8 @@
         </div>
         <div class="row-form">
             <div class="form-group">
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" placeholder="Lorem ipsumn dolo..." ng-model="vm.match.about" required></textarea>
+                <label for="inputAgeTo">COMENTARIOS</label>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.match.about" required></textarea>
             </div>
         </div>
         <!--label class="subtitle">Busca jugadores</label>

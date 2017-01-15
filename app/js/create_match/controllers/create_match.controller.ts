@@ -19,8 +19,9 @@ export class CreateMatchController
     };
     public address;
     public map;
+    public market;
     constructor($scope, private $http, private $state, private PATHS){
-        this.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+        this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
         console.log(new Date(moment('15:30','HH:mm a')));
     }
 
@@ -28,7 +29,7 @@ export class CreateMatchController
         if(this.address.geometry && this.address.geometry.location){
             this.map.center.latitude= this.address.geometry.location.lat();
             this.map.center.longitude= this.address.geometry.location.lng();
-
+            this.market = { latitude: this.address.geometry.location.lat(), longitude: this.address.geometry.location.lng() }
             this.match.address = this.address.formatted_address;
             this.match.address_lat = this.address.geometry.location.lat();
             this.match.address_lng = this.address.geometry.location.lng();
