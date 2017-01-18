@@ -10,8 +10,8 @@
     </div>
     
     <form>
-        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId" value="{{vm.user.id}}" ng-model="vm.feedback.user_id" />
-        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId" value="{{vm.match.id}}" ng-model="vm.feedback.match_id" />
+        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId" ng-model="vm.feedback.user_id" />
+        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId"  ng-model="vm.feedback.match_id" />
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
@@ -131,7 +131,7 @@
             </div>
         </div>
                 
-        <button type="submit" class="btn btn-lg" ng-click="vm.save()">Guardar</button>
+        <button type="submit" class="btn btn-lg" ng-click="save()">Guardar</button>
     </form>
 </div>
 <sb-footer></sb-footer>

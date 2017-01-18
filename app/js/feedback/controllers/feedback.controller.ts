@@ -21,6 +21,8 @@ export class FeedbackController
 
     public saveFeedback(){
         const vm = this;
+        vm.feedback.match_id = vm.match.id;
+        vm.feedback.user_id = vm.user.id;
         this.$http.post(this.PATHS.api + '/match/saveFeedback', vm.feedback).then(function(resp){
             if(resp.data.success){
                 vm.$state.go('app.home');
