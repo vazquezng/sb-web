@@ -12,7 +12,7 @@
             <div class="leftBracket"></div>
             <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
                 <div class="imgContainer">
-                    <img id="profileImg" ng-src="{{vm.avatar}}" />
+                    <img id="profileImg" src="{{vm.avatar}}" />
                 </div>
                 <div id="uploadFileBtn">
                     <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar

@@ -1,9 +1,13 @@
 export class FriendsController 
 {   
-    static $inject = [];
-    constructor(){
+    static $inject = ['Friends', '$scope', '$http', 'PATHS'];
+
+    public users;
+    constructor(private Friends, private $scope, private $http, private PATHS){
+        const vm = this;
+        this.users = Friends.data.users;
     }
 }
 
 angular.module('Friends')
-        .controller('FriendsController', [FriendsController]);
+        .controller('FriendsController', ['Friends', '$scope', '$http', 'PATHS', FriendsController]);

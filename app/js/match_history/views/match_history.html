@@ -4,20 +4,21 @@
     </div>
 
     <div class="titleDiv">
-        <div class="centerTitle"></div>
+        <div class="centerTitle">Mis Partidos</div>
     </div>
     
     <div class="historyTable container-small">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-6" ng-repeat="match in vm.matches">
                 <div class="matchBox">
-                    <label class="clubName">TENETZ CLUB DE TENIS</label>
+                    <label class="clubName">{{match.club_name}}</label>
                     <div class="separator"></div>
-                    <label class="date">2017.01.13</label>
-                    <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" />
+                    <label class="date">{{match.date}} - {{match.hour}}</label>
+                    <!--input type="image" name="submit" src="/img/play/eye-icon.png" border="0"  /-->
+                    <a class="viewMatchDetail" ng-click="vm.showDetail(match.id)"><img src="/img/play/eye-icon.png" /></a>
                 </div>
             </div>
-            <div class="col-xs-6">
+            <!--div class="col-xs-6">
                 <div class="matchBox">
                     <label class="clubName">TENETZ CLUB DE TENIS</label>
                     <div class="separator"></div>
@@ -60,7 +61,7 @@
                     <label class="date">2017.01.13</label>
                     <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" />
                 </div>
-            </div>
+            </div!-->
         </div>
     </div>
     

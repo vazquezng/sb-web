@@ -15,5 +15,10 @@ angular
         template: tplAppFriends,
         controller: 'FriendsController',
         controllerAs: 'vm',
-        })
+        resolve:{
+          Friends:['$http', 'PATHS', function($http, PATHS){
+            return $http.get(PATHS.api + '/match/friends');
+          }]
+        }
+    })
   }]);

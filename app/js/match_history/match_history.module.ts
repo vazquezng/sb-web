@@ -9,10 +9,15 @@ angular
   .module('MatchHistory')
   .config(['$stateProvider', function($stateProvider){
     const tplMatchHistory = <string> require('./views/match_history.html');
-    $stateProvider.state('app.match_history', {
+    $stateProvider.state('app.matchHistory', {
         url: '/match_history',
         template: tplMatchHistory,
         controller: 'MatchHistoryController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve:{
+          Matches:['$http', 'PATHS', function($http, PATHS){
+            return $http.get(PATHS.api + '/match/history');
+          }]
+        }
     });
   }]);

@@ -8,7 +8,7 @@
             <img ng-src="{{URL_BUCKET}}/img/logo.png" />
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/">Torneos</a></li>
+                <li ng-if="vm.user != null"><a ui-sref="app.matchHistory">Torneos</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.createMatch">Crear Partido</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.play">Quiero jugar</a></li>
                 <!--li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li-->

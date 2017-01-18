@@ -4,7 +4,9 @@
     </div>
 
     <div class="titleDiv">
-        <div class="centerTitle"></div>
+        <div class="centerTitle">
+            Detalle del Partido
+        </div>
     </div>
     
     <form>
@@ -12,13 +14,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputDate" id="inputDate" />
+                        <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" />
                         <label for="inputDate">Fecha</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputTime" id="inputTime" />
+                        <input type="text" class="form-control" name="inputTime" id="inputTime" ng-model="vm.match.hour" />
                         <label for="inputTime">Hora</label>
                     </div>
                 </div>
@@ -26,7 +28,7 @@
             
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" />
+                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address"/>
                     <label for="inputLocation">Lugar</label>
                 </div>
             </div>
@@ -35,26 +37,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
-                            <option value="2.5">2.5</option> 
-                            <option value="3.0">3.0</option> 
-                            <option value="3.5">3.5</option> 
-                            <option value="4.0">4.0</option> 
-                            <option value="4.5">4.5</option> 
-                            <option value="5.0">5.0</option> 
-                            <option value="5.5">5.5</option> 
-                            <option value="6.0">6.0</option> 
-                            <option value="6.5">6.5</option> 
-                            <option value="7.0">7.0</option> 
-                        </select>
+                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_from"/> 
                         <label for="inputGameLevel">Nivel de juego</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn">
-                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option>
-                        </select>
+                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn"/>
                         <label for="inputITN">ITN</label>
                     </div>
                 </div>
@@ -62,24 +51,24 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" />
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from"/>
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" />
+                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo"/>
                         <label for="inputMatchType">Tipo de partido</label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row-form">
+        <div class="row-form" ng-repeat="user in vm.match.users">
             <div class="form-group userFeedback">
-                <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" />
+                <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name"/>
                 <label for="inputPlayer">Jugador</label>
             </div>
-            <button type="submit" class="btn feedbackBtn">DANOS TU FEEDBACK</button>
+            <button type="submit" class="btn feedbackBtn" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
         </div>
     </form>
 </div>

@@ -10,7 +10,7 @@ angular
   .config(['$stateProvider', function($stateProvider){
     const tplMatchDetail = <string> require('./views/match_detail.html');
     $stateProvider.state('app.match_detail', {
-        url: '/match_detail',
+        url: '/match_detail/:id',
         template: tplMatchDetail,
         controller: 'MatchDetailController',
         controllerAs: 'vm'

@@ -9,6 +9,7 @@
 @import "../../match_history/scss/_match_history";
 @import "../../match_detail/scss/_match_detail";
 @import "../../my_califications/scss/_my_califications";
+@import "../../feedback/scss/_feedback";
 body {
     background-color: #ffffff;
     font-family: Open Sans;
@@ -52,6 +53,18 @@ body {
             display: inline-block;
             width: 49%;
         }
+        .row-form .column-sm{
+            display: inline-block;
+            width: 24%;
+        }
+        .row-form .column-lg{
+            display: inline-block;
+            width: 74%;
+        }
+        .row-form .column-x-lg{
+            display: inline-block;
+            width: 99%;
+        }
         .form-group {
             margin: 10px;
         }
@@ -66,6 +79,21 @@ body {
         select:-moz-focusring {
             color: transparent;
             text-shadow: 0 0 0 #000;
+        }
+        textarea::-moz-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
+            padding: 10px;
+        }
+        textarea::-webkit-input-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
+            padding: 10px;
+        }
+        textarea:-ms-input-placeholder {
+            font-family: CookieRegular;
+            font-size: 20px;
+            padding: 10px;
         }
     }
     .rzslider {

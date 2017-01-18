@@ -15,7 +15,6 @@ class ProfileController {
         }  
         this.user = LoginService.getUser();
         let vm =  this;
-        console.log(this.user);
         vm.avatar = this.user.image && this.user.image !== '' ? this.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
         this.city = this.user.city;
         this.country = this.user.country;

@@ -2,7 +2,7 @@
     .titleDiv {
         height: 186px;
         /*padding-top: 100px;*/
-        background-image: url(../img/play/title-sides.png);
+        background-image: url(../img/title-sides-gray.png);
         background-repeat: repeat-x;
         text-align: center;
         .centerTitle {
@@ -10,8 +10,12 @@
             height: 100%;
             margin: auto;
             display: inline-block;
-            background-image: url(../img/play/center-title.png);
+            background-image: url(../img/center-title-gray.png);
             background-repeat: no-repeat;
+            font-family: CookieRegular;
+            font-size: 60px;
+            padding-top: 50px;
+            color: #00a5d7;
         }
     }
     .dateTime {
@@ -177,7 +181,7 @@
 
 .modalDetail {
     text-align: center;
-    padding: 4px;
+    padding: 4px !important;
     .popup-header {
         font-size: 27px;
         font-family: CookieRegular;
