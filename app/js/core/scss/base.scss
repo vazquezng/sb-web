@@ -42,7 +42,7 @@ body {
             padding-left: 0px;
             font-family: RobotoLight;
         }
-        input[type='checkbox']{
+        input[type='checkbox'] {
             width: 16px;
         }
         textarea {
@@ -53,15 +53,15 @@ body {
             display: inline-block;
             width: 49%;
         }
-        .row-form .column-sm{
+        .row-form .column-sm {
             display: inline-block;
             width: 24%;
         }
-        .row-form .column-lg{
+        .row-form .column-lg {
             display: inline-block;
             width: 74%;
         }
-        .row-form .column-x-lg{
+        .row-form .column-x-lg {
             display: inline-block;
             width: 99%;
         }
@@ -144,6 +144,15 @@ header {
             cursor: pointer;
             &:hover {
                 text-decoration: none;
+            }
+        }
+        .dropdown-menu {
+            a {
+                color: black;
+                cursor: pointer;
+                &:hover {
+                    text-decoration: none;
+                }
             }
         }
     }

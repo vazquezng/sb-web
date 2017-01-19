@@ -12,6 +12,10 @@ class MenuController
             vm.user = LoginService.getUser();
         });
     }
+
+    public logout(){
+        this.LoginService.logout();
+    }
     
     public auth(){
        this.LoginService.init();
