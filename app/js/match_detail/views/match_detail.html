@@ -14,13 +14,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" />
+                        <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" disabled="true"/>
                         <label for="inputDate">Fecha</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputTime" id="inputTime" ng-model="vm.match.hour" />
+                        <input type="text" class="form-control" name="inputTime" id="inputTime" ng-model="vm.match.hour" disabled="true"/>
                         <label for="inputTime">Hora</label>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address"/>
+                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address"  disabled="true"/>
                     <label for="inputLocation">Lugar</label>
                 </div>
             </div>
@@ -37,13 +37,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_from"/> 
+                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_from" disabled="true"/> 
                         <label for="inputGameLevel">Nivel de juego</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn"/>
+                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn" disabled="true"/>
                         <label for="inputITN">ITN</label>
                     </div>
                 </div>
@@ -51,13 +51,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from"/>
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from" disabled="true"/>
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo"/>
+                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true"/>
                         <label for="inputMatchType">Tipo de partido</label>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="row-form" ng-repeat="user in vm.match.users">
             <div class="form-group userFeedback">
-                <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name"/>
+                <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name" disabled="true"/>
                 <label for="inputPlayer">Jugador</label>
             </div>
             <button type="submit" class="btn feedbackBtn" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>

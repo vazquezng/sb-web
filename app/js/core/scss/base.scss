@@ -83,17 +83,21 @@ body {
         textarea::-moz-placeholder {
             font-family: CookieRegular;
             font-size: 20px;
-            padding: 10px;
+            padding-left: 10px;
         }
         textarea::-webkit-input-placeholder {
             font-family: CookieRegular;
             font-size: 20px;
-            padding: 10px;
+            padding-left: 10px;
         }
         textarea:-ms-input-placeholder {
             font-family: CookieRegular;
             font-size: 20px;
-            padding: 10px;
+            padding-left: 10px;
+        }
+        .form-control[disabled]{
+            background-color: #fff;
+            cursor: initial;
         }
     }
     .rzslider {

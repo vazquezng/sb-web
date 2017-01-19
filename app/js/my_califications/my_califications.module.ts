@@ -4,6 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('MyCalifications');
 
+import './controllers/my_califications.controller.ts';
 
 angular
   .module('MyCalifications')

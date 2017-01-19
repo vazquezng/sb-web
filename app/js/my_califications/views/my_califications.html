@@ -4,55 +4,28 @@
     </div>
 
     <div class="titleDiv">
-        <div class="centerTitle"></div>
+        <div class="centerTitle">¿Qué opinaron de mí?</div>
     </div>
     
     <div class="container">
-        <div class="boxItem"> 
+        <div class="boxItem" ng-repeat="feedback in vm.feedbacks"> 
             <div class="imgContainer">
-                <img style="border-radius: 150px;width: 116px;">
+                <img src="{{feedback.image}}">
             </div>
             <div class="textContainer">
                 <div class="boxTitle">
                     <div class="userName">
-                        Carolina Biados
+                        {{feedback.name}}
                     </div>
                     <div class="dateTime">
-                        2017.01.13
+                        {{feedback.date}}
                     </div>
                 </div>
                 <div class="conntent">
                     <div class="comment">
                         <img src="/img/play/openQT.png" />
                         <div class="text">
-                            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                        </div>
-                        <img class="closeQT" src="/img/play/closeQT.png" />
-                    </div>
-                    <div class="btnContainer">
-                        <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="boxItem"> 
-            <div class="imgContainer">
-                <img style="border-radius: 150px;width: 116px;">
-            </div>
-            <div class="textContainer">
-                <div class="boxTitle">
-                    <div class="userName">
-                        Carolina Biados
-                    </div>
-                    <div class="dateTime">
-                        2017.01.13
-                    </div>
-                </div>
-                <div class="conntent">
-                    <div class="comment">
-                        <img src="/img/play/openQT.png" />
-                        <div class="text">
-                            Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                            {{feedback.comment}}
                         </div>
                         <img class="closeQT" src="/img/play/closeQT.png" />
                     </div>
