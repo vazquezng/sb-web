@@ -2,13 +2,24 @@
     <div class="container">
         <div class="auth">
             <a ng-click="vm.auth()" ng-if="vm.user == null">LOGIN | REGISTRATE</a>
-            <a ng-if="vm.user != null" ui-sref="app.profile" ng-bind="vm.user.name"></a>
+            <!-- Simple dropdown -->
+            <span uib-dropdown on-toggle="toggled(open)">
+                <a ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name"></a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                    <li>
+                        <a ui-sref="app.profile">Perfil</a>
+                        <a ui-sref="app.matchHistory">Mis Partidos</a>
+                        <a ng-click="vm.logout()">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </span>
+
         </div>
         <nav>
             <img ng-src="{{URL_BUCKET}}/img/logo.png" />
             <ul>
                 <li><a href="/">Home</a></li>
-                <li ng-if="vm.user != null"><a ui-sref="app.matchHistory">Torneos</a></li>
+                <li ng-if="vm.user != null"><a href="/">Torneos</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.createMatch">Crear Partido</a></li>
                 <li ng-if="vm.user != null"><a ui-sref="app.play">Quiero jugar</a></li>
                 <!--li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li-->

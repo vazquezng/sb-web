@@ -10,7 +10,7 @@ angular
   .config(['$stateProvider', function($stateProvider){
     const tplAppCreateMatch = <string> require('./views/create_match.html');
     $stateProvider.state('app.createMatch', {
-        url: '/create_match',
+        url: '/create-match',
         template: tplAppCreateMatch,
         controller: 'CreateMatchController',
         controllerAs: 'vm'

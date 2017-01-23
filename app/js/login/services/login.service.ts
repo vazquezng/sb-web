@@ -48,6 +48,13 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
         modalInstance.close();
     }
 
+     this.logout = function(data){
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
+
+        (<any>window).location ='/';
+     }
+
     this.isAuth =  function(){
         return !(user === null);
     }
