@@ -10,7 +10,7 @@
     <div class="historyTable container-small">
         <div class="row">
             <div class="col-xs-6" ng-repeat="match in vm.matches">
-                <div class="matchBox">
+                <div class="matchBox" ng-class="{futureMatch: match.futureMatch}">
                     <label class="clubName">{{match.club_name}}</label>
                     <div class="separator"></div>
                     <label class="date">{{match.date}} - {{match.hour}}</label>

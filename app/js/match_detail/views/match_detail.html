@@ -68,7 +68,7 @@
                 <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name" disabled="true"/>
                 <label for="inputPlayer">Jugador</label>
             </div>
-            <button type="submit" class="btn feedbackBtn" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
+            <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch != true" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
         </div>
     </form>
 </div>

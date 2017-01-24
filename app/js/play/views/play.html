@@ -23,8 +23,7 @@
                 <div class="centerBracket">
                     <div class="level-1">
                         <div class="imgContainer">
-                            <img ng-src="{{match.user.image}}" style="border-radius: 150px;
-    width: 116px;">
+                            <img ng-src="{{match.user.image}}" >
                         </div>
                     </div>
                     <div class="level-2">
@@ -103,22 +102,24 @@
                 <div class="level-4">
                     <img src="/img/play/doubles-btn.png" />
                 </div>
-                <!--div class="level-5">
-                    Mirá los jugadores <span>ya anotados</span>
-                </div>
-                <div class="playerGrid">
-                    <div class="row">
-                        <div class="col-xs-4 col-center-block">
-                            <div class="imgContainer">
-                                <img src="/img/profile/profile-blank.png">
-                            </div>
-                            <div class="userName">
-                                Mauro Pereira
+                <div ng-if="match.users.length">
+                    <div class="level-5">
+                        Mirá los jugadores <span>ya anotados</span>
+                    </div>
+                    <div class="playerGrid">
+                        <div class="row">
+                            <div class="col-xs-4 col-center-block" ng-repeat="user in match.users">
+                                <div class="imgContainer">
+                                    <img src="{{user.image}}">
+                                </div>
+                                <div class="userName">
+                                    {{user.name}}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div -->
-                <button type="submit" class="btn" ng-click="play()">QUIERO JUGAR</button>
+                </div>
+                <button type="submit" class="btn" ng-if="vm.playBtn" ng-click="play()">QUIERO JUGAR</button>
             </div>
         </div>
     </div>

@@ -85,5 +85,16 @@
                 }
             }
         }
+        .info{
+            height: 400px;
+            text-align: center;
+            font-family: RobotoLight;
+            font-size: 18px;
+            margin: auto;
+            span{
+                padding-top: 15%;
+                display: block;
+            }
+        }
     }
 }

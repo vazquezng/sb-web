@@ -1,19 +1,15 @@
 export class FeedbackController 
 {   
-    static $inject = ['$http', '$state', 'PATHS', '$stateParams'];
+    static $inject = ['Load','$http', '$state', 'PATHS', '$stateParams'];
 
     public match;
     public user;
     public feedback;
 
-    constructor(private $http, private $state, private PATHS, $stateParams){
-        
+    constructor(private Load, private $http, private $state, private PATHS, $stateParams){
         const vm = this;
-        vm.$http.get(vm.PATHS.api + '/feedback/detail/' + $stateParams.match_id + '/' + $stateParams.user_id)
-            .then(function(resp){
-                vm.match = resp.data.match;
-                vm.user = resp.data.user;
-            });
+        vm.match = Load.data.match;
+        vm.user = Load.data.user;
     }
 
     public saveFeedback(){
@@ -37,4 +33,4 @@ export class FeedbackController
 }
 
 angular.module('Feedback')
-        .controller('FeedbackController', ['$http', '$state', 'PATHS', '$stateParams', FeedbackController]);
+        .controller('FeedbackController', ['Load', '$http', '$state', 'PATHS', '$stateParams', FeedbackController]);

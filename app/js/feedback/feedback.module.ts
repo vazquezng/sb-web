@@ -13,6 +13,11 @@ angular
         url: '/feedback/:match_id/:user_id',
         template: tplFeedback,
         controller: 'FeedbackController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve:{
+          Load: ['$http', '$state', 'PATHS', '$stateParams', function($http, $state, PATHS, $stateParams){
+            return $http.get(PATHS.api + '/feedback/detail/' + $stateParams.match_id + '/' + $stateParams.user_id);
+          }]
+        }
     });
   }]);

@@ -46,15 +46,20 @@
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.match.address"> 
                         <option value="" selected="selected">Ninguno</option> 
+                        <option value="Nolting">Nolting</option> 
                     </select>
                     <label for="inputPlace">Lugar</label>
                 </div>
             </div>
+        </div>
+        <div class="row-form" ng-if="vm.match.address==''">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="vm.match.club_name">
+                    <input type="text" class="form-control" ng-model="vm.match.club_name" ng-required="{{vm.match.address == ''}}">
                     <label for="inputAddress">Nombre del Club</label>
                 </div>
+            </div>
+            <div class="column">
                 <div class="form-group">
                     <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" placeholder="Direccion">
                     <label for="inputAddress">Otro</label>

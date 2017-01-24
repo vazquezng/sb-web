@@ -1,10 +1,14 @@
 export class PlayController 
 {   
-    static $inject = ['Matchs', '$uibModal', '$scope', '$http', 'PATHS'];
+    static $inject = ['Matchs', 'LoginService', '$uibModal', '$scope', '$http', 'PATHS'];
 
     public modalInstance;
     public matchs;
-    constructor(private Matchs, private $uibModal, private $scope, private $http, private PATHS){
+    public user;
+    public playBtn;
+
+    constructor(private Matchs, private LoginService, private $uibModal, private $scope, private $http, private PATHS){
+        this.user = LoginService.getUser();
         const vm = this;
         this.matchs = Matchs.data.matchs;
         $scope.close = function(){
@@ -30,6 +34,14 @@ export class PlayController
         this.$scope.match = match;
         this.$scope.map = { center: { latitude: match.address_lat, longitude: match.address_lng }, zoom: 16 };
         this.$scope.timestamp = new Date().getTime();
+        
+        vm.$http.get(vm.PATHS.api + '/match/players/' + vm.$scope.match.id)
+        .then(function(resp){
+            match['users'] = resp.data[0].users;
+            vm.playBtn = resp.data[1].canPlay;
+            
+        });
+        
         this.$scope.play = function(){
             vm.$http.post(vm.PATHS.api + '/match/play', {id: vm.$scope.match.id})
                     .then(function(resp){
@@ -50,4 +62,4 @@ export class PlayController
 }
 
 angular.module('Home')
-        .controller('PlayController', ['Matchs', '$uibModal', '$scope', '$http', 'PATHS' ,PlayController]);
+        .controller('PlayController', ['Matchs','LoginService', '$uibModal', '$scope', '$http', 'PATHS' ,PlayController]);

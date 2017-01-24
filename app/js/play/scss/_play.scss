@@ -127,6 +127,7 @@
                             margin-top: 8px;
                             width: 116px;
                             height: 116px;
+                            border-radius: 150px;
                         }
                     }
                 }
@@ -244,79 +245,84 @@
             margin-top: 8px;
             width: 116px;
             height: 116px;
+            border-radius: 150px;
         }
     }
-    .level-1 {
-        margin-top: 10px;
-        .imgContainer {
-            width: 172px;
-            height: 175px;
-            img {
-                margin-top: 13px;
-                width: 162px;
-                height: 162px;
+    .userInformation{
+        margin-bottom: 50px;
+        .level-1 {
+            margin-top: 10px;
+            .imgContainer {
+                width: 172px;
+                height: 175px;
+                img {
+                    margin-top: 13px;
+                    width: 162px;
+                    height: 162px;
+                    border-radius: 150px;
+                }
             }
         }
-    }
-    .level-2 {
-        width: 300px;
-        margin: auto;
-        .userName {
-            font-family: RobotoLight;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    }
-    .level-3 {
-        margin: auto;
-        width: 350px;
-        margin-top: 25px;
-        margin-bottom: 25px;
-        .clubInfo,
-        .clubMap {
-            margin-left: 15px;
-            text-align: center;
-            .separator {
-                width: 100%;
-            }
-            .clubName {
-                font-weight: bold;
-                font-family: RobotoMedium;
-                text-transform: uppercase;
-            }
-            .address {
-                font-family: RobotoLight;
-                font-size: 13px;
-                line-height: 25px;
-            }
-            .angular-google-map-container {
-                height: 200px;
-            }
-        }
-        .mapImg {
-            height: 55px;
-            width: 160px;
-            margin-top: -15px;
-        }
-    }
-    .level-4 {
-        img {
-            width: 175px;
+        .level-2 {
+            width: 300px;
             margin: auto;
+            .userName {
+                font-family: RobotoLight;
+                font-size: 16px;
+                font-weight: bold;
+            }
         }
-    }
-    .level-5 {
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
-    .playerGrid {
-        margin-top: 25px;
-        margin-bottom: 25px;
-    }
-    .btn {
-        margin-top: 25px;
+        .level-3 {
+            margin: auto;
+            width: 350px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            .clubInfo,
+            .clubMap {
+                margin-left: 15px;
+                text-align: center;
+                .separator {
+                    width: 100%;
+                }
+                .clubName {
+                    font-weight: bold;
+                    font-family: RobotoMedium;
+                    text-transform: uppercase;
+                }
+                .address {
+                    font-family: RobotoLight;
+                    font-size: 13px;
+                    line-height: 25px;
+                }
+                .angular-google-map-container {
+                    height: 200px;
+                }
+            }
+            .mapImg {
+                height: 55px;
+                width: 160px;
+                margin-top: -15px;
+            }
+        }
+        .level-4 {
+            img {
+                width: 175px;
+                margin: auto;
+            }
+        }
+        .level-5 {
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+        .playerGrid {
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+        .btn {
+            margin-top: 25px;
+        }
     }
 }
 
