@@ -1,14 +1,17 @@
 export class PlayController 
 {   
-    static $inject = ['Matchs', 'LoginService', '$uibModal', '$scope', '$http', 'PATHS'];
+    static $inject = ['Matchs', 'LoginService', '$uibModal', '$scope', '$http', 'PATHS', '$state'];
 
     public modalInstance;
     public matchs;
     public user;
     public playBtn;
 
-    constructor(private Matchs, private LoginService, private $uibModal, private $scope, private $http, private PATHS){
+    constructor(private Matchs, private LoginService, private $uibModal, private $scope, private $http, private PATHS, private $state){
         this.user = LoginService.getUser();
+        if(!LoginService.isAuth() || LoginService.getUser().complete == 0){
+            $state.go('app.home');
+        }
         const vm = this;
         this.matchs = Matchs.data.matchs;
         $scope.close = function(){
@@ -24,7 +27,7 @@ export class PlayController
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'playmap-modal',
-            //size: 'lg'
+            size: 'lg',
             scope: this.$scope
         });
     }
@@ -62,4 +65,4 @@ export class PlayController
 }
 
 angular.module('Home')
-        .controller('PlayController', ['Matchs','LoginService', '$uibModal', '$scope', '$http', 'PATHS' ,PlayController]);
+        .controller('PlayController', ['Matchs','LoginService', '$uibModal', '$scope', '$http', 'PATHS', '$state' ,PlayController]);

@@ -10,7 +10,7 @@
 	  if($link === false){
 		  die("ERROR: Error al conectar con la base de datos. " . mysqli_connect_error());
 	  }
-
+		
 	  mysqli_select_db($link,'slambow_landing') or die(mysql_error());
 
 	  $time = time();
@@ -32,5 +32,5 @@
 
 	$link->close();
 	header("Location: /");
-	exit;
+	
 ?>

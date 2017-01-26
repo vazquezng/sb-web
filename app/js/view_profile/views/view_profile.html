@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form>
+    <form name="formProfile" novalidate>
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
@@ -24,22 +24,22 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" />
+                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" required/>
                         <label for="inputName">Nombre</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" />
-                        <label for="inputEmail">Email</label>
+                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" required/>
+                        <label for="inputSurname">Apellido</label>
                     </div>
                 </div>
             </div>
 
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" />
-                    <label for="inputSurname">Apellido</label>
+                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" required/>
+                    <label for="inputEmail">Email</label>
                 </div>
             </div>
         </div>
@@ -47,13 +47,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" />
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/>
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo">
+                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
                             <option value="male">Masculino</option>
                             <option value="female">Femenino</option>
                         </select>
@@ -86,7 +86,7 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"> 
+                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" required> 
                             <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -103,7 +103,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn">
+                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn" required>
                             <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option>
                         </select>
                         <label for="inputITN">ITN</label>
@@ -113,13 +113,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.single" />
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" required/>
                         <label for="inputCity">Single</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.double" />
+                        <input type="checkbox" class="form-control" ng-model="vm.user.double" required/>
                         <label for="inputCity">Doble</label>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button>
+                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability" required></button>
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member" required> 
                         <option value="0">Ninguno</option> 
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>
@@ -163,10 +163,11 @@
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAboutMe">SOBRE MI</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about"></textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
             </div>
         </div>
-        <button type="submit" class="btn" ng-click="vm.save()">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save(formProfile)">Guardar</button>
+        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
     </form>
 </div>
 <sb-footer></sb-footer>

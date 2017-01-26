@@ -4,7 +4,7 @@ import * as moment from 'moment';
 
 export class CreateMatchController 
 {   
-    static $inject = ['$scope', '$http', '$state', 'PATHS'];
+    static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService'];
     
     public match:any = {
         date: new Date(),
@@ -20,7 +20,11 @@ export class CreateMatchController
     public address;
     public map;
     public market;
-    constructor($scope, private $http, private $state, private PATHS){
+    constructor($scope, private $http, private $state, private PATHS, private LoginService){
+        if(!LoginService.isAuth() || LoginService.getUser().complete == 0){
+            $state.go('app.home');
+        }
+
         this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
         console.log(new Date(moment('15:30','HH:mm a')));
     }
@@ -49,4 +53,4 @@ export class CreateMatchController
 }
 
 angular.module('CreateMatch')
-        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS' ,CreateMatchController]);
+        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService' ,CreateMatchController]);

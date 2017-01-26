@@ -17,7 +17,7 @@ angular
         controllerAs: 'vm'
     })
     $stateProvider.state('auth-twitter', {
-        url: '/auth/twitter?token&id&newuser',
+        url: '/auth/twitter/:token/:id/:newuser',
         controller: 'AuthTwitterController',
         controllerAs: 'vm',
         resolve:{
