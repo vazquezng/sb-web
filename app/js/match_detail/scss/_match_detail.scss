@@ -1,4 +1,4 @@
-.matchDetail{
+.matchDetail {
     margin-bottom: 50px;
     .titleDiv {
         height: 186px;
@@ -19,11 +19,16 @@
             color: #00a5d7;
         }
     }
-    .userFeedback{
+    .userFeedback {
         width: 75%;
         display: inline-block;
     }
-    .feedbackBtn{
+    .feedbackBtn {
         vertical-align: text-bottom;
+    }
+    .players {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
     }
 }
