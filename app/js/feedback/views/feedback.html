@@ -8,15 +8,15 @@
             Feedback
         </div>
     </div>
-    
+
     <form>
         <input type="hidden" class="form-control" name="inputUserId" id="inputUserId" ng-model="vm.feedback.user_id" />
-        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId"  ng-model="vm.feedback.match_id" />
+        <input type="hidden" class="form-control" name="inputUserId" id="inputUserId" ng-model="vm.feedback.match_id" />
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
                 <div class="imgContainer">
-                    <img id="profileImg" src="{{vm.user.image}}"/>
+                    <img class="profileImg" src="{{vm.user.image}}" />
                 </div>
                 <div class="userInfo">
                     {{vm.user.name}}
@@ -29,13 +29,13 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" disabled="true"/>
+                    <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" disabled="true" />
                     <label for="inputDate">Fecha</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputTime" id="inputTime" ng-model="vm.match.hour" disabled="true"/>
+                    <input type="text" class="form-control" name="inputTime" id="inputTime" ng-model="vm.match.hour" disabled="true" />
                     <label for="inputTime">Hora</label>
                 </div>
             </div>
@@ -43,20 +43,20 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address" disabled="true"/>
+                    <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address" disabled="true" />
                     <label for="inputLocation">Lugar</label>
                 </div>
             </div>
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from" disabled="true"/>
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from" disabled="true" />
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true"/>
+                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true" />
                         <label for="inputMatchType">Tipo de partido</label>
                     </div>
                 </div>
@@ -92,8 +92,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputRespect" id="inputRespect" ng-model="vm.feedback.respect"
-                                ng-options="respect for respect in ::[1,2,3,4,5,6,7,8,9,10]" required>
+                        <select class="form-control minimal" name="inputRespect" id="inputRespect" ng-model="vm.feedback.respect" ng-options="respect for respect in ::[1,2,3,4,5,6,7,8,9,10]" required>
                             <option></option>
                         </select>
                         <label for="inputRespect">Respeto</label>
@@ -104,7 +103,7 @@
         <div class="row-form">
             <div class="column-sm">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputHasAttended" id="inputHasAttended"  ng-model="vm.feedback.has_attended" required>
+                    <select class="form-control minimal" name="inputHasAttended" id="inputHasAttended" ng-model="vm.feedback.has_attended" required>
                         <option></option>
                         <option value="1">SI</option> 
                         <option value="0">NO</option> 
@@ -123,7 +122,7 @@
                 <textarea class="form-control" rows="3" name="inputComments" id="inputComments" placeholder="Dejanos tu comentario..." ng-model="vm.feedback.comment" required></textarea>
             </div>
         </div>
-                
+
         <button type="submit" class="btn btn-lg" ng-click="vm.saveFeedback()">Guardar</button>
     </form>
 </div>

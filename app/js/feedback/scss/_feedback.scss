@@ -1,4 +1,4 @@
-.feedback{
+.feedback {
     margin-bottom: 50px;
     .titleDiv {
         height: 186px;
@@ -17,10 +17,9 @@
             font-size: 60px;
             padding-top: 50px;
             color: #00a5d7;
-            
         }
     }
-    form{
+    form {
         #imageBox {
             height: 280px;
             .leftBracket {
@@ -62,8 +61,7 @@
                     width: 300;
                     text-align: center;
                     line-height: 25px;
-                    
-                    label{
+                    label {
                         font-size: 15px;
                     }
                 }
@@ -71,7 +69,7 @@
                     background-image: url(../img/profile/back-profile.png);
                     background-repeat: no-repeat;
                 }
-                img#profileImg {
+                img.profileImg {
                     margin-top: 23px;
                     margin-left: 9px;
                     border-radius: 164px;
@@ -89,10 +87,10 @@
                 position: absolute;
             }
         }
-        .column-lg{
+        .column-lg {
             vertical-align: top;
         }
-        .column-x-lg{
+        .column-x-lg {
             padding: 15px;
         }
         .separator {
@@ -102,7 +100,7 @@
             height: 1px;
             margin: auto;
         }
-        .btn{
+        .btn {
             float: right;
             margin-right: 25px;
         }

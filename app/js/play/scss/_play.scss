@@ -61,7 +61,7 @@
             position: absolute;
         }
         .centerBracket {
-            img#profileImg {
+            img.profileImg {
                 margin-top: 66px;
                 margin-left: 236px;
             }
@@ -248,7 +248,7 @@
             border-radius: 150px;
         }
     }
-    .userInformation{
+    .userInformation {
         margin-bottom: 50px;
         .level-1 {
             margin-top: 10px;

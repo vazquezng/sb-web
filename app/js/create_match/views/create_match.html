@@ -20,7 +20,8 @@
             <div class="column">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">
+                        <span class="input-group-addon" style="background: rgba(32, 163, 212, 0.5) !important;
+            border: 1px solid #5ca3d4 !important;">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
                         <input type="date" data-date-format="DD MMMM YYYY" class="form-control" ng-model="vm.match.date" required>
@@ -32,7 +33,8 @@
             <div class="column">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon">
+                        <span class="input-group-addon" style="background: rgba(32, 163, 212, 0.5) !important;
+            border: 1px solid #5ca3d4 !important;">
                             <i class="glyphicon glyphicon-time"></i>
                         </span>
                         <input required="" type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour" required>
@@ -45,10 +47,10 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.match.address"> 
-                        <option value="" selected="selected">Ninguno</option> 
+                        <option value="" selected="selected">Otra</option> 
                         <option value="Nolting">Nolting</option> 
                     </select>
-                    <label for="inputPlace">Lugar</label>
+                    <label for="inputPlace">Canchas Abonadas</label>
                 </div>
             </div>
         </div>
@@ -61,8 +63,8 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" placeholder="Direccion">
-                    <label for="inputAddress">Otro</label>
+                    <input type="text" class="form-control" name="inputAddress" g-places-autocomplete ng-change="vm.changeAddress()" ng-model="vm.address" placeholder="">
+                    <label for="inputAddress">Dirección</label>
                 </div>
             </div>
         </div>
@@ -124,8 +126,8 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required>
-                        <option value="single" >Single</option>
-                        <option value="double">Double</option>
+                        <option value="single" >Singles</option>
+                        <option value="double">Doubles</option>
                     </select>
                     <label for="inputMatchType">Tipo de partido</label>
                 </div>
@@ -178,7 +180,7 @@
         </div-->
 
 
-        <button type="submit" class="btn" ng-click="vm.save(formMatch)">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save(formMatch)">Crear Partido</button>
     </form>
 </div>
 <sb-footer></sb-footer>

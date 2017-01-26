@@ -1,7 +1,3 @@
-//(<any>window).google = require('google-maps'); 
-//(<any>window).google.KEY = 'AIzaSyDZOdwsf3vZEFQws7WldOWKeibaWiMjJCg';
-//(<any>window).google.LIBRARIES = ['geometry', 'places'];
-//(<any>window).AWS = require('aws-sdk/global');
 require('./js/core/app.ts');
 require('./js/home/home.module.ts');
 require('./js/view_profile/view_profile.module.ts');

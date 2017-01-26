@@ -15,6 +15,10 @@
         }
     }
     form {
+        .input-group-addon {
+            background: rgba(32, 163, 212, 0.5) !important;
+            border: 1px solid #5ca3d4 !important;
+        }
         #imageBox {
             height: 280px;
             .leftBracket {
@@ -59,7 +63,7 @@
                     background-image: url(../img/profile/back-profile.png);
                     background-repeat: no-repeat;
                 }
-                img#profileImg {
+                img.profileImg {
                     margin-top: 23px;
                     margin-left: 9px;
                     border-radius: 164px;

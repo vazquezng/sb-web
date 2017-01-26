@@ -51,7 +51,7 @@
             position: absolute;
         }
         .centerBracket {
-            img#profileImg {
+            img.profileImg {
                 margin-top: 65px;
                 margin-left: 215px;
             }
@@ -81,7 +81,10 @@
             margin-top: -10px;
         }
         .btn {
-            float: right;
+            margin: 0 auto;
+            width: 130px;
+            text-align: center;
+            display: block;
         }
         .mapContainer {
             background-image: url(../img/match/mock-map.png);
