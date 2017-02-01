@@ -12,7 +12,7 @@
             <div class="leftBracket"></div>
             <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
                 <div class="imgContainer">
-                    <img class="profileImg" src="{{vm.avatar}}" />
+                    <img class="profileImg" ng-src="{{vm.avatar}}" />
                 </div>
                 <div id="uploadFileBtn">
                     <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar
@@ -113,14 +113,14 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.single" required/>
-                        <label for="inputCity">Single</label>
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" />
+                        <label for="inputCity">Singles</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.double" required/>
-                        <label for="inputCity">Doble</label>
+                        <input type="checkbox" class="form-control" ng-model="vm.user.double" />
+                        <label for="inputCity">Dobles</label>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability" required></button>
+                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button>
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member" required> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
                         <option value="0">Ninguno</option> 
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>

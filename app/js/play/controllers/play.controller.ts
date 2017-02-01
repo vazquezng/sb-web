@@ -9,9 +9,11 @@ export class PlayController
 
     constructor(private Matchs, private LoginService, private $uibModal, private $scope, private $http, private PATHS, private $state){
         this.user = LoginService.getUser();
-        if(!LoginService.isAuth() || LoginService.getUser().complete == 0){
+        if(!LoginService.isAuth()){
             $state.go('app.home');
         }
+        
+
         const vm = this;
         this.matchs = Matchs.data.matchs;
         $scope.close = function(){

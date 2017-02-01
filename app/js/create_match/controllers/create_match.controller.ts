@@ -21,7 +21,7 @@ export class CreateMatchController
     public map;
     public market;
     constructor($scope, private $http, private $state, private PATHS, private LoginService){
-        if(!LoginService.isAuth() || LoginService.getUser().complete == 0){
+        if(!LoginService.isAuth()){
             $state.go('app.home');
         }
 
