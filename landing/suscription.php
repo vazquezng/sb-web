@@ -1,36 +1,32 @@
 <?php
 
-	if(isset($_POST) && isset($_POST['name']) && isset($_POST['email'])){
-	  $name = Trim(stripslashes($_POST['name']));
-	  $email = Trim(stripslashes($_POST['email']));
-	  $city = Trim(stripslashes($_POST['city']));
+        if(isset($_POST) && isset($_POST['name']) && isset($_POST['email'])){
+          $name = Trim(stripslashes($_POST['name']));
+          $email = Trim(stripslashes($_POST['email']));
+          $city = Trim(stripslashes($_POST['city']));
+          try{
+            $mbd = new PDO('mysql:host=localhost;dbname=slambow_landing', 'root', 'Sl4mb0w');
 
-	  $link = mysqli_connect('localhost', 'slambow', 'Sl4mb0w', '') or die(mysql_error());
+            $time = time();
+            $fecha = date("Y-m-d", $time);
 
-	  if($link === false){
-		  die("ERROR: Error al conectar con la base de datos. " . mysqli_connect_error());
-	  }
-		
-	  mysqli_select_db($link,'slambow_landing') or die(mysql_error());
+					$sentencia = $mbd->prepare("INSERT INTO SUSCRIPTIONS (name, email, city, date) VALUES (:name, :email, :city, :date)");
+					$sentencia->bindParam(':name', $name);
+					$sentencia->bindParam(':email', $email);
+					$sentencia->bindParam(':city', $city);
+					$sentencia->bindParam(':date', $fecha);
+					$sentencia->execute();
+					$mbd = null;
+          } catch (PDOException $e) {
+                print "¡Error!: " . $e->getMessage() . "<br/>";
+                die();
+          }
 
-	  $time = time();
-	  $fecha = date("d-m-Y (H:i:s)", $time);
+        }
+        else{
+          echo "Se produjo un error al enviar el formulario, reintenta a la brevedad.";
+        }
+				
+        header("Location: /");
 
-	  $query="INSERT INTO suscriptions" .
-		  "(name,email,city,date)" .
-		  "VALUES
-		  ('$name','$email','$city','$fecha')";
-
-	  if(!mysqli_query($link, $query)){
-		  die("ERROR: Error al guardar en la base de datos. " . mysqli_connect_error());
-	  }
-
-	}
-	else{
-	  echo "Se produjo un error al enviar el formulario, reintenta a la brevedad.";
-	}
-
-	$link->close();
-	header("Location: /");
-	
 ?>

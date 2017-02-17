@@ -2,10 +2,10 @@ import * as moment from 'moment';
 
 
 
-export class CreateMatchController 
-{   
+export class CreateMatchController
+{
     static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService'];
-    
+
     public match:any = {
         date: new Date(),
         hour: new Date(moment('15:30','HH:mm a')),
@@ -22,7 +22,9 @@ export class CreateMatchController
     public market;
     constructor($scope, private $http, private $state, private PATHS, private LoginService){
         if(!LoginService.isAuth()){
-            $state.go('app.home');
+          $state.go('app.home');
+        }else if(!LoginService.getUser().email || LoginService.getUser().email == ""){
+          $state.go('app.profile');
         }
 
         this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
@@ -42,10 +44,10 @@ export class CreateMatchController
 
     public save(form){
         const vm = this;
-        if(form.$valid){
+        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to){
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
-                    vm.$state.go('app.home');
+                    vm.$state.go('app.matchHistory');
                 }
             });
         }

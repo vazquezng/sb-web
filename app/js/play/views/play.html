@@ -72,7 +72,8 @@
             <div class="userInformation">
                 <div class="level-1">
                     <div class="imgContainer">
-                        <img ng-src="{{match.user.image}}" style="border-radius: 150px;">
+                      <img ng-src="{{match.user.image}}" ng-if="::match.user.image!= '' && match.user.image!= null" style="border-radius: 150px;"/>
+                      <img ng-src="{{URL_BUCKET}}/img/profile/profile-blank.png" ng-if="::match.user.image== '' || match.user.image== null" />
                     </div>
                 </div>
                 <div class="level-2">

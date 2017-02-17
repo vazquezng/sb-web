@@ -138,7 +138,7 @@
                 <label class="subtitle">Edad</label>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_from" required/>
+                        <input type="text" onkeypress="return validaNumber(event)" maxlength="3" minlength="2" class="form-control minimal" ng-model="vm.match.years_from" required/>
                         <label for="inputAgeFrom">Desde</label>
                     </div>
                 </div>

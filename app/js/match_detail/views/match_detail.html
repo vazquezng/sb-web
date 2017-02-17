@@ -43,19 +43,25 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn" disabled="true" />
+                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.match.itn" disabled="true" />
                         <label for="inputITN">ITN</label>
                     </div>
                 </div>
             </div>
             <div class="column">
-                <div class="column">
+                <div class="column" style="width: 25%;">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from" disabled="true" />
-                        <label for="inputAge">Edad</label>
+                        <label for="inputAge">Edad Desde</label>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column" style="width: 25%;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_to" disabled="true" />
+                        <label for="inputAge">Edad Hasta</label>
+                    </div>
+                </div>
+                <div class="column" style="width: 40%;">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true" />
                         <label for="inputMatchType">Tipo de partido</label>
@@ -63,12 +69,12 @@
                 </div>
             </div>
         </div>
-        <div class="row-form players" ng-repeat="user in vm.match.users">
+        <div class="row-form players" ng-repeat="user in vm.match.users" >
             <div class="form-group userFeedback">
                 <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name" disabled="true" />
                 <label for="inputPlayer">Jugador</label>
             </div>
-            <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch != true" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
+            <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch != true && user.id !== vm.user.id" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
         </div>
     </form>
 </div>
