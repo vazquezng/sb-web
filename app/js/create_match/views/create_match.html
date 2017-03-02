@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form name="formMatch">
+    <form name="formMatch" novalidate>
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
@@ -46,7 +46,7 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.match.address"> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club"> 
                         <option value="" selected="selected">Otra</option> 
                         <option value="Nolting">Nolting</option> 
                     </select>
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="row-form" ng-if="vm.match.address==''">
+        <div class="row-form" ng-if="!vm.partner_club">
             <div class="column">
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="vm.match.club_name" ng-required="{{vm.match.address == ''}}">

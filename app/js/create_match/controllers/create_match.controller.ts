@@ -4,7 +4,7 @@ import * as moment from 'moment';
 
 export class CreateMatchController
 {
-    static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService'];
+    static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster'];
 
     public match:any = {
         date: new Date(),
@@ -20,10 +20,13 @@ export class CreateMatchController
     public address;
     public map;
     public market;
-    constructor($scope, private $http, private $state, private PATHS, private LoginService){
+
+    private stopSave = false;
+    constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster){
         if(!LoginService.isAuth()){
           $state.go('app.home');
-        }else if(!LoginService.getUser().email || LoginService.getUser().email == ""){
+        }else if(!LoginService.getUser().complete){
+            toaster.pop({type:'error', body:'Debe completar su perfil primero.'});
           $state.go('app.profile');
         }
 
@@ -44,15 +47,18 @@ export class CreateMatchController
 
     public save(form){
         const vm = this;
-        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to){
+        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to && !this.stopSave){
+            this.stopSave = !this.stopSave;
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
                     vm.$state.go('app.matchHistory');
                 }
             });
+        }else{
+            this.toaster.pop({type:'info', body:'Debe completar todos los datos.'})
         }
     }
 }
 
 angular.module('CreateMatch')
-        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService' ,CreateMatchController]);
+        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster' ,CreateMatchController]);

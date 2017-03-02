@@ -1,5 +1,5 @@
 class ProfileController {
-    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal'];
+    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster'];
 
     public user;
     public image;
@@ -10,7 +10,7 @@ class ProfileController {
     public address;
     public modalInstance;
     public completeForm =false;
-    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal){
+    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
         if(!LoginService.isAuth()){
             $state.go('app.home');
         }  
@@ -20,6 +20,12 @@ class ProfileController {
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
+
+        this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
+        this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
+        this.user.single = (this.user.single==1);
+        this.user.double = (this.user.double==1);
+
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
                 var formData = new FormData();
@@ -31,6 +37,7 @@ class ProfileController {
                     console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
                     vm.user.image = resp.data;
                     vm.avatar = resp.data;
+                    
                 }, function (resp) {
                     console.log('Error status: ' + resp.status);
                 }, function (evt:any) {
@@ -72,8 +79,11 @@ class ProfileController {
             const vm = this;
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 if(resp.data.success){
+                    vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
                     vm.LoginService.setUser(vm.user);
-                    vm.$state.reload();
+                    //vm.$state.reload();
+                }else{
+                    vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
                 }
             });
         }else{
@@ -84,6 +94,6 @@ class ProfileController {
 }
 
 angular.module('Profile')
-    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', '$scope', ProfileController]);
+    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', ProfileController]);
 
 
