@@ -4,7 +4,7 @@
             <a ng-click="vm.auth()" ng-if="vm.user == null" style="    margin-top: 12px;
     display: block;">LOGIN | REGISTRATE</a>
             <!-- Simple dropdown -->
-            <img ng-if="vm.user != null" class="profileImg" src="{{vm.avatar}}" style="border-radius: 164px;width:40px;height:40px;margin-right: 5px;" />
+            <img ng-if="vm.user != null" class="profileImg" src="{{vm.avatar}}" style="border-radius: 164px;width:40px;height:40px;margin: 0;margin-right: 5px;" />
             <span uib-dropdown on-toggle="toggled(open)">
                 <a ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name"></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
@@ -12,6 +12,8 @@
                         <a ui-sref="app.profile">Perfil</a>
                         <a ui-sref="app.matchHistory">Mis Partidos</a>
                         <a ui-sref="app.myCalifications">Mis Calificaciones</a>
+                        <a ui-sref="app.logros">Mis Logros</a>
+                        <a ui-sref="app.canchas">Canchas</a>
                         <a ng-click="vm.logout()">Cerrar Sesión</a>
                     </li>
                 </ul>

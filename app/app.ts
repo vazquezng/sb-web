@@ -9,6 +9,8 @@ require('./js/match_history/match_history.module.ts');
 require('./js/match_detail/match_detail.module.ts');
 require('./js/my_califications/my_califications.module.ts');
 require('./js/feedback/feedback.module.ts');
+require('./js/achievements/achievements.module.ts');
+require('./js/courts/courts.module.ts');
 
 (<any>window).validaNumber =  function(e){
     let tecla = (document.all) ? e.keyCode : e.which;
