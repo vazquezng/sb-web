@@ -80,6 +80,7 @@ class ProfileController {
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 if(resp.data.success){
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
+                    vm.user.complete = true;
                     vm.LoginService.setUser(vm.user);
                     //vm.$state.reload();
                 }else{

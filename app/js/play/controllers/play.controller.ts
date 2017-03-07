@@ -50,12 +50,12 @@ export class PlayController
         });
         
         this.$scope.play = function(){
-            if(!this.$scope.stopSave){
-                this.$scope.stopSave = !this.$scope.stopSave;
+            if(!vm.$scope.stopSave){
+                vm.$scope.stopSave = !vm.$scope.stopSave;
                 vm.$http.post(vm.PATHS.api + '/match/play', {id: vm.$scope.match.id})
                 .then(function(resp){
                     if(resp.data.success){
-                        this.$scope.stopSave = !this.$scope.stopSave;
+                        vm.$scope.stopSave = !vm.$scope.stopSave;
                         vm.modalInstance.close();
                     }
                 });

@@ -27,7 +27,8 @@ export class CreateMatchController
           $state.go('app.home');
         }else if(!LoginService.getUser().complete){
             toaster.pop({type:'error', body:'Debe completar su perfil primero.'});
-          $state.go('app.profile');
+            
+            $state.go('app.profile');
         }
 
         this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
