@@ -9,7 +9,26 @@ class ProfileController {
     public city;
     public address;
     public modalInstance;
+    public availabilityList = [];
     public completeForm =false;
+    public timeList = [ '08:00','08:30',
+                        '09:00','09:30',
+                        '10:00','10:30',
+                        '11:00','11:30',
+                        '12:00','12:30',
+                        '13:00','13:30',
+                        '14:00','14:30',
+                        '15:00','15:30',
+                        '16:00','16:30',
+                        '17:00','17:30',
+                        '18:00','18:30',
+                        '19:00','19:30',
+                        '20:00','20:30',
+                        '21:00','21:30',
+                        '22:00','22:30',
+                        '23:00','23:30'];
+    public dayList = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
         if(!LoginService.isAuth()){
             $state.go('app.home');
@@ -25,7 +44,7 @@ class ProfileController {
         this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
-
+        
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
                 var formData = new FormData();
@@ -54,6 +73,12 @@ class ProfileController {
     }
 
     public openModalAvailable(){
+        let vm =  this;
+        this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability').then(function(resp){
+            if(resp.data.availability){
+                vm.availabilityList = resp.data.availability;
+            }
+        });
         this.modalInstance = this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
@@ -65,7 +90,26 @@ class ProfileController {
     }
 
     private  saveAvailability(){
-        this.modalInstance.close();
+        
+        var params = {availability: this.availabilityList};
+        const vm = this;
+        this.$http.post(this.PATHS.api + '/user/saveAvailability', params).then(function(resp){
+            if(resp.data.success){
+                vm.toaster.pop({type: 'success', body: 'Tu disponibilidad se guardo correctamente!',timeout: 2000});
+                vm.modalInstance.close();
+            }else{
+                vm.toaster.pop({type: 'error', body: 'Ocurrió un error al guardar tu disponibilidad',timeout: 2000});
+            }
+        });
+    }
+
+    public updateAvailability(weekDay, time){
+        var index = this.availabilityList.indexOf(weekDay+'-'+time);
+        if(index == -1){
+            this.availabilityList[this.availabilityList.length] = weekDay+'-'+time;
+        }else{
+            this.availabilityList.splice(index,1); 
+        }
     }
 
     public save(form){
