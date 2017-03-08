@@ -22,7 +22,7 @@
         <script src="//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDZOdwsf3vZEFQws7WldOWKeibaWiMjJCg"></script>
     </head>
     <body>
-    <toaster-container></toaster-container>
+    <toaster-container toaster-options="{'position-class': 'toast-center'}"></toaster-container>
         <ui-view></ui-view>
 
         <script src="<%= htmlWebpackPlugin.options.URL_BUCKET %>/main.bundle.js?v=<%=htmlWebpackPlugin.options.hash %>"></script>

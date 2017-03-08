@@ -138,13 +138,13 @@
                 <label class="subtitle">Edad</label>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" onkeypress="return validaNumber(event)" maxlength="3" minlength="2" class="form-control minimal" ng-model="vm.match.years_from" required/>
+                        <input type="text" onkeypress="return validaNumber(event)" maxlength="2" minlength="2" class="form-control minimal" ng-model="vm.match.years_from" id="yearsFrom" ng-blur="vm.validateYears()" required/>
                         <label for="inputAgeFrom">Desde</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" onkeypress="return validaNumber(event)" class="form-control minimal" ng-model="vm.match.years_to" required/>
+                        <input type="text" onkeypress="return validaNumber(event)" maxlength="2" minlength="2" class="form-control minimal" ng-model="vm.match.years_to" id="yearsTo" ng-blur="vm.validateYears()" required/>
                         <label for="inputAgeTo">Hasta</label>
                     </div>
                 </div>
@@ -183,4 +183,6 @@
         <button type="submit" class="btn" ng-click="vm.save(formMatch)">Crear Partido</button>
     </form>
 </div>
+
+
 <sb-footer></sb-footer>
