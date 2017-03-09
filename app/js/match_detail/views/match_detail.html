@@ -11,7 +11,7 @@
 
     <form>
         <div class="row-form">
-            <div class="column">
+            <!--div class="column"-->
                 <div class="column">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputDate" id="inputDate" ng-model="vm.match.date" disabled="true" />
@@ -24,12 +24,19 @@
                         <label for="inputTime">Hora</label>
                     </div>
                 </div>
-            </div>
-
+            <!--/div-->
+        </div>
+        <div class="row-form">
             <div class="column">
                 <div class="form-group">
                     <input type="text" class="form-control" name="inputLocation" id="inputLocation" ng-model="vm.match.address" disabled="true" />
                     <label for="inputLocation">Lugar</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputClubName" id="inputClubName" ng-model="vm.match.club_name" disabled="true" />
+                    <label for="inputLocation">Nombre de club</label>
                 </div>
             </div>
         </div>
@@ -38,34 +45,50 @@
                 <div class="column">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_from" disabled="true" />
-                        <label for="inputGameLevel">Nivel de juego</label>
+                        <label for="inputGameLevel">Nivel de juego desde</label>
                     </div>
                 </div>
+                <div class="column">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_from" disabled="true" />
+                        <label for="inputGameLevel">Nivel de juego desde</label>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
                 <div class="column">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.match.itn" disabled="true" />
                         <label for="inputITN">ITN</label>
                     </div>
                 </div>
+                <div class="column">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="inputType" id="inputType" ng-model="vm.match.type" disabled="true" />
+                        <label for="inputType">Tipo de partido</label>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="row-form">
             <div class="column">
-                <div class="column" style="width: 25%;">
+                <div class="column">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_from" disabled="true" />
                         <label for="inputAge">Edad Desde</label>
                     </div>
                 </div>
-                <div class="column" style="width: 25%;">
+                <div class="column">
                     <div class="form-group">
                         <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="vm.match.years_to" disabled="true" />
                         <label for="inputAge">Edad Hasta</label>
                     </div>
                 </div>
-                <div class="column" style="width: 40%;">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true" />
-                        <label for="inputMatchType">Tipo de partido</label>
-                    </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputMatchType" id="inputMatchType" ng-model="vm.match.sexo" disabled="true" />
+                    <label for="inputMatchType">Tipo de partido</label>
                 </div>
             </div>
         </div>

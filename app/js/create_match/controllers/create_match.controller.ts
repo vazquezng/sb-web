@@ -8,7 +8,7 @@ export class CreateMatchController
 
     public match:any = {
         date: new Date(),
-        hour: new Date(moment('15:30','HH:mm a')),
+        hour: new Date(moment('15:30','HH:mm')),
         address: '',
         address_lat:'',
         address_lng: '',
@@ -52,7 +52,7 @@ export class CreateMatchController
            return; 
         }
         
-        if(this.match.years_from < 17){
+        if(this.match.years_from <= 17){
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser mayor a 17 años.'})
         }
         if(this.match.years_from > 100){
@@ -65,8 +65,12 @@ export class CreateMatchController
 
     public save(form){
         const vm = this;
+        this.match.hour = this.match.hour.toLocaleTimeString();
+        
         if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to && !this.stopSave){
             this.stopSave = !this.stopSave;
+            
+            
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
                     vm.$state.go('app.matchHistory');
