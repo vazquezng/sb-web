@@ -45,7 +45,7 @@ class ProfileController {
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.single = (this.user.single==1);
-        this.user.double = (this.user.double==1);
+        this.user.double = (this.user.doble==1);
         
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
