@@ -6,10 +6,12 @@ export class FeedbackController
     public user;
     public feedback;
 
-    constructor(private Load, private $http, private $state, private PATHS, $stateParams){
+    public complete = false;
+    constructor(private Load, private $http, private $state, private PATHS, private $stateParams){
         const vm = this;
         vm.match = Load.data.match;
         vm.user = Load.data.user;
+        vm.complete = Load.data.complete;
     }
 
     public saveFeedback(){
@@ -24,7 +26,7 @@ export class FeedbackController
         console.log(vm.feedback);
         this.$http.post(this.PATHS.api + '/feedback/save', vm.feedback).then(function(resp){
             if(resp.data.success){
-                vm.$state.go('app.home');
+                vm.$state.go('app.match_detail', {id:vm.$stateParams.match_id});
             }
         });
     }

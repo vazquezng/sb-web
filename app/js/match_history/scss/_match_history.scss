@@ -18,7 +18,7 @@
             color: #00a5d7;
         }
     }
-    .container{
+    .container {
         .historyTable {
             text-align: center;
             padding-top: 50px;
@@ -70,19 +70,17 @@
                 }
             }
         }
-        .info{
+        .info {
             height: 400px;
             text-align: center;
             font-family: RobotoLight;
             font-size: 18px;
             margin: auto;
-            span{
-                padding-top: 15%;
+            span {
                 display: block;
             }
         }
     }
-    
     @media (min-width: 768px) {
         .container-small {
             width: 300px;

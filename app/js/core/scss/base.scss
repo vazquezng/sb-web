@@ -10,6 +10,10 @@
 @import "../../match_detail/scss/_match_detail";
 @import "../../my_califications/scss/_my_califications";
 @import "../../feedback/scss/_feedback";
+#loading-bar .bar {
+    position: relative;
+}
+
 body {
     background-color: #ffffff;
     font-family: Open Sans;

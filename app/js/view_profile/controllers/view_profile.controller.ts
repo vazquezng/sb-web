@@ -29,10 +29,12 @@ class ProfileController {
                         '23:00','23:30'];
     public dayList = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
 
+    public stopSave = false;
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
         if(!LoginService.isAuth()){
             $state.go('app.home');
         }  
+
         this.user = LoginService.getUser();
         let vm =  this;
         vm.avatar = this.user.image && this.user.image !== '' ? this.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
@@ -113,7 +115,9 @@ class ProfileController {
     }
 
     public save(form){
-        if(form.$valid){
+        if(form.$valid && !this.stopSave){
+            this.stopSave = true;
+            this.completeForm= false;
             this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
             this.user.country =  this.country && this.country.address_components ? this.country.address_components[this.country.address_components.length-1].long_name : this.country;
             this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
@@ -122,6 +126,7 @@ class ProfileController {
 
             const vm = this;
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
+                vm.stopSave = false;
                 if(resp.data.success){
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
                     vm.user.complete = true;

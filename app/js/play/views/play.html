@@ -44,9 +44,9 @@
                         <div class="address" ng-bind="match.address.substr(0, 30)">
                         </div>
                     </div>
-                    <div class="level-4">
+                    <!--div class="level-4">
                         <img class="mapImg" src="/img/match/mock-map.png" ng-click="vm.openMaps(match.address_lat, match.address_lng)" />
-                    </div>
+                    </div-->
                     <div class="level-5">
                         <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit" ng-click="vm.openModalPlay(match)" />
                     </div>
@@ -72,8 +72,8 @@
             <div class="userInformation">
                 <div class="level-1">
                     <div class="imgContainer">
-                      <img ng-src="{{match.user.image}}" ng-if="::match.user.image!= '' && match.user.image!= null" style="border-radius: 150px;"/>
-                      <img ng-src="{{URL_BUCKET}}/img/profile/profile-blank.png" ng-if="::match.user.image== '' || match.user.image== null" />
+                        <img ng-src="{{match.user.image}}" ng-if="::match.user.image!= '' && match.user.image!= null" style="border-radius: 150px;" />
+                        <img ng-src="{{URL_BUCKET}}/img/profile/profile-blank.png" ng-if="::match.user.image== '' || match.user.image== null" />
                     </div>
                 </div>
                 <div class="level-2">
@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn" ng-if="vm.playBtn" ng-click="play()">QUIERO JUGAR</button>
+                <button type="submit" class="btn" ng-if="vm.playBtn" ng-click="play()" ng-disabled="stopSave">QUIERO JUGAR</button>
             </div>
         </div>
     </div>

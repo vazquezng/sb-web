@@ -21,7 +21,7 @@ export class CreateMatchController
     public map;
     public market;
 
-    private stopSave = false;
+    public stopSave = false;
     constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster){
         if(!LoginService.isAuth()){
           $state.go('app.home');
