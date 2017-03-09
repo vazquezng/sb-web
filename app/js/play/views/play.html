@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="level-4">
-                    <img src="/img/play/doubles-btn.png" />
+                    <img src="/img/play/{{match.type}}-btn.png" />
                 </div>
                 <div ng-if="match.users.length">
                     <div class="level-5">
@@ -112,7 +112,8 @@
                         <div class="row">
                             <div class="col-xs-4 col-center-block" ng-repeat="user in match.users">
                                 <div class="imgContainer">
-                                    <img src="{{user.image}}">
+                                    <img ng-if="!user.image" ng-src="{{URL_BUCKET}}/img/profile/image-icon.png">
+                                    <img ng-if="user.image" ng-src="{{user.image}}">
                                 </div>
                                 <div class="userName">
                                     {{user.name}}
