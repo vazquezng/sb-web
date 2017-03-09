@@ -14,6 +14,8 @@ import 'angular-google-maps';
 
 import 'angularjs-toaster';
 
+import 'angular-loading-bar';
+
 
 
 require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
@@ -24,7 +26,7 @@ const NAME = 'ST-WEB';
 
 const APP  = {
   NAME: NAME,
-  DEPENDENCIES: ['ui.router', 'ui.bootstrap', 'satellizer', 'google.places', 'ngFileUpload', 'rzModule', 'uiGmapgoogle-maps','toaster'],
+  DEPENDENCIES: ['ui.router', 'ui.bootstrap', 'satellizer', 'google.places', 'ngFileUpload', 'rzModule', 'uiGmapgoogle-maps','toaster', 'angular-loading-bar'],
   ADD_MODULE: function (moduleName:string, dependencies?) {
     angular.module(moduleName, dependencies || []);
     angular.module(NAME).requires.push(moduleName);

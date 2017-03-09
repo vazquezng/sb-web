@@ -166,7 +166,7 @@
                 <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
             </div>
         </div>
-        <button type="submit" class="btn" ng-click="vm.save(formProfile)">Guardar</button>
+        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
         <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
     </form>
 </div>
@@ -194,9 +194,9 @@
                 <tr ng-repeat="time in vm.timeList">
                     <td>{{time}}</td>
                     <td ng-repeat="day in vm.dayList">
-                        <input type="checkbox" ng-checked="vm.availabilityList.indexOf('{{day}}-{{time}}') > -1" ng-click="vm.updateAvailability(day, time)"/>
+                        <input type="checkbox" ng-checked="vm.availabilityList.indexOf('{{day}}-{{time}}') > -1" ng-click="vm.updateAvailability(day, time)" />
                     </td>
-                <tr>
+                    <tr>
             </tbody>
         </table>
         <button type="submit" class="btn" ng-click="save()">Guardar</button>

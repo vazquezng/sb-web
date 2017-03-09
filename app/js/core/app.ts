@@ -44,6 +44,10 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
             argentina: true
         });
     }])
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+        cfpLoadingBarProvider.latencyThreshold = 500;
+    }])
     .run(['$rootScope','$state', '$window', function($rootScope, $state, $window){
         //If the route change failed due to authentication error, redirect them out
         $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){

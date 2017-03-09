@@ -58,8 +58,8 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.match.itn" disabled="true" />
-                        <label for="inputITN">ITN</label>
+                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.match.game_level_to" disabled="true" />
+                        <label for="inputGameLevel">Nivel de juego hasta</label>
                     </div>
                 </div>
                 <div class="column">
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="row-form players" ng-repeat="user in vm.match.users" >
+        <div class="row-form players" ng-repeat="user in vm.match.users">
             <div class="form-group userFeedback">
                 <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.name" disabled="true" />
                 <label for="inputPlayer">Jugador</label>

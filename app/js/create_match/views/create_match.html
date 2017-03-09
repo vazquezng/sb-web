@@ -48,7 +48,6 @@
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club"> 
                         <option value="" selected="selected">Otra</option> 
-                        <option value="Nolting">Nolting</option> 
                     </select>
                     <label for="inputPlace">Canchas Abonadas</label>
                 </div>
@@ -126,8 +125,8 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required>
-                        <option value="single" >Singles</option>
-                        <option value="doble">Dobles</option>
+                        <option value="singles" >Singles</option>
+                        <option value="doubles">Dobles</option>
                     </select>
                     <label for="inputMatchType">Tipo de partido</label>
                 </div>
@@ -180,7 +179,7 @@
         </div-->
 
 
-        <button type="submit" class="btn" ng-click="vm.save(formMatch)">Crear Partido</button>
+        <button type="submit" class="btn" ng-click="vm.save(formMatch)" ng-disabled="vm.stopSave">Crear Partido</button>
     </form>
 </div>
 

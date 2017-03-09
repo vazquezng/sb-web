@@ -21,7 +21,7 @@ export class CreateMatchController
     public map;
     public market;
 
-    private stopSave = false;
+    public stopSave = false;
     constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster){
         if(!LoginService.isAuth()){
           $state.go('app.home');
@@ -65,12 +65,10 @@ export class CreateMatchController
 
     public save(form){
         const vm = this;
-        this.match.hour = this.match.hour.toLocaleTimeString();
-        
         if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to && !this.stopSave){
             this.stopSave = !this.stopSave;
             
-            
+            this.match.hour = this.match.hour.toLocaleTimeString();
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
                     vm.$state.go('app.matchHistory');
