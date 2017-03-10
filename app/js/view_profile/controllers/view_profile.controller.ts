@@ -114,12 +114,28 @@ class ProfileController {
         }
     }
 
+    private getCountryFromAddress(){
+        for (var i=0; i < this.address.address_components.length; i++) {
+          for (var j=0; j < this.address.address_components[i].types.length; j++) {
+            if (this.address.address_components[i].types[j] == "country") {
+              return this.address.address_components[i].long_name;
+            }
+          }
+        }
+    }
+
     public save(form){
+        
+        
+        
+        
         if(form.$valid && !this.stopSave){
             this.stopSave = true;
             this.completeForm= false;
-            this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
-            this.user.country =  this.country && this.country.address_components ? this.country.address_components[this.country.address_components.length-1].long_name : this.country;
+            /*this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
+            this.user.country =  this.country && this.country.address_components ? this.country.address_components[this.country.address_components.length-1].long_name : this.country;*/
+            this.user.city = this.address.types && this.address.types [0]=="street_address" ? this.address.vicinity : this.user.city;
+            this.user.country = this.address.types && this.address.types [0]=="street_address" ? this.getCountryFromAddress(): this.user.country;
             this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
             this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
             this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
