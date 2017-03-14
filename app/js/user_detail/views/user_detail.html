@@ -1,16 +1,18 @@
-<div class="viewProfile">
+<div class="userDetail">
     <div class="header">
         <img src="/img/profile/header-profile.png" />
     </div>
 
-    <div class="titleDiv">
-        <div class="centerTitle"></div>
+   <div class="titleDiv">
+        <div class="centerTitle">
+            Perfil del usuario
+        </div>
     </div>
 
     <form name="formProfile" novalidate>
         <div id="imageBox">
             <div class="leftBracket"></div>
-            <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
+            <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{quality:0.8}">
                 <div class="imgContainer">
                     <img class="profileImg" ng-src="{{vm.avatar}}" />
                 </div>
@@ -21,13 +23,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" required/>
+                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" disabled="true"/>
                         <label for="inputName">Nombre</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" required/>
+                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" disabled="true"/>
                         <label for="inputSurname">Apellido</label>
                     </div>
                 </div>
@@ -35,7 +37,7 @@
 
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" required/>
+                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" disabled="true"/>
                     <label for="inputEmail">Email</label>
                 </div>
             </div>
@@ -44,13 +46,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/>
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" disabled="true"/>
                         <label for="inputAge">Edad</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
+                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" disabled="true">
                             <option value="male">Masculino</option>
                             <option value="female">Femenino</option>
                         </select>
@@ -66,7 +68,7 @@
             </div-->
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" />
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" ng-model="vm.user.address" />
                     <label for="inputCity">Dirección</label>
                 </div>
             </div>
@@ -89,26 +91,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" required> 
-                            <option value="2.5">2.5</option> 
-                            <option value="3">3.0</option> 
-                            <option value="3.5">3.5</option> 
-                            <option value="4">4.0</option> 
-                            <option value="4.5">4.5</option> 
-                            <option value="5">5.0</option> 
-                            <option value="5.5">5.5</option> 
-                            <option value="6">6.0</option> 
-                            <option value="6.5">6.5</option> 
-                            <option value="7">7.0</option> 
-                        </select>
-                        <label for="inputGameLevel">Nivel de juego</label>
+                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" disabled="true"/>
+                        <label for="inputITN">Nivel de juego</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn" required>
-                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option>
-                        </select>
+                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn" disabled="true"/>
                         <label for="inputITN">ITN</label>
                     </div>
                 </div>
@@ -145,12 +134,7 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <rzslider rz-slider-model="vm.user.distance" rz-slider-options="{floor: 2,
-                    ceil: 50,
-                    step: 2,
-                    minLimit: 2,
-                    maxLimit: 50,
-                    showSelectionBar: true}"></rzslider>
+                    <input type="text" class="form-control" name="inputDistance" id="inputDistance" ng-model="vm.user.distance">
                     <label for="inputDistance">Distancia para jugar un partido</label>
                 </div>
             </div>
@@ -166,7 +150,7 @@
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAboutMe">SOBRE MI</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" disabled="true"></textarea>
             </div>
         </div>
         <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
