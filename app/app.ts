@@ -7,6 +7,7 @@ require('./js/login/login.module.ts');
 require('./js/friends/friends.module.ts');
 require('./js/match_history/match_history.module.ts');
 require('./js/match_detail/match_detail.module.ts');
+require('./js/user_detail/user_detail.module.ts');
 require('./js/my_califications/my_califications.module.ts');
 require('./js/feedback/feedback.module.ts');
 require('./js/achievements/achievements.module.ts');

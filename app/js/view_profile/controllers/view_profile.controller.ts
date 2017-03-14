@@ -126,9 +126,6 @@ class ProfileController {
 
     public save(form){
         
-        
-        
-        
         if(form.$valid && !this.stopSave){
             this.stopSave = true;
             this.completeForm= false;

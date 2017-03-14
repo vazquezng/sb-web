@@ -65,7 +65,7 @@ export class CreateMatchController
 
     public save(form){
         const vm = this;
-        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<this.match.years_to && !this.stopSave){
+        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<=this.match.years_to && !this.stopSave){
             this.stopSave = !this.stopSave;
             
             this.match.hour = this.match.hour.toLocaleTimeString();

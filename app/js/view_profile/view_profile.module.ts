@@ -15,6 +15,17 @@ angular
         controller: 'ProfileController',
         controllerAs: 'vm'
     });
+    /*$stateProvider.state('app.profile', {
+        url: '/view_profile/:id',
+        template: tplMatchDetail,
+        controller: 'ProfileController',
+        controllerAs: 'vm',
+        resolve:{
+          Load: ['$http', '$state', 'PATHS', '$stateParams', function($http, $state, PATHS, $stateParams){
+            return $http.get(PATHS.api + '/feedback/detail/' + $stateParams.match_id + '/' + $stateParams.user_id);
+          }]
+        }
+    });*/
   }]);
 
 angular
