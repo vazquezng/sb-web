@@ -180,7 +180,12 @@
         background-position: center;
     }
 }
-
+.modal-dialog{
+    width: 600px;
+    input{
+        text-align: center;
+    }
+}
 .modalDetail {
     text-align: center;
     padding: 4px !important;
@@ -315,6 +320,9 @@
             font-weight: bold;
             margin-top: 25px;
             margin-bottom: 25px;
+            .ng-pristine{
+                width: 100%;
+            }
         }
         .playerGrid {
             margin-top: 25px;

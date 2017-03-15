@@ -104,6 +104,46 @@
                 <div class="level-4">
                     <img src="/img/play/{{match.type}}-btn.png" />
                 </div>
+                <div class="level-5">
+                    <form>
+                        <div class="row-form">
+                            <div class="column">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="match.game_level_from" disabled="true" />
+                                    <label for="inputGameLevel">Nivel de juego desde</label>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="match.game_level_to" disabled="true" />
+                                    <label for="inputGameLevel">Nivel de juego hasta</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-form">
+                            <div class="column">
+                                <div class="column">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="match.years_from" disabled="true" />
+                                        <label for="inputAge">Edad Desde</label>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="inputAge" id="inputAge" ng-model="match.years_to" disabled="true" />
+                                        <label for="inputAge">Edad Hasta</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="inputGender" id="inputGender" ng-model="match.sexo" disabled="true" />
+                                    <label for="inputGender">Sexo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div ng-if="match.users.length">
                     <div class="level-5">
                         Mirá los jugadores <span>ya anotados</span>
@@ -116,7 +156,7 @@
                                     <img ng-if="user.image" ng-src="{{user.image}}">
                                 </div>
                                 <div class="userName">
-                                    {{user.first_name}}
+                                    <a ui-sref="app.user_detail({user_id: user.id})">{{user.first_name}}</a>
                                 </div>
                             </div>
                         </div>

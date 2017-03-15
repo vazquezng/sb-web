@@ -21,43 +21,32 @@
         </div>
         <div class="row-form">
             <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" disabled="true"/>
-                        <label for="inputName">Nombre</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" disabled="true"/>
-                        <label for="inputSurname">Apellido</label>
-                    </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" disabled="true"/>
+                    <label for="inputName">Nombre</label>
                 </div>
             </div>
-
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" disabled="true"/>
-                    <label for="inputEmail">Email</label>
+                    <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" disabled="true"/>
+                    <label for="inputSurname">Apellido</label>
                 </div>
             </div>
         </div>
         <div class="row-form">
             <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" disabled="true"/>
-                        <label for="inputAge">Edad</label>
-                    </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" disabled="true"/>
+                    <label for="inputAge">Edad</label>
                 </div>
-                <div class="column">
-                    <div class="form-group">
-                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" disabled="true">
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                        </select>
-                        <label for="inputGender">Sexo</label>
-                    </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" disabled="true">
+                        <option value="male">Masculino</option>
+                        <option value="female">Femenino</option>
+                    </select>
+                    <label for="inputGender">Sexo</label>
                 </div>
             </div>
             <!--div class="column">
@@ -66,12 +55,6 @@
                     <label for="inputCountry">País</label>
                 </div>
             </div-->
-            <div class="column">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" ng-model="vm.user.address" />
-                    <label for="inputCity">Dirección</label>
-                </div>
-            </div>
         </div>
         <!--div class="row-form">
             <div class="column">
@@ -105,13 +88,13 @@
             <div class="column">
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.single" />
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" disabled/>
                         <label for="inputCity">Singles</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.doble" />
+                        <input type="checkbox" class="form-control" ng-model="vm.user.doble" disabled/>
                         <label for="inputCity">Dobles</label>
                     </div>
                 </div>
@@ -120,7 +103,7 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach">
+                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach" disabled>
                     <label for="inputCoachProfessor">Coach/Professor</label>
                 </div>
             </div>
@@ -134,13 +117,13 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputDistance" id="inputDistance" ng-model="vm.user.distance">
+                    <input type="text" class="form-control" name="inputDistance" id="inputDistance" ng-model="vm.user.distance" disabled>
                     <label for="inputDistance">Distancia para jugar un partido</label>
                 </div>
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member" disabled> 
                         <option value="0">Ninguno</option> 
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>
@@ -150,11 +133,9 @@
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAboutMe">SOBRE MI</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" disabled="true"></textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" disabled></textarea>
             </div>
         </div>
-        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
-        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
     </form>
 </div>
 <sb-footer></sb-footer>
@@ -181,7 +162,7 @@
                 <tr ng-repeat="time in vm.timeList">
                     <td>{{time}}</td>
                     <td ng-repeat="day in vm.dayList">
-                        <input type="checkbox" ng-checked="vm.availabilityList.indexOf('{{day}}-{{time}}') > -1" ng-click="vm.updateAvailability(day, time)" />
+                        <input type="checkbox" ng-checked="vm.availabilityList.indexOf('{{day}}-{{time}}') > -1" disabled />
                     </td>
                     <tr>
             </tbody>

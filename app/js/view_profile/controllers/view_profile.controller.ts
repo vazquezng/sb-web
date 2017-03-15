@@ -123,8 +123,13 @@ class ProfileController {
           }
         }
     }
-
+    
     public save(form){
+        const vm = this;
+        if(!this.address.types || this.address.types [0]!="street_address" ){
+             vm.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
+             return;
+        }
         
         if(form.$valid && !this.stopSave){
             this.stopSave = true;
@@ -137,7 +142,6 @@ class ProfileController {
             this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
             this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
 
-            const vm = this;
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 vm.stopSave = false;
                 if(resp.data.success){

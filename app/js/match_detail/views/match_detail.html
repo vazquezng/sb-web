@@ -84,12 +84,24 @@
                 </div>
             </div>
         </div>
-        <div class="row-form players" ng-repeat="user in vm.match.users">
+        <div class="row-form players" ng-repeat="matchPlayer in vm.match.matchPlayer">
             <div class="form-group userFeedback">
-                <input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="user.first_name" disabled="true" />
+                <a ui-sref="app.user_detail({user_id: matchPlayer.user.id})"><input type="text" class="form-control" name="inputPlayer" id="inputPlayer" ng-model="matchPlayer.user.first_name" disabled="true" /></a>
                 <label for="inputPlayer">Jugador</label>
             </div>
-            <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch != true && user.id !== vm.user.id" ng-click="vm.createFeedback(vm.match.id, user.id)">DANOS TU FEEDBACK</button>
+            <div ng-if="matchPlayer.user.id != vm.user.id">
+                <button type="submit" class="btn feedbackBtn" ng-if="!vm.match.futureMatch" ng-click="vm.createFeedback(vm.match.id, matchPlayer.user.id)">DANOS TU FEEDBACK</button>
+                <div ng-if="matchPlayer.state == 'pending'">
+                    <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.acceptUser(matchPlayer.id)">ACEPTAR</button>
+                    <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.refuseUser(matchPlayer.id)">RECHAZAR</button>
+                </div>
+                <div ng-if="matchPlayer.state == 'confirmed'">
+                    CONFIRMADO
+                </div>
+                <div ng-if="matchPlayer.state == 'rejected'">
+                    RECHAZADO
+                </div>
+            </div>
         </div>
     </form>
 </div>
