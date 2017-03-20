@@ -71,7 +71,7 @@ export class CreateMatchController
             this.match.hour = this.match.hour.toLocaleTimeString();
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
-                    vm.$state.go('app.matchHistory');
+                    vm.$state.go('app.suggested_players', {match_id:resp.data.match_id});
                 }
             });
         }else{

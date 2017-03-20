@@ -29,8 +29,18 @@ export class MatchDetailController
         });
     }
 
-    public refuseUser(userId){
+    public refuseUser(matchPlayerId){
+        const vm = this;
+        var $paramObj = {id: matchPlayerId, state: 'rejected'};
         
+        this.$http.post(this.PATHS.api + '/match/updatePlayerRequest', $paramObj).then(function(resp){
+            if(resp.data.success){
+                vm.toaster.pop({type: 'success', body: 'Rechazaste al usuario!',timeout: 2000});
+                vm.$state.go('app.matchHistory');
+            }else{
+                vm.toaster.pop({type: 'error', body: 'No se pudo confirmar el usuario',timeout: 2000});
+            }
+        });
     }
 
     createFeedback(match_id, user_id){
