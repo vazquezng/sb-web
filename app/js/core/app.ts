@@ -12,7 +12,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
     function($httpProvider, $locationProvider, $urlRouterProvider, $authProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
-        
+
         //$locationProvider.html5Mode(true).hashPrefix('*');
         $urlRouterProvider.otherwise('/');
     }])
@@ -34,7 +34,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
               }
           };
       }]);
-      
+
       $httpProvider.defaults.headers.patch = {
           'Content-Type': 'application/json;charset=utf-8'
       };
@@ -59,9 +59,9 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
           // display new view from top
           $window.scrollTo(0, 0);
         });
-        
+
         $rootScope.URL_BUCKET = (<any>window).URL_BUCKET;
-        
+
     }]);
 
 if (!(<any>window).DEV) {
@@ -86,10 +86,10 @@ angular.element(document).ready(function () {
 
 (<any>window).fbAsyncInit = function() {
     console.log('fbAsyncInit');
-    (<any>window).FB.init({ 
+    (<any>window).FB.init({
       appId: (<any>window).FACEBOOK_ID,
-      status: true, 
-      cookie: true, 
+      status: true,
+      cookie: true,
       version: 'v2.4'
     });
 };

@@ -10,7 +10,7 @@ import 'ng-file-upload';
 
 import 'angularjs-slider';
 import 'angular-simple-logger';
-import 'angular-google-maps'; 
+import 'angular-google-maps';
 
 import 'angularjs-toaster';
 
