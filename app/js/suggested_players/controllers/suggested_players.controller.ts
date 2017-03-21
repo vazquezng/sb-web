@@ -1,17 +1,24 @@
 export class SuggestedPlayersController 
 {   
-    static $inject = ['Players', '$scope', '$http', 'PATHS', 'toaster'];
+    static $inject = ['Players', '$scope', '$http', '$stateParams', 'PATHS', 'toaster'];
 
     public users;
 
-    constructor(private Players, private $scope, private $http, private PATHS, toaster){
-        
+    public toaster;
+    
+    public match_id;
+    
+
+    constructor(private Players, private $scope, private $http, private $stateParams, private PATHS, toaster){
+        this.toaster = toaster;
         this.users = Players.data.players;
+        this.match_id = $stateParams.match_id;
     }
 
     public invite(user_id){
         const vm = this;
-        this.$http.post(this.PATHS.api + '/match/invite', user_id).then(function(resp){
+        var paramObj = {user_id: user_id, match_id: this.match_id};
+        this.$http.post(this.PATHS.api + '/match/invite', paramObj).then(function(resp){
                 if(resp.data.success){
                     vm.toaster.pop({type:'info', body:'Invitación enviada.'})
                 }
@@ -20,4 +27,4 @@ export class SuggestedPlayersController
 }
 
 angular.module('SuggestedPlayers')
-        .controller('SuggestedPlayersController', ['Players', '$scope', '$http', 'PATHS', 'toaster', SuggestedPlayersController]);
+        .controller('SuggestedPlayersController', ['Players', '$scope', '$http', '$stateParams', 'PATHS', 'toaster', SuggestedPlayersController]);

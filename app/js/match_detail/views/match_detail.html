@@ -91,16 +91,33 @@
             </div>
             <div ng-if="matchPlayer.user.id != vm.user.id">
                 <button type="submit" class="btn feedbackBtn" ng-if="!vm.match.futureMatch" ng-click="vm.createFeedback(vm.match.id, matchPlayer.user.id)">DANOS TU FEEDBACK</button>
-                <div ng-if="matchPlayer.state == 'pending'">
+                <div ng-if="matchPlayer.state == 'pendingRequest'">
                     <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.acceptUser(matchPlayer.id)">ACEPTAR</button>
                     <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.refuseUser(matchPlayer.id)">RECHAZAR</button>
                 </div>
-                <div ng-if="matchPlayer.state == 'confirmed'">
-                    CONFIRMADO
+                <div class="status" ng-if="vm.match.futureMatch && matchPlayer.state == 'pendingInvitation'">
+                        INVITACIÓN ENVIADA
                 </div>
-                <div ng-if="matchPlayer.state == 'rejected'">
-                    RECHAZADO
+            </div>
+            <div ng-if="matchPlayer.user.id == vm.user.id">
+                <div ng-if="matchPlayer.state == 'pendingInvitation'">
+                    <div ng-if="vm.match.id_user != vm.user.id">
+                        <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.acceptMatch(matchPlayer.id)">ACEPTAR</button>
+                        <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.refuseMatch(matchPlayer.id)">RECHAZAR</button>
+                    </div>
                 </div>
+                <div class="status" ng-if="vm.match.futureMatch && matchPlayer.state == 'pendingRequest'">
+                    SOLICITUD PENDIENTE
+                </div>
+            </div>
+            <div class="status" ng-if="matchPlayer.state == 'confirmed'">
+                CONFIRMADO
+            </div>
+            <div class="status" ng-if="matchPlayer.state == 'rejected'">
+                SOLICITUD RECHAZADA
+            </div>
+            <div class="status" ng-if="matchPlayer.state == 'invitationDeclined'">
+                INVITACIÓN RECHAZADA
             </div>
         </div>
     </form>

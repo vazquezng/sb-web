@@ -6,7 +6,7 @@
             <!-- Simple dropdown -->
             <img ng-if="vm.user != null" class="profileImg" src="{{vm.avatar}}" style="border-radius: 164px;width:40px;height:40px;margin: 0;margin-right: 5px;" />
             <span uib-dropdown on-toggle="toggled(open)">
-                <a ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name? vm.user.name : vm.user.first_name"></a>
+                <a ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name? vm.user.name : '>'"></a>
                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
                     <li>
                         <a ui-sref="app.profile">Perfil</a>

@@ -27,7 +27,13 @@ class ProfileController {
                         '21:00','21:30',
                         '22:00','22:30',
                         '23:00','23:30'];
-    public dayList = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    public dayList = [ ['Lunes', 'Monday'], 
+                      ['Martes', 'Tuesday'], 
+                      ['Miercoles', 'Wednesday'], 
+                      ['Jueves', 'Thursday'], 
+                      ['Viernes', 'Friday'], 
+                      ['Sabado', 'Saturdat'], 
+                      ['Domingo', 'Sunday']];
 
     public stopSave = false;
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
