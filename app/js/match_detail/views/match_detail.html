@@ -120,6 +120,9 @@
                 INVITACIÓN RECHAZADA
             </div>
         </div>
+    <div ng-if="vm.match.id_user == vm.user.id">
+        <button type="submit" class="btn suggestedPlayers" ng-if="vm.match.futureMatch" ui-sref="app.suggested_players({match_id: vm.match.id})">VER JUGADORES SUGERIDOS</button>
+    </div>
     </form>
 </div>
 <sb-footer></sb-footer>
