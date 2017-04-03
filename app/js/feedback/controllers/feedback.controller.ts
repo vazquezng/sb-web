@@ -7,11 +7,13 @@ export class FeedbackController
     public feedback;
 
     public complete = false;
+    public avatar;
     constructor(private Load, private $http, private $state, private PATHS, private $stateParams, private toaster){
         const vm = this;
         vm.match = Load.data.match;
         vm.user = Load.data.user;
         vm.complete = Load.data.complete;
+        vm.avatar = this.user.image && this.user.image !== '' ? this.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
     }
 
     public saveFeedback(){

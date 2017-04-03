@@ -1,0 +1,48 @@
+.canchas-login, .canchas-create{
+  input, button {
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 2%;
+    margin-bottom: 10px;
+  }
+  .header {
+    .desc {
+      position: absolute;
+      left: 0%;
+      top: 35%;
+      text-align: center;
+    }
+    a {
+      font-size: 20px;
+      color: #fff;
+      &:hover{
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.canchas-create {
+  .header {
+    .desc {
+      top: 22%;
+    }
+  }
+  form {
+    width: 40%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    input[type=text] {
+      background: transparent !important;
+      border: 1px solid #fff !important;
+      border-radius: 5px !important;
+      padding: 2%;
+    }
+  }
+}

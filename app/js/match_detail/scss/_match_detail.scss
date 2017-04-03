@@ -33,9 +33,13 @@
     .players {
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: center;
     }
     .status {
-            MARGIN: AUTO;
+        margin: 0 auto;
+        font-size: 12px;
+        font-weight: 900;
+        color: #5ca3d4;
+        margin-left: 5px;
     }
 }

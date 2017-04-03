@@ -8,7 +8,6 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
     user = user !== null ? JSON.parse(user) : user;
     let vm = this;
     $rootScope.$on('logout', function(){
-      debugger;
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('user');
         (<any>window).location ='/';
