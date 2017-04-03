@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form name="formMatch" novalidate>
+    <form name="formMatch" ng-submit="vm.save(formMatch)">
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
@@ -179,7 +179,7 @@
         </div-->
 
 
-        <button type="submit" class="btn" ng-click="vm.save(formMatch)" ng-disabled="vm.stopSave">Crear Partido</button>
+        <button type="submit" class="btn" ng-disabled="vm.stopSave">Crear Partido</button>
     </form>
 </div>
 

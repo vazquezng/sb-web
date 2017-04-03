@@ -51,12 +51,15 @@ export class CreateMatchController
         }
 
         if(this.match.years_from <= 17){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser mayor a 17 años.'})
         }
         if(this.match.years_from > 100){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a 100 años.'})
         }
         if(this.match.years_from > this.match.years_to){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a la "Edad hasta".'})
         }
     }
