@@ -144,19 +144,19 @@
                         </div>
                     </form>
                 </div>
-                <div ng-if="match.users.length">
+                <div ng-if="match.matchPlayers.length">
                     <div class="level-5">
                         Mirá los jugadores <span>ya anotados</span>
                     </div>
                     <div class="playerGrid">
                         <div class="row">
-                            <div class="col-xs-4 col-center-block" ng-repeat="user in match.users">
+                            <div class="col-xs-4 col-center-block" ng-repeat="player in match.matchPlayers">
                                 <div class="imgContainer">
-                                    <img ng-if="!user.image" ng-src="{{URL_BUCKET}}/img/profile/image-icon.png">
-                                    <img ng-if="user.image" ng-src="{{user.image}}">
+                                    <img ng-if="!player.user.image" ng-src="{{URL_BUCKET}}/img/profile/profile-blank.png">
+                                    <img ng-if="player.user.image" ng-src="{{player.user.image}}">
                                 </div>
                                 <div class="userName">
-                                    <a ui-sref="app.user_detail({user_id: user.id})">{{user.first_name}}</a>
+                                    <a ui-sref="app.user_detail({user_id: player.user.id})">{{player.user.first_name}}</a>
                                 </div>
                             </div>
                         </div>

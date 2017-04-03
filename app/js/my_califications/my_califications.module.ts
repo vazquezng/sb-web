@@ -15,6 +15,11 @@ angular
         url: '/my_califications',
         template: tplMyCalifications,
         controller: 'MyCalificationsController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve:{
+          Califications: ['$http', 'PATHS', function($http, PATHS) {
+            return $http.get(PATHS.api + '/feedback/califications');
+          }],
+        },
     });
   }]);

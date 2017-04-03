@@ -14,6 +14,8 @@ require('./js/achievements/achievements.module.ts');
 require('./js/courts/courts.module.ts');
 require('./js/suggested_players/suggested_players.module.ts');
 
+import './js/admin-canchas/admin-canchas.module';
+
 (<any>window).validaNumber =  function(e){
     let tecla = (document.all) ? e.keyCode : e.which;
 
