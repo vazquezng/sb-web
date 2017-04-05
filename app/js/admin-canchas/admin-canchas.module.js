@@ -12,6 +12,7 @@ angular
   .config(['$stateProvider', function($stateProvider){
     const tplCanchasLogin = require('./views/canchas-login.html');
     const tplCanchasCreate = require('./views/canchas-create.html');
+    const tplCanchasProfile = require('./views/canchas-profile.html');
     $stateProvider.state('app.admin-canchas', {
         url: '/admin-canchas',
         template: tplCanchasLogin,
@@ -21,6 +22,12 @@ angular
         url: '/admin-canchas/create',
         template: tplCanchasCreate,
         controller: 'CanchasCreateController',
+        controllerAs: 'vm'
+    })
+    .state('app.admin-canchas-profile', {
+        url: '/admin-canchas/profile',
+        template: tplCanchasProfile,
+        controller: 'CanchasProfileController',
         controllerAs: 'vm'
     });
   }]);

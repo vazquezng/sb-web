@@ -2,12 +2,12 @@
   <div class="header ng-scope"> 
     <img ng-src="/img/header-home.png"> 
     <div class="desc"> 
-      <form>
-        <input type="text" placeholder="Nombre del club" ng-model="vm.name" />
-        <input type="email" placeholder="Email" ng-model="vm.email" />
-        <input type="password" placeholder="Password" ng-model="vm.password" />
-        <input type="password" placeholder="Repetir password" ng-model="vm.password_repeat" />
-        <button>CREAR</button>
+      <form name="canchasForm">
+        <input type="text" placeholder="Nombre del club" ng-model="vm.name" required/>
+        <input type="email" placeholder="Email" ng-model="vm.email" required/>
+        <input type="password" placeholder="Password" minlength="8" ng-model="vm.password" required/>
+        <input type="password" placeholder="Repetir password" minlength="8" ng-model="vm.password_repeat" required/>
+        <button ng-click="vm.create(canchasForm)">CREAR</button>
       </form>
       <a ui-sref="app.admin-canchas">Login</a>
     </div> 

@@ -2,10 +2,10 @@
   <div class="header ng-scope"> 
     <img ng-src="/img/header-home.png"> 
     <div class="desc"> 
-      <form>
+      <form name="canchasLogin">
         <input type="email" placeholder="email" ng-model="vm.email" />
         <input type="password" placeholder="password" ng-model="vm.password" />
-        <button>INGRESAR</button>
+        <button ng-click="vm.auth(canchasLogin)">INGRESAR</button>
       </form>
       <a ui-sref="app.admin-canchas-crear">Crear Usuario</a>
     </div> 

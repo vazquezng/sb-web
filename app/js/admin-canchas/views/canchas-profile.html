@@ -1,0 +1,67 @@
+<div class="canchas-profile">
+    <div class="header">
+        <img src="/img/profile/header-profile.png" />
+    </div>
+
+    <div class="titleDiv">
+        <div class="centerTitle"></div>
+    </div>
+
+    <form name="formProfile" novalidate>
+        <div class="row-form">
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.name" required/>
+                    <label for="inputName">Nombre</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" required/>
+                    <label for="inputEmail">Email</label>
+                </div>
+            </div>
+        </div>
+        <div class="row-form">
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" autocomplete="false" />
+                    <label for="inputCity">Dirección</label>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputPhone" id="inputPhone" ng-model="vm.user.phone" onkeypress="return validaNumber(event)" required/>
+                    <label for="inputCity">Telefono</label>
+                </div>
+            </div>
+        </div>
+        <div class="row-form">
+            <div class="column">
+                <div class="form-group">
+                    <div class="image" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
+                      <label for="inputCity">Image <small>(Haz click aquí)</small></label>
+                    </div>
+                    <div class="imgContainer" ng-if="vm.avatar !== ''">
+                      <img class="" ng-src="{{vm.avatar}}" />
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputPrice" id="inputPrice" ng-model="vm.user.price" onkeypress="return validaNumber(event)" required/>
+                    <label for="inputCity">Precio por Hora</label>
+                </div>
+            </div>
+        </div>
+        <div class="row-form">
+            <div class="form-group">
+                <label for="inputAboutMe">SOBRE MI</label>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
+            </div>
+        </div>
+        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
+        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
+    </form>
+</div>
+<sb-footer></sb-footer>

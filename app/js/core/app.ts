@@ -23,7 +23,10 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
                   config.headers = config.headers || {};
                   if ( window.localStorage.getItem('token')){
                       config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token');
+                  }else if ( window.localStorage.getItem('token-cancha')){
+                    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token-cancha');
                   }
+                  
                   return config;
               },
               'responseError': function (response) {
