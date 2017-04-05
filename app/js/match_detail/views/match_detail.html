@@ -110,7 +110,7 @@
                     SOLICITUD PENDIENTE
                 </div>
             </div>
-            <div class="status" ng-if="matchPlayer.state == 'confirmed'">
+            <div class="status" ng-if="vm.match.futureMatch && matchPlayer.state == 'confirmed'">
                 CONFIRMADO
             </div>
             <div class="status" ng-if="matchPlayer.state == 'rejected'">
@@ -120,7 +120,7 @@
                 INVITACIÓN RECHAZADA
             </div>
         </div>
-    <div ng-if="vm.match.id_user == vm.user.id">
+    <div ng-if="vm.match.futureMatch && vm.match.is_incomplete && vm.match.id_user == vm.user.id">
         <button type="submit" class="btn suggestedPlayers" ng-if="vm.match.futureMatch" ui-sref="app.suggested_players({match_id: vm.match.id})">VER JUGADORES SUGERIDOS</button>
     </div>
     </form>

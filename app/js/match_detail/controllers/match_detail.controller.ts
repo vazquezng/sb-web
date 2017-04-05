@@ -10,6 +10,11 @@ export class MatchDetailController
         vm.$http.get(vm.PATHS.api + '/match/' + $stateParams.id)
             .then(function(resp){
                 vm.match = resp.data.match;
+                if(vm.match.type == 'singles'){
+                   vm.match.is_incomplete = vm.match.matchPlayer.length < 2; 
+                }else{
+                    vm.match.is_incomplete = vm.match.matchPlayer.length < 4; 
+                }
             });
 
     }
