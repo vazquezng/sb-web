@@ -145,8 +145,8 @@ class ProfileController {
             this.user.city = this.address.types && this.address.types [0]=="street_address" ? this.address.vicinity : this.user.city;
             this.user.country = this.address.types && this.address.types [0]=="street_address" ? this.getCountryFromAddress(): this.user.country;
             this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
-            this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
-            this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
+            this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.address_lat;
+            this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.address_lng;
 
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 vm.stopSave = false;
