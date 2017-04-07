@@ -38,8 +38,11 @@
 
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" required/>
+                    <input type="email" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" ng-pattern="vm.emailFormat" required/>
                     <label for="inputEmail">Email</label>
+                    <span class="error" style="color:darkred" ng-show="formProfile.inputEmail.$error.pattern">
+                    Formato Invalido
+                  </span>
                 </div>
             </div>
         </div>

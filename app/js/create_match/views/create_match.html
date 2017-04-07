@@ -72,7 +72,7 @@
                 <label class="subtitle">Nivel de juego</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" required> 
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required> 
                            <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -89,7 +89,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" required> 
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required> 
                             <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 

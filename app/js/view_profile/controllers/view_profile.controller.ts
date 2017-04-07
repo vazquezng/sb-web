@@ -4,7 +4,7 @@ class ProfileController {
     public user;
     public image;
     public avatar;
-
+    public emailFormat = /^[a-z]+[a-z0-9._\-]+@[a-z]+\.[a-z]{2,5}\.?[a-z]{0,5}$/;
     public country;
     public city;
     public address;
@@ -132,7 +132,7 @@ class ProfileController {
     
     public save(form){
         const vm = this;
-        if(!this.address.types || this.address.types [0]!="street_address" ){
+        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
              vm.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
              return;
         }

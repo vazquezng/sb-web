@@ -42,7 +42,6 @@ export class PlayController
         var myLatLng = { latitude: match.address_lat, longitude: match.address_lng };
         this.$scope.match = match;
         this.$scope.map = { center: myLatLng, zoom: 16 };
-        
         this.$scope.timestamp = new Date().getTime();
         this.$scope.stopSave = false;
         vm.$http.get(vm.PATHS.api + '/match/players/' + vm.$scope.match.id)

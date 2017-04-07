@@ -64,6 +64,13 @@ export class CreateMatchController
         }
     }
 
+    public validateLevel(){
+        if(this.match.game_level_from > this.match.game_level_to){
+            this.match.game_level_to = this.match.game_level_from;
+            this.toaster.pop({type:'info', body:'El "Nivel desde" debe ser menor o igual al "Nivel hasta".'})
+        }
+    }
+
     public save(form){
         const vm = this;
         if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<=this.match.years_to && !this.stopSave){
