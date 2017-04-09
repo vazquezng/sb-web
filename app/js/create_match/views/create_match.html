@@ -24,7 +24,7 @@
             border: 1px solid #5ca3d4 !important;">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                        <input type="date" data-date-format="DD MMMM YYYY" class="form-control" ng-model="vm.match.date" required>
+                        <input type="date" min="{{vm.date | date:'yyyy-MM-dd'}}" class="form-control" ng-model="vm.match.date" required>
                     </div>
 
                     <label for="inputDate">Fecha</label>
@@ -33,11 +33,13 @@
             <div class="column">
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon" style="background: rgba(32, 163, 212, 0.5) !important;
+                        <!--span class="input-group-addon" style="background: rgba(32, 163, 212, 0.5) !important;
             border: 1px solid #5ca3d4 !important;">
                             <i class="glyphicon glyphicon-time"></i>
                         </span>
-                        <input required type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour" required>
+                        <input required type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour" required-->
+                        <div uib-timepicker show-spinners="false" ng-model="vm.match.hour" minute-step="30" ng-change="vm.timechange()" show-meridian="vm.ismeridian"></div>
+
                     </div>
                     <label for="inputHora">Hora</label>
                 </div>

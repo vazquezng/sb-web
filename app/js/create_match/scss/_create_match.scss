@@ -97,6 +97,12 @@
         .input90 {
             width: 90%;
         }
+        .uib-timepicker .btn-default, .uib-timepicker .btn-default:hover{
+            background-image: none;
+            background-color: #90d1ea;
+            border-color: #5ca3d4;
+            color: black;
+        }
     }
     .angular-google-map-container {
         height: 100px;

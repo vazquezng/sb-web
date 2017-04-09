@@ -5,7 +5,7 @@ export class CreateMatchController
     static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster'];
 
     public match:any = {
-        date: new Date(),
+        date: new Date((new Date()).getTime() + 24 * 60 * 60 * 1000),
         hour: new Date(moment('15:30','HH:mm')),
         address: '',
         address_lat:'',
@@ -18,6 +18,19 @@ export class CreateMatchController
     public address;
     public map;
     public market;
+    public date = new Date((new Date()).getTime() + 24 * 60 * 60 * 1000);
+
+    public mytime = new Date(moment('15:30','HH:mm'));
+
+    public ismeridian = true;
+
+    public timechange(){
+        if(this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30){
+            this.toaster.pop({type:'info', body:'Solo se admiten intervalos de 30 minutos.'});
+            this.match.hour = new Date(moment('15:30','HH:mm'));
+        }
+    }
+
 
     public stopSave = false;
     constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster){
@@ -30,7 +43,6 @@ export class CreateMatchController
         }
 
         this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
-        console.log(new Date(moment('15:30','HH:mm a')));
     }
 
     public changeAddress(){
