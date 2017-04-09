@@ -51,13 +51,23 @@ export class CreateMatchController
         }
 
         if(this.match.years_from <= 17){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser mayor a 17 años.'})
         }
         if(this.match.years_from > 100){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a 100 años.'})
         }
         if(this.match.years_from > this.match.years_to){
+            this.match.years_to = null;
             this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a la "Edad hasta".'})
+        }
+    }
+
+    public validateLevel(){
+        if(this.match.game_level_from > this.match.game_level_to){
+            this.match.game_level_to = this.match.game_level_from;
+            this.toaster.pop({type:'info', body:'El "Nivel desde" debe ser menor o igual al "Nivel hasta".'})
         }
     }
 

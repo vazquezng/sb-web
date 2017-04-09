@@ -4,6 +4,8 @@ export class SuggestedPlayersController
 
     public users;
 
+    public other_players;
+
     public toaster;
     
     public match_id;
@@ -12,6 +14,7 @@ export class SuggestedPlayersController
     constructor(private Players, private $scope, private $http, private $stateParams, private PATHS, toaster){
         this.toaster = toaster;
         this.users = Players.data.players;
+        this.other_players = Players.data.other_players;
         this.match_id = $stateParams.match_id;
     }
 

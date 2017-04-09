@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form name="formMatch" novalidate>
+    <form name="formMatch" ng-submit="vm.save(formMatch)">
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket">
@@ -72,7 +72,7 @@
                 <label class="subtitle">Nivel de juego</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" required> 
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required> 
                            <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -89,7 +89,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" required> 
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required> 
                             <option value="2.5">2.5</option> 
                             <option value="3.0">3.0</option> 
                             <option value="3.5">3.5</option> 
@@ -179,7 +179,7 @@
         </div-->
 
 
-        <button type="submit" class="btn" ng-click="vm.save(formMatch)" ng-disabled="vm.stopSave">Crear Partido</button>
+        <button type="submit" class="btn" ng-disabled="vm.stopSave">Crear Partido</button>
     </form>
 </div>
 

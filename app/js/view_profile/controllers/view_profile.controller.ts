@@ -4,7 +4,7 @@ class ProfileController {
     public user;
     public image;
     public avatar;
-
+    public emailFormat = /^[a-z]+[a-z0-9._\-]+@[a-z]+\.[a-z]{2,5}\.?[a-z]{0,5}$/;
     public country;
     public city;
     public address;
@@ -132,7 +132,7 @@ class ProfileController {
     
     public save(form){
         const vm = this;
-        if(!this.address.types || this.address.types [0]!="street_address" ){
+        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
              vm.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
              return;
         }
@@ -145,8 +145,8 @@ class ProfileController {
             this.user.city = this.address.types && this.address.types [0]=="street_address" ? this.address.vicinity : this.user.city;
             this.user.country = this.address.types && this.address.types [0]=="street_address" ? this.getCountryFromAddress(): this.user.country;
             this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
-            this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
-            this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
+            this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.address_lat;
+            this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.address_lng;
 
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 vm.stopSave = false;
