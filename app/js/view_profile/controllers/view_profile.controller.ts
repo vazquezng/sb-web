@@ -32,7 +32,7 @@ class ProfileController {
                       ['Miercoles', 'Wednesday'], 
                       ['Jueves', 'Thursday'], 
                       ['Viernes', 'Friday'], 
-                      ['Sabado', 'Saturdat'], 
+                      ['Sabado', 'Saturday'], 
                       ['Domingo', 'Sunday']];
 
     public stopSave = false;
