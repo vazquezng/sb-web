@@ -27,13 +27,13 @@ class ProfileController {
                         '21:00','21:30',
                         '22:00','22:30',
                         '23:00','23:30'];
-    public dayList = [ ['Lunes', 'Monday'], 
-                      ['Martes', 'Tuesday'], 
-                      ['Miercoles', 'Wednesday'], 
-                      ['Jueves', 'Thursday'], 
-                      ['Viernes', 'Friday'], 
-                      ['Sabado', 'Saturdat'], 
-                      ['Domingo', 'Sunday']];
+    public dayList = [ ['Lunes', '0'], 
+                      ['Martes', '1'], 
+                      ['Miercoles', '2'], 
+                      ['Jueves', '3'], 
+                      ['Viernes', '4'], 
+                      ['Sabado', '5'], 
+                      ['Domingo', '6']];
 
     public stopSave = false;
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
@@ -51,7 +51,7 @@ class ProfileController {
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.single = (this.user.single==1);
-        this.user.double = (this.user.doble==1);
+        this.user.double = (this.user.double==1);
         
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
