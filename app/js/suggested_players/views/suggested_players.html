@@ -27,7 +27,7 @@
                     </div>
                     <div class="level-2">
                         <div class="userName">
-                            {{user.name}}
+                            <a ui-sref="app.user_detail({user_id: user.id})">{{user.name}}</a>
                         </div>
                         <button type="button" class="btn" ng-click="vm.invite(user.id)" ng-disabled="vm.stopSave">Invitar</button>
                     </div>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="level-2">
                             <div class="userName">
-                                {{user.name}}
+                                <a ui-sref="app.user_detail({user_id: user.id})">{{user.name}}</a>
                             </div>
                             <button type="button" class="btn" ng-click="vm.invite(user.id)" ng-disabled="vm.stopSave">Invitar</button>
                         </div>

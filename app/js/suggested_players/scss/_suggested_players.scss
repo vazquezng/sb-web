@@ -141,6 +141,10 @@
                         font-size: 16px;
                         font-weight: bold;
                         max-width: 195px;
+                        a, a:hover, a:visited{
+                            color: #000;
+                            text-decoration: none;
+                        }
                     }
                 }
                 .level-3 {

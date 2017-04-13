@@ -24,11 +24,13 @@ export class CreateMatchController
 
     public ismeridian = true;
 
-    public timechange(){
+    public validateTime(){
         if(this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30){
-            this.toaster.pop({type:'info', body:'Solo se admiten intervalos de 30 minutos.'});
+            this.toaster.pop({type:'info', body:'En la hora del partido, solo se admiten intervalos de 30 minutos.'});
             this.match.hour = new Date(moment('15:30','HH:mm'));
+            return false;
         }
+        return true;
     }
 
 
@@ -84,6 +86,11 @@ export class CreateMatchController
     }
 
     public save(form){
+        
+        if(!this.validateTime()){
+           return; 
+        }
+        
         const vm = this;
         if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<=this.match.years_to && !this.stopSave){
             this.stopSave = !this.stopSave;

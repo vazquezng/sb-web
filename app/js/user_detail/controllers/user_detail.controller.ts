@@ -22,10 +22,12 @@ export class UserDetailController
                         '21:00','21:30',
                         '22:00','22:30',
                         '23:00','23:30'];
-    public dayList = [ 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+    public dayList = [ '0', '1', '2', '3', '4', '5', '6'];
     constructor(private Load, private $http, private $state, private $scope, private PATHS, private $uibModal, private $stateParams, private toaster){
         const vm = this;
         vm.user = Load.data.user;
+        vm.user.single = vm.user.single == 1? true : false;
+        vm.user.double = vm.user.double == 1? true : false;
         vm.avatar = Load.data.user.image && Load.data.user.image !== '' ? Load.data.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
         
     }
