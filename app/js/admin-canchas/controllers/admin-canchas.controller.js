@@ -1,9 +1,10 @@
 class CanchasCreateController { 
-  constructor($http, PATHS, $state) {
+  constructor($http, PATHS, $state, LoginService) {
     console.log('CanchasCreateController');
     this.$http = $http;
     this.PATHS = PATHS;
     this.$state = $state;
+    this.LoginService = LoginService;
   }
 
   create(form){
@@ -89,5 +90,5 @@ class CanchasProfileController
 }
 
 angular.module('AdminCanchas')
-        .controller('CanchasCreateController', ['$http', 'PATHS', '$state', CanchasCreateController])
+        .controller('CanchasCreateController', ['$http', 'PATHS', '$state', 'LoginService', CanchasCreateController])
         .controller('CanchasProfileController', ['$http', 'PATHS', 'toaster', '$state', '$scope', 'Upload', CanchasProfileController]);

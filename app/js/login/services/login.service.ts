@@ -4,16 +4,6 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
     let modalInstance;
     let user;
 
-    user = window.localStorage.getItem('user');
-    user = user !== null ? JSON.parse(user) : user;
-    let vm = this;
-    $rootScope.$on('logout', function(){
-        window.localStorage.removeItem('token');
-        window.localStorage.removeItem('user');
-        (<any>window).location ='/';
-        $state.reload();
-    });
-
     this.init = function(){
         const tplLogin = <string> require('../views/login.html');
         console.log('init login');
@@ -48,12 +38,11 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
         modalInstance.close();
     }
 
-     this.logout = function(data){
-        window.localStorage.removeItem('token');
-        window.localStorage.removeItem('user');
+    this.logout = function(data){
+        window.localStorage.clear();
 
         (<any>window).location ='/';
-     }
+    }
 
     this.isAuth =  function(){
         return !(user === null);
@@ -67,11 +56,46 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS){
         user = newuser;
         window.localStorage.setItem('user', JSON.stringify(newuser));
     }
+
+    this.loginCancha = function(data){
+        user = data.user;
+        user.admin = true;
+        window.localStorage.setItem('token-cancha', data.token.token);
+        window.localStorage.setItem('user-cancha', JSON.stringify(data.user));
+
+        $rootScope.$broadcast('login');
+        $state.go('app.admin-canchas-profile');
+    }
+
+    this.setUserCancha = function(newuser) {
+        user = newuser;
+        window.localStorage.setItem('user-cancha', JSON.stringify(newuser)); 
+    }
+
+    var getUserLocalStorage = () =>{
+        const user = window.localStorage.getItem('user');
+        return user !== null ? JSON.parse(user) : user;
+    }
+
+    var getUserAdminLocalStorage = () =>{
+        const user = window.localStorage.getItem('user-cancha');
+        return user !== null ? JSON.parse(user) : user;
+    }
+
+    user = getUserLocalStorage() || getUserAdminLocalStorage();
+
+    let vm = this;
+    $rootScope.$on('logout', function(){
+        window.localStorage.clear();
+        (<any>window).location ='/';
+        $state.reload();
+    });
+
     //
     if(user){
-         $http.get(PATHS.api + '/me').then(function(resp){
-             vm.setUser(resp.data.user);
-         });
+        $http.get(PATHS.api + '/me').then(function(resp){
+            vm.setUser(resp.data.user);
+        });
     }
 }
 

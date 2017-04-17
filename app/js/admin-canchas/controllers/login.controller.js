@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 class CanchasLoginController
 {
-  constructor($http, PATHS, $state, toaster){
+  constructor($http, PATHS, $state, toaster, LoginService){
     const token = localStorage.getItem('token-cancha');
     if(token){
       $state.go('app.admin-canchas-profile');
@@ -12,6 +12,7 @@ class CanchasLoginController
     this.PATHS = PATHS;
     this.$state = $state;
     this.toaster = toaster;
+    this.LoginService = LoginService;
   }
 
   auth(form){
@@ -21,9 +22,7 @@ class CanchasLoginController
         {email:this.email, password: this.password})
       .then((resp)=>{
         if(!resp.data.error){
-          localStorage.setItem('user-cancha', JSON.stringify(resp.data.user));
-          localStorage.setItem('token-cancha', resp.data.token.token);
-          vm.$state.go('app.admin-canchas-profile');
+          vm.LoginService.loginCancha(resp.data);
         }else{
           vm.toaster.error('Hubo un error, intente más tarde.');
         }
@@ -34,4 +33,4 @@ class CanchasLoginController
 }
 
 angular.module('AdminCanchas')
-        .controller('CanchasLoginController', ['$http', 'PATHS', '$state', 'toaster', CanchasLoginController]);
+        .controller('CanchasLoginController', ['$http', 'PATHS', '$state', 'toaster', 'LoginService', CanchasLoginController]);

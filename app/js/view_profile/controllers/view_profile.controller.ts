@@ -137,7 +137,7 @@ class ProfileController {
              return;
         }
         
-        if(form.$valid && !this.stopSave){
+        if(form.$valid && !this.stopSave && (this.user.single || this.user.double)){
             this.stopSave = true;
             this.completeForm= false;
             /*this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;

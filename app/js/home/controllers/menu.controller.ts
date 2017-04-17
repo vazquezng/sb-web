@@ -12,6 +12,7 @@ class MenuController
         const vm = this;
         $rootScope.$on('login', function(){
             vm.user = LoginService.getUser();
+            
             vm.avatar = vm.user.image && vm.user.image !== '' ? vm.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
         });
     }
