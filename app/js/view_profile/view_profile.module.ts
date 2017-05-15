@@ -13,7 +13,8 @@ angular
         url: '/view_profile',
         template: tplAppProfile,
         controller: 'ProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        authenticate: true,
     });
     /*$stateProvider.state('app.profile', {
         url: '/view_profile/:id',

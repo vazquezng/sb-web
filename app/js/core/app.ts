@@ -51,7 +51,15 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
         cfpLoadingBarProvider.latencyThreshold = 500;
     }])
-    .run(['$rootScope','$state', '$window', function($rootScope, $state, $window){
+    .run(['$rootScope','$state', '$window', 'LoginService', function($rootScope, $state, $window, LoginService){
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams,
+          fromState, fromParams) {
+          if (toState.authenticate && !LoginService.isAuth()) {
+            // User isn’t authenticated
+            $state.transitionTo("home");
+            event.preventDefault();
+          }
+        });
         //If the route change failed due to authentication error, redirect them out
         $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
             if(rejection === 'Not Authenticated'){
