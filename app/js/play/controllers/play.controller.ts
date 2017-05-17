@@ -56,7 +56,7 @@ export class PlayController
                 vm.$http.post(vm.PATHS.api + '/match/play', {id: vm.$scope.match.id})
                 .then(function(resp){
                     if(resp.data.success){
-                        vm.toaster.pop({type:'success', body:'“Se envió una solicitud al creador del partido, se te avisará por email cuando éste la acepte o rechace.'});
+                        vm.toaster.pop({type:'success', body:'Se envió una solicitud al creador del partido, se te avisará por email cuando éste la acepte o rechace.'});
                         vm.$scope.stopSave = !vm.$scope.stopSave;
                         vm.modalInstance.close();
                     }
