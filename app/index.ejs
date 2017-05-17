@@ -29,5 +29,28 @@
 
         <script src="<%= htmlWebpackPlugin.options.URL_BUCKET %>/main.bundle.js?v=<%=htmlWebpackPlugin.options.hash %>"></script>
         <script src="//connect.facebook.net/en_US/sdk.js"></script>
+        <!--script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+        <script>
+            var OneSignal = window.OneSignal || [];
+            OneSignal.push(["init", {
+              appId: "04ca6438-f5a3-4af1-932b-e64b777b5216",
+              autoRegister: true, /* Set to true to automatically prompt visitors */
+              subdomainName: 'https://slambow.onesignal.com',
+              /*
+              subdomainName: Use the value you entered in step 1.4: http://imgur.com/a/f6hqN
+              */
+              httpPermissionRequest: {
+                enable: true
+              },
+              notifyButton: {
+                  enable: true /* Set to false to hide */
+              }
+            }]);
+            OneSignal.push(function() {
+              OneSignal.registerForPushNotifications({
+                modalPrompt: true
+              });
+            });
+        </script-->
     </body>
 </html>

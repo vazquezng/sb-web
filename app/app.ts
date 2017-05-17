@@ -23,7 +23,7 @@ import './js/admin-canchas/admin-canchas.module';
     if (tecla==8){
         return true;
     }
-        
+
     // Patron de entrada, en este caso solo acepta numeros
     let patron =/[0-9]/;
     let tecla_final = String.fromCharCode(tecla);
