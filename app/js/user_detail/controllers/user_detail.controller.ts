@@ -34,7 +34,8 @@ export class UserDetailController
 
     public openModalAvailable(){
         let vm =  this;
-        this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability').then(function(resp){
+        var $paramObj = {user_id: vm.user.id};
+        this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability', $paramObj).then(function(resp){
             if(resp.data.availability){
                 vm.availabilityList = resp.data.availability;
             }
