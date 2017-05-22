@@ -86,15 +86,15 @@ class ProfileController {
         this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability', $paramObj).then(function(resp){
             if(resp.data.availability){
                 vm.availabilityList = resp.data.availability;
+                vm.modalInstance = vm.$uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'availability-profile',
+                    size: 'md',
+                    scope:vm.$scope
+                });
             }
-        });
-        this.modalInstance = this.$uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'availability-profile',
-            size: 'md',
-            scope:this.$scope
         });
     }
 

@@ -13,6 +13,11 @@ angular
         url: '/create-match',
         template: tplAppCreateMatch,
         controller: 'CreateMatchController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve:{
+          Canchas:['$http', 'PATHS', function($http, PATHS){
+            return $http.get(`${PATHS.api}/canchas`);
+          }],
+        },
     });
   }]);
