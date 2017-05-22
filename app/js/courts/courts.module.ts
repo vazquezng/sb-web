@@ -15,7 +15,7 @@ angular
         controllerAs: 'vm',
         resolve:{
           Canchas:['$http', 'PATHS', function($http, PATHS){
-            return $http.get(PATHS.api + '/match');
+            return $http.get(PATHS.api + '/canchas');
           }]
         }
     });

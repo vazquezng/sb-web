@@ -1,20 +1,21 @@
-import * as moment from 'moment';
+export class CourtsController 
+{   
+    static $inject = ['Canchas'];
 
+    public courts;
 
-
-export class CourtsController
-{
-    static $inject = ['Canchas', '$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster'];
-
-    public user;
-    public avatar;
-    constructor(private Canchas, $scope, private $http, private $state, private PATHS, private LoginService, private toaster){
-        this.user = LoginService.getUser();
-        this.avatar = LoginService.isAuth() && this.user.image && this.user.image !== '' ? this.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
+    constructor(private Canchas){
+        const vm = this;
+        
+        for (let entry of Canchas.data.canchas) {
+           entry.center = { latitude: entry.address_lat, longitude: entry.address_lng };
+            console.log({ latitude: entry.address_lat, longitude: entry.address_lng });
+        }
+        vm.courts = Canchas.data.canchas;
+        console.log(vm.courts);
     }
 
-   
 }
 
 angular.module('Courts')
-        .controller('CourtsController', ['Canchas', '$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster', CourtsController]);
+        .controller('CourtsController', ['Canchas', CourtsController]);

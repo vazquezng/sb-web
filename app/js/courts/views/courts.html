@@ -1,4 +1,4 @@
-<div class="feedback">
+<div class="courts">
     <div class="header">
         <img ng-src="/img/feedback/header.png" />
     </div>
@@ -13,92 +13,47 @@
             <div class="item"></div>
             <div class="item">
                 <p style="font-family: Roboto;
-    font-size: 20px;">Encontra la cancha que estas buscando y <span style="color:#20a3d4">¡a jugar!</span> <input type="text" />
+                          font-size: 20px;">Encontra la cancha que estas buscando y <span style="color:#20a3d4">¡a jugar!</span> <input type="text" />
             </div>
             <div class="item"></div>
         </div>
 
-        <!-- LISTADO -->
-        <div class="group" style="justify-content: center;width: 75%;margin: 0 auto;margin-top: 5%;align-items: center;">
-            <div class="item">
-                <div style="border: 1px solid #f2f2f2;    width: 35px;
-    height: 100%;
-    border-right: none;margin-right: 10px;"></div>
-            </div>
-            <div class="item">
-                <h5 style="font-family: Roboto;font-size: 19px;">LAS CANCHAS DEL ALTO AGUIRRE</h5>
-                <div class="group">
-                    <div class="item" style="margin-right: 25px;">
-                        <img ng-src="/img/cancha.jpg" />
+        <div ng-repeat="court in vm.courts">
+
+            <!-- LISTADO -->
+            <div class="courtDetail">
+                <div class="leftBracket"></div>
+                <div class="centerBracket">
+                    <h5 class="courtTitle">{{court.name}}</h5>
+                    <div class="flexContainer">
+                        <div class="courtImage">
+                            <img ng-src="/img/cancha.jpg" />
+                        </div>
+                        <div class="locationDiv">
+                            <p class="courtAddress"><img src="/img/pointer-icon.jpg" /> {{court.address}}</p>
+                            <div class="courtMap">
+                                <ui-gmap-google-map center='court.center' zoom='map.zoom'>
+                                    <ui-gmap-marker idkey="'markerId'" coords='court.center' options="{crossOnDrag:false, draggable:false}"></ui-gmap-marker>
+                                </ui-gmap-google-map>
+                            </div>
+                        </div>
                     </div>
-                    <div class="item" style="    margin-top: 7px;">
-                        <p style="font-family: Roboto;
-    font-size: 15px;
-    font-weight: lighter;color:#434344"><img src="/img/pointer-icon.jpg" /> Altolaguirre 1848, CABA</p>
-                        <div><img src="/img/cancha-map.jpg"></div>
+                    <div class="flexContainer">
+                        <div class="item courtDetails">
+                            <p><img src="/img/phone-icon.jpg" /> {{court.phone}}</p>
+                            <hr style="margin: 10px 0;">
+                            <p><img src="/img/reloj-icon.jpg" /> Hoy abierto: 8 a 00hs</p>
+                            <hr style="margin: 10px 0;">
+                            <p><img src="/img/price-icon.jpg" /> $ {{court.price}}/H</p>
+                        </div>
+                        <div class="courtDescription">
+                            <p>{{court.about}}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="group" style="margin-top: 4%;">
-                    <div class="item">
-                        <p><img src="/img/phone-icon.jpg" /> 011 4521-0957</p>
-                        <hr style="margin: 10px 0;">
-                        <p><img src="/img/reloj-icon.jpg" /> Hoy abierto: 8 a 00hs</p>
-                        <hr style="margin: 10px 0;">
-                        <p><img src="/img/price-icon.jpg" /> $ 200/H</p>
-                    </div>
-                    <div class="item" style="width: 70%;margin-left: 30px;">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore e</p>
-                    </div>
-                </div>
+                <div class="rightBracket"></div>
             </div>
-            <div class="item" style="border: 1px solid #f2f2f2;    width: 95px;
-    height: 100%;
-    border-left: none;"></div>
         </div>
-        <!-- LISTADO -->
-        <div class="group" style="justify-content: center;width: 75%;margin: 0 auto;margin-top: 5%;align-items: center;">
-            <div class="item">
-                <div style="border: 1px solid #f2f2f2;    width: 35px;
-    height: 100%;
-    border-right: none;margin-right: 10px;"></div>
-            </div>
-            <div class="item">
-                <h5 style="font-family: Roboto;font-size: 19px;">LAS CANCHAS DEL ALTO AGUIRRE</h5>
-                <div class="group">
-                    <div class="item" style="margin-right: 25px;">
-                        <img ng-src="/img/cancha.jpg" />
-                    </div>
-                    <div class="item" style="    margin-top: 7px;">
-                        <p style="font-family: Roboto;
-    font-size: 15px;
-    font-weight: lighter;color:#434344"><img src="/img/pointer-icon.jpg" /> Altolaguirre 1848, CABA</p>
-                        <div><img src="/img/cancha-map.jpg"></div>
-                    </div>
-                </div>
-                <div class="group" style="margin-top: 4%;">
-                    <div class="item">
-                        <p><img src="/img/phone-icon.jpg" /> 011 4521-0957</p>
-                        <hr style="margin: 10px 0;">
-                        <p><img src="/img/reloj-icon.jpg" /> Hoy abierto: 8 a 00hs</p>
-                        <hr style="margin: 10px 0;">
-                        <p><img src="/img/price-icon.jpg" /> $ 200/H</p>
-                    </div>
-                    <div class="item" style="width: 70%;margin-left: 30px;">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                            in reprehenderit in voluptate velit esse cillum dolore e</p>
-                    </div>
-                </div>
-            </div>
-            <div class="item" style="border: 1px solid #f2f2f2;    width: 95px;
-    height: 100%;
-    border-left: none;"></div>
-        </div>
-
-
-
     </div>
 </div>
 <sb-footer></sb-footer>
