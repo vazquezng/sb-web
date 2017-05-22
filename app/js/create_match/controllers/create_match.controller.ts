@@ -2,11 +2,12 @@ import * as moment from 'moment';
 
 export class CreateMatchController
 {
-    static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster'];
+    static $inject = ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster', 'Canchas'];
 
     public match:any = {
         date: new Date((new Date()).getTime() + 24 * 60 * 60 * 1000),
         hour: new Date(moment('15:30','HH:mm')),
+        id_cancha: null,
         address: '',
         address_lat:'',
         address_lng: '',
@@ -15,6 +16,7 @@ export class CreateMatchController
         type:'single',
         sexo:'mixto'
     };
+    public partner_club:any = '0';
     public address;
     public map;
     public market;
@@ -23,6 +25,21 @@ export class CreateMatchController
     public mytime = new Date(moment('15:30','HH:mm'));
 
     public ismeridian = true;
+    public canchas = [];
+
+    public stopSave = false;
+    constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster, private Canchas){
+        if(!LoginService.isAuth()){
+          $state.go('app.home');
+        }else if(!LoginService.getUser().complete){
+            toaster.pop({type:'error', body:'Debe completar su perfil primero.'});
+
+            $state.go('app.profile');
+        }
+
+        this.canchas = Canchas.data.canchas;
+        this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
+    }
 
     public validateTime(){
         if(this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30){
@@ -33,18 +50,27 @@ export class CreateMatchController
         return true;
     }
 
-
-    public stopSave = false;
-    constructor($scope, private $http, private $state, private PATHS, private LoginService, private toaster){
-        if(!LoginService.isAuth()){
-          $state.go('app.home');
-        }else if(!LoginService.getUser().complete){
-            toaster.pop({type:'error', body:'Debe completar su perfil primero.'});
-
-            $state.go('app.profile');
+    public changePartnerClub(){
+        console.log('changePartnerClub');
+        if(this.partner_club > 0){
+            const cancha = this.canchas.find(c => c.id == this.partner_club);
+            if(cancha){
+                this.map.center.latitude= cancha.address_lat;
+                this.map.center.longitude= cancha.address_lng;
+                this.market = { latitude: cancha.address_lat, longitude: cancha.address_lng };
+                this.match.id_cancha = this.partner_club;
+                this.match.club_name = cancha.name;
+                this.match.address = cancha.address;
+                this.match.address_lat = cancha.address_lat;
+                this.match.address_lng = cancha.address_lng;
+            }
+        }else{
+            this.match.id_cancha = null;
+            this.match.club_name = '';
+            this.match.address = null;
+            this.match.address_lat = null;
+            this.match.address_lng = null;
         }
-
-        this.map = { center: { latitude: -34.6038966, longitude: -58.3817433 }, zoom: 14 };
     }
 
     public changeAddress(){
@@ -108,4 +134,4 @@ export class CreateMatchController
 }
 
 angular.module('CreateMatch')
-        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster' ,CreateMatchController]);
+        .controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster', 'Canchas' ,CreateMatchController]);

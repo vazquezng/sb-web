@@ -33,13 +33,7 @@
             <div class="column">
                 <div class="form-group">
                     <div class="input-group">
-                        <!--span class="input-group-addon" style="background: rgba(32, 163, 212, 0.5) !important;
-            border: 1px solid #5ca3d4 !important;">
-                            <i class="glyphicon glyphicon-time"></i>
-                        </span>
-                        <input required type="time" step="1800" placeholder="HH:mm:ss" class="form-control" ng-model="vm.match.hour" required-->
                         <div uib-timepicker show-spinners="false" ng-model="vm.match.hour" minute-step="30" show-meridian="vm.ismeridian"></div>
-
                     </div>
                     <label for="inputHora">Hora</label>
                 </div>
@@ -48,8 +42,9 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club"> 
+                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club"> 
                         <option value="" selected="selected">Otra</option> 
+                        <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
                     <label for="inputPlace">Canchas Abonadas</label>
                 </div>

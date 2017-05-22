@@ -24,7 +24,7 @@ webpackConfig.plugins.push(new Webpack.HotModuleReplacementPlugin());
 webpackConfig.devServer = {
     hot: true,
     port: 8083,
-    historyApiFallback: true
+    historyApiFallback: true,
 }
 
 module.exports = webpackConfig;
