@@ -13,12 +13,12 @@
             <div class="item"></div>
             <div class="item">
                 <p style="font-family: Roboto;
-                          font-size: 20px;">Encontra la cancha que estas buscando y <span style="color:#20a3d4">¡a jugar!</span> <input type="text" />
+                          font-size: 20px;">Encontra la cancha que estas buscando y <span style="color:#20a3d4">¡a jugar!</span> <input type="text" ng-model="courtFilter.name"/>
             </div>
             <div class="item"></div>
         </div>
 
-        <div ng-repeat="court in vm.courts">
+        <div ng-repeat="court in vm.courts | filter:courtFilter">
 
             <!-- LISTADO -->
             <div class="courtDetail">

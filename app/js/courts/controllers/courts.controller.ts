@@ -2,17 +2,22 @@ export class CourtsController
 {   
     static $inject = ['Canchas'];
 
-    public courts;
+    public courts=[];
 
     constructor(private Canchas){
         const vm = this;
         
         for (let entry of Canchas.data.canchas) {
-           entry.center = { latitude: entry.address_lat, longitude: entry.address_lng };
-            console.log({ latitude: entry.address_lat, longitude: entry.address_lng });
+            if(entry.complete == 1 && entry.state == 'confirmed'){
+                entry.center = { latitude: entry.address_lat, longitude: entry.address_lng };
+                vm.courts[vm.courts.length] = entry;
+            }
         }
-        vm.courts = Canchas.data.canchas;
-        console.log(vm.courts);
+    }
+
+    public filterCourts(str){
+        const vm = this;
+        console.log(str);
     }
 
 }
