@@ -153,8 +153,12 @@ class ProfileController {
                 vm.stopSave = false;
                 if(resp.data.success){
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
-                    vm.user.complete = true;
-                    vm.LoginService.setUser(vm.user);
+                    if(!vm.user.complete){
+                        vm.user.complete = true;
+                        vm.LoginService.setUser(vm.user);
+                        vm.$state.go('app.createMatch');
+                    }
+                    
                     //vm.$state.reload();
                 }else{
                     vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
