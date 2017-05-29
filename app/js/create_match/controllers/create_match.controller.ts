@@ -50,6 +50,17 @@ export class CreateMatchController
         return true;
     }
 
+    public validateDateTime(){
+        const now = new Date();
+        if(this.match.date.getFullYear() == now.getFullYear() && this.match.date.getMonth() == now.getMonth()
+            && this.match.date.getDate() == now.getDate() && this.match.hour < now){
+            this.toaster.pop({type:'info', body:'La fecha y/o hora ya pasarón.'});
+            this.match.hour = new Date(moment('15:30','HH:mm'));
+            return false;
+        }
+        return true;
+    }
+
     public changePartnerClub(){
         console.log('changePartnerClub');
         if(this.partner_club > 0){
@@ -114,6 +125,10 @@ export class CreateMatchController
     public save(form){
         
         if(!this.validateTime()){
+           return; 
+        }
+
+        if(!this.validateDateTime()){
            return; 
         }
         
