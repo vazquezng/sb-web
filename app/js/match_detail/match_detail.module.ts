@@ -13,6 +13,7 @@ angular
         url: '/match_detail/:id',
         template: tplMatchDetail,
         controller: 'MatchDetailController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        authenticate: true,
     });
   }]);
