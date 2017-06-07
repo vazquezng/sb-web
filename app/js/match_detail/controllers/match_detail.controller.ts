@@ -4,12 +4,15 @@ export class MatchDetailController
     public match;
     public users;
     public user;
+    public isPlayer;
+
     constructor($scope, private $http, private $state, private PATHS, $stateParams, LoginService, private toaster){
         const vm = this;
         this.user = LoginService.getUser();
         vm.$http.get(vm.PATHS.api + '/match/' + $stateParams.id)
             .then(function(resp){
                 vm.match = resp.data.match;
+                vm.isPlayer = resp.data.isPlayer;
                 if(vm.match.type == 'singles'){
                    vm.match.is_incomplete = vm.match.matchPlayer.length < 2; 
                 }else{

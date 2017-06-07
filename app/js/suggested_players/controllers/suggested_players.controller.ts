@@ -24,6 +24,8 @@ export class SuggestedPlayersController
         this.$http.post(this.PATHS.api + '/match/invite', paramObj).then(function(resp){
                 if(resp.data.success){
                     vm.toaster.pop({type:'info', body:'Invitación enviada.'})
+                }else{
+                    vm.toaster.pop({type:'warn', body:resp.data.errorMessage})
                 }
             });
     }
