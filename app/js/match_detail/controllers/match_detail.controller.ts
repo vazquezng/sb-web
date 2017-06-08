@@ -22,10 +22,9 @@ export class MatchDetailController
 
     }
 
-    public acceptUser(matchPlayerId){
-        
+    public acceptUser(id_user, id_match){
         const vm = this;
-        var $paramObj = {id: matchPlayerId, state: 'confirmed'};
+        var $paramObj = {id_user: id_user, id_match: id_match, state: 'confirmed'};
         
         this.$http.post(this.PATHS.api + '/match/updatePlayerRequest', $paramObj).then(function(resp){
             if(resp.data.success){
@@ -37,9 +36,9 @@ export class MatchDetailController
         });
     }
 
-    public refuseUser(matchPlayerId){
+    public refuseUser(id_user, id_match){
         const vm = this;
-        var $paramObj = {id: matchPlayerId, state: 'rejected'};
+        var $paramObj = {id_user: id_user, id_match: id_match, state: 'rejected'};
         
         this.$http.post(this.PATHS.api + '/match/updatePlayerRequest', $paramObj).then(function(resp){
             if(resp.data.success){
@@ -51,24 +50,23 @@ export class MatchDetailController
         });
     }
 
-    public acceptMatch(matchPlayerId){
-        
+    public acceptMatch(id_user, id_match){
         const vm = this;
-        var $paramObj = {id: matchPlayerId, state: 'confirmed'};
+        var $paramObj = {id_user: id_user, id_match: id_match, state: 'confirmed'};
         
         this.$http.post(this.PATHS.api + '/match/updatePlayerRequest', $paramObj).then(function(resp){
             if(resp.data.success){
                 vm.toaster.pop({type: 'success', body: 'Confirmaste el partido!',timeout: 2000});
                 vm.$state.go('app.matchHistory');
             }else{
-                vm.toaster.pop({type: 'error', body: 'No se pudo confirmar el partido',timeout: 2000});
+                vm.toaster.pop({type: 'error', body: 'No se pudo confirmar el partido. ' + resp.data.errorMessage ,timeout: 2000});
             }
         });
     }
 
-    public refuseMatch(matchPlayerId){
+    public refuseMatch(id_user, id_match){
         const vm = this;
-        var $paramObj = {id: matchPlayerId, state: 'invitationDeclined'};
+        var $paramObj = {id_user: id_user, id_match: id_match, state: 'invitationDeclined'};
         
         this.$http.post(this.PATHS.api + '/match/updatePlayerRequest', $paramObj).then(function(resp){
             if(resp.data.success){
