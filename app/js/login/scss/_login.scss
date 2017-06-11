@@ -1,4 +1,69 @@
 #loginDiv{
-    padding: 5%;
     text-align: center;
+    border: 4px #d8d8dc solid;
+    border-radius: 6px;
+    .titleDiv{
+        background-color: #f2f2f2;
+        .side{
+            display: inline-block;
+            .dot{
+                width: 4px;
+                height: 4px;
+                border-radius: 100%;
+                background: #20a3d4;
+                display: inline-block;
+            }
+            .line{
+                width: 170px;
+                height: 2px;
+                border-top: 2px #b9b9b9 solid;
+                display: inline-block;
+                margin-bottom: 1px;
+            }
+        }
+        .centerTitle{
+            display: inline-block;
+            font-family: CookieRegular;
+            font-size: 60px;
+            color: #00a5d7;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+    .titleLine{
+        background-color: #f2f2f2;
+        height: 2px;
+        width: 100%;
+        margin-top: 1px;
+    }
+    
+    .botonsContainer{
+        .legend{
+            width: 60%;
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #818184;
+            b{
+                color: #20a3d4;
+            }
+        }
+        img{
+            display: inline-block;
+            margin: 15px;
+            width: 40%;
+        }
+        img:hover{
+            cursor: pointer;
+        }
+    }
+    
+    .titleDiv{
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+    }
+    
+    
+    
 }

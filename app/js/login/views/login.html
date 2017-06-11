@@ -1,4 +1,22 @@
 <div id="loginDiv">
-    <img ng-src="{{URL_BUCKET}}/img/face-btn.png" ng-click="vm.authenticate('facebook')" style="width: 45%;margin-right: 4%;cursor: pointer" />
-    <img ng-src="{{URL_BUCKET}}/img/twitter-btn.png" ng-click="vm.authenticate('twitter')" style=" width: 45%;cursor: pointer" />
+    <div class="titleDiv">
+        <div class="side">
+            <div class="dot"></div>
+            <div class="line"></div>
+        </div>
+        <div class="centerTitle">
+            Login
+        </div>
+        <div class="side">
+            <div class="line"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div class="titleLine"></div>
+    <div class="botonsContainer">
+        <div class="legend">Crea una cuenta o inicia sesión en <b>SLAMBOW</b> para conectarte con miles de usuarios.</div>
+        <img ng-src="{{URL_BUCKET}}/img/face-btn.png" ng-click="vm.authenticate('facebook')"/>
+        <img ng-src="{{URL_BUCKET}}/img/twitter-btn.png" ng-click="vm.authenticate('twitter')"/>
+        <img ng-src="{{URL_BUCKET}}/img/google-btn.png"/>
+    </div>
 </div>
