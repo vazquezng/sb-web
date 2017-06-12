@@ -53,9 +53,13 @@
             display: inline-block;
             margin: 15px;
             width: 40%;
+            transition-property: background;
+            transition-duration: .3s;
+            transition-timing-function: linear;
         }
         img:hover{
             cursor: pointer;
+            opacity: 0.8;
         }
     }
     
