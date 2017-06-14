@@ -11,29 +11,17 @@ class ProfileController {
     public modalInstance;
     public availabilityList = [];
     public completeForm =false;
-    public timeList = [ '08:00','08:30',
-                        '09:00','09:30',
-                        '10:00','10:30',
-                        '11:00','11:30',
-                        '12:00','12:30',
-                        '13:00','13:30',
-                        '14:00','14:30',
-                        '15:00','15:30',
-                        '16:00','16:30',
-                        '17:00','17:30',
-                        '18:00','18:30',
-                        '19:00','19:30',
-                        '20:00','20:30',
-                        '21:00','21:30',
-                        '22:00','22:30',
-                        '23:00','23:30'];
-    public dayList = [ ['Lunes', '0'], 
-                      ['Martes', '1'], 
-                      ['Miercoles', '2'], 
-                      ['Jueves', '3'], 
-                      ['Viernes', '4'], 
-                      ['Sabado', '5'], 
-                      ['Domingo', '6']];
+    public tabIndex = 0;
+
+    //always y allDay son variables auxiliares para ahorrar control en el html.
+    public always = false;
+    public availability =[{allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false},
+                          {allDay: false, morning: false, evening: false, night: false}];
 
     public stopSave = false;
     constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
@@ -52,6 +40,10 @@ class ProfileController {
         this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
+        
+        
+        
+        
         
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
@@ -80,27 +72,78 @@ class ProfileController {
         };
     }
 
+    //A la función se le envía el nombre del check box y su valor actual.
+    public updateChecks(name, value){
+        
+        //Se invierte el valor actual para cambiar su estado
+        value = !value;
+        //Si es todos los días en cualquier horario, se modifican todos los check boxs con el nuevo valor
+        if(name == 'always'){
+            this.availability =[  {allDay: value, morning: value, evening: value, night: value},    //LUNES
+                                  {allDay: value, morning: value, evening: value, night: value},    //MARTES
+                                  {allDay: value, morning: value, evening: value, night: value},    //MIÉRCOLES
+                                  {allDay: value, morning: value, evening: value, night: value},    //JUEVES
+                                  {allDay: value, morning: value, evening: value, night: value},    //VIERNES
+                                  {allDay: value, morning: value, evening: value, night: value},    //SÁBADO
+                                  {allDay: value, morning: value, evening: value, night: value}];   //DOMINGO
+            this.always = value;
+        }
+        //Si es en cualquier horario de ese día, se modifican todos los checkbox de ese tab
+        else if(name == 'allDay'){
+            this.availability[this.tabIndex]={allDay: value, morning: value, evening: value, night: value};
+            this.availability[this.tabIndex].allDay = value;
+        // Si no es ninguno de los otros, es un momento específico de un día, se cambia ese valor
+        }else { 
+            this.availability[this.tabIndex][name] = value;
+        }
+        
+        //acá se actualizan los check box para todo el día y todos los días
+        this.availability[this.tabIndex].allDay =  
+            this.availability[this.tabIndex].morning && 
+            this.availability[this.tabIndex].evening && 
+            this.availability[this.tabIndex].night;
+            
+        this.always = 
+            this.availability[0].allDay && 
+            this.availability[1].allDay && 
+            this.availability[2].allDay && 
+            this.availability[3].allDay && 
+            this.availability[4].allDay && 
+            this.availability[5].allDay && 
+            this.availability[6].allDay;
+    }
+
     public openModalAvailable(){
         let vm =  this;
         var $paramObj = {user_id: vm.user.id};
         this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability', $paramObj).then(function(resp){
-            if(resp.data.availability){
-                vm.availabilityList = resp.data.availability;
-                vm.modalInstance = vm.$uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'availability-profile',
-                    size: 'md',
-                    scope:vm.$scope
-                });
-            }
+        
+        if(resp.data.availability.length){
+            vm.availability = resp.data.availability;
+            vm.always = 
+            vm.availability[0].allDay && 
+            vm.availability[1].allDay && 
+            vm.availability[2].allDay && 
+            vm.availability[3].allDay && 
+            vm.availability[4].allDay && 
+            vm.availability[5].allDay && 
+            vm.availability[6].allDay;
+        }
+            
+        vm.modalInstance = vm.$uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'availability-profile',
+                size: 'md',
+                scope:vm.$scope
+            });
         });
     }
 
     private  saveAvailability(){
         
-        var params = {availability: this.availabilityList};
+        var params = {availability: this.availability};
         const vm = this;
         this.$http.post(this.PATHS.api + '/user/saveAvailability', params).then(function(resp){
             if(resp.data.success){

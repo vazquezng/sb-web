@@ -15,6 +15,7 @@
 @import "../../admin-canchas/scss/_admin_canchas";
 @import "../../courts/scss/_courts";
 
+
 #loading-bar .bar {
     position: relative;
 }
@@ -149,6 +150,19 @@ body {
     }
     .group {
         display: flex;
+    }
+    .checkBox{
+        height: 20px;
+        width: 20px;
+        border: 1px solid silver;
+        display: inline-block;
+        margin: 0;
+        margin-left: -25px;
+    }
+    
+    .checkBox.checked{
+        background-image: url(/img/check-icon.png);
+        background-size: contain;
     }
 }
 
@@ -344,6 +358,7 @@ footer {
             }
         }
     }
+    
 }
 
 .noselect {

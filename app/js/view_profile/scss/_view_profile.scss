@@ -91,10 +91,140 @@
             float: right;
             margin-right: 10px;
         }
+        
+        
     }
     .rz-bubble.rz-limit.rz-floor:after,
     .rz-bubble.rz-limit.rz-ceil:after {
         display: inline;
         content: ' KM';
+    }
+}
+#availabilityModal{
+    border: 4px #d8d8dc solid;
+    border-radius: 6px;
+    overflow: hidden;
+    .titleDiv{
+        text-align: center;
+        background-color: #f2f2f2;
+        .side{
+            display: inline-block;
+            .dot{
+                width: 4px;
+                height: 4px;
+                border-radius: 100%;
+                background: #20a3d4;
+                display: inline-block;
+            }
+            .line{
+                width: 120px;
+                height: 2px;
+                border-top: 2px #b9b9b9 solid;
+                display: inline-block;
+                margin-bottom: 1px;
+            }
+        }
+        .centerTitle{
+            display: inline-block;
+            font-family: CookieRegular;
+            font-size: 50px;
+            color: #00a5d7;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+    .titleLine{
+        background-color: #f2f2f2;
+        height: 2px;
+        width: 100%;
+        margin-top: 1px;
+    }
+    
+    .legend{
+        width: 420px;
+        margin: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        color: #818184;
+        text-align: center;
+    }
+    
+    .separator{
+        border-top: 1px solid #c5c5c5;
+        margin: auto;
+        width: 500px;
+    }
+    
+    form{
+        width: 590px;
+        margin: auto;
+        
+        .column{
+            text-align: center;
+            width: 270px;
+        }
+    }
+    
+    .tab-pane{
+        padding-top: 10px;
+    }
+    
+    ul.nav-tabs{
+        background-color: rgb(242, 242, 242);
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+    
+    .uib-tab>a{
+        background-repeat: no-repeat;
+        background-size: 30px;
+        height: 50px;
+        display: block;
+        background-position: center;
+    }
+    .mondayTab a{
+        background-image: url(../img/mon-ico.png);
+    }
+    .tuesdayTab a{
+        background-image: url(../img/tue-ico.png);
+    }
+    .wednesdayTab a{
+        background-image: url(../img/wed-ico.png);
+    }
+    .thursdayTab a{
+        background-image: url(../img/thu-ico.png);
+    }
+    .fridayTab a{
+        background-image: url(../img/fri-ico.png);
+    }
+    .saturdayTab a{
+        background-image: url(../img/sat-ico.png);
+    }
+    .sundayTab a{
+        background-image: url(../img/sun-ico.png);
+    }
+    
+    .allCheck{
+        width: 515px;
+        margin: auto;
+        margin-left: 15px;
+    }
+    
+    label{
+        text-align: left;
+        width: 240px;
+    }
+    .btn{
+        float: right;
+        margin-right: 40px;
+    }
+    .row-form label.form-control{
+        color: #818184;
+        padding-top: 10px;
+        display: inline-block;
+        text-transform: capitalize;
     }
 }
