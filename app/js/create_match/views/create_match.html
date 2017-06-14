@@ -1,6 +1,6 @@
 <div class="createMatch">
     <div class="header">
-        <img src="/img/match/header-match.png" />
+        <img src="/img/header-crea-partido.jpg" />
     </div>
 
     <div class="titleDiv">
@@ -42,8 +42,8 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club"> 
-                        <option value="" selected="selected">Otra</option> 
+                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club">
+                        <option value="" selected="selected">Otra</option>
                         <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
                     <label for="inputPlace">Canchas Abonadas</label>
@@ -69,34 +69,34 @@
                 <label class="subtitle">Nivel de juego</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required> 
-                           <option value="2.5">2.5</option> 
-                            <option value="3.0">3.0</option> 
-                            <option value="3.5">3.5</option> 
-                            <option value="4.0">4.0</option> 
-                            <option value="4.5">4.5</option> 
-                            <option value="5.0">5.0</option> 
-                            <option value="5.5">5.5</option> 
-                            <option value="6.0">6.0</option> 
-                            <option value="6.5">6.5</option> 
-                            <option value="7.0">7.0</option>  
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required>
+                           <option value="2.5">2.5</option>
+                            <option value="3.0">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4.0">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5.0">5.0</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6.0">6.0</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7.0">7.0</option>
                         </select>
                         <label for="inputGameLevelFrom">Desde</label>
                     </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required> 
-                            <option value="2.5">2.5</option> 
-                            <option value="3.0">3.0</option> 
-                            <option value="3.5">3.5</option> 
-                            <option value="4.0">4.0</option> 
-                            <option value="4.5">4.5</option> 
-                            <option value="5.0">5.0</option> 
-                            <option value="5.5">5.5</option> 
-                            <option value="6.0">6.0</option> 
-                            <option value="6.5">6.5</option> 
-                            <option value="7.0">7.0</option> 
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required>
+                            <option value="2.5">2.5</option>
+                            <option value="3.0">3.0</option>
+                            <option value="3.5">3.5</option>
+                            <option value="4.0">4.0</option>
+                            <option value="4.5">4.5</option>
+                            <option value="5.0">5.0</option>
+                            <option value="5.5">5.5</option>
+                            <option value="6.0">6.0</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7.0">7.0</option>
                         </select>
                         <label for="inputGameLevelTo">Hasta</label>
                     </div>

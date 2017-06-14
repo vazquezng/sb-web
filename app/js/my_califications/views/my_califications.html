@@ -1,14 +1,14 @@
 <div class="myCalifications">
     <div class="header">
-        <img src="/img/profile/header-profile.png" />
+        <img src="/img/header-opinaron.jpg" />
     </div>
 
     <div class="titleDiv">
         <div class="centerTitle">¿Qué opinaron de mí?</div>
     </div>
-    
+
     <div class="container">
-        <div class="boxItem" ng-repeat="feedback in vm.feedbacks"> 
+        <div class="boxItem" ng-repeat="feedback in vm.feedbacks">
             <div class="imgContainer">
                 <img src="{{feedback.image}}">
             </div>
@@ -39,6 +39,6 @@
             <span>Aún no tenés calificaciones.</span>
         </div>
     </div>
-    
+
 </div>
 <sb-footer></sb-footer>

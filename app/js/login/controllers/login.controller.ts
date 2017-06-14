@@ -1,7 +1,7 @@
 import * as angular from 'angular';
 
-export class LoginController 
-{   
+export class LoginController
+{
     static $inject = ['$http','PATHS', 'LoginService', '$auth'];
     private params = {};
     constructor(private $http, private PATHS, private LoginService, private $auth){
@@ -10,6 +10,21 @@ export class LoginController
     public authenticate = function(provider:string){
        this[provider]();
     }
+    public onSignIn = function() {
+      const vm = this;
+      (<any>window).gapi.client.request(
+        {
+            'path':'/plus/v1/people/me',
+            'method':'GET',
+            'callback': vm.userInfoCallback
+        }
+      );
+    }
+    // When callback is received, process user info.
+    private userInfoCallback = function(userInfo) {
+      console.log(userInfo);
+        debugger;
+    };
 
     private facebook = function(){
         const vm = this;
@@ -37,7 +52,7 @@ export class LoginController
             (<any>vm).params.provider = 'facebook';
             vm.$http.post(vm.PATHS.api + '/auth', vm.params).then(function(resp){
                 vm.LoginService.login(resp.data);
-            }); 
+            });
         });
     }
 }
@@ -56,7 +71,7 @@ class AuthTwitterController{
             data.newuser = false;
             data.state = 'app.home';
         }
-         
+
         LoginService.login(data);
     }
 }
