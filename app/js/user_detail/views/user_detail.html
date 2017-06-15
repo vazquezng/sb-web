@@ -141,31 +141,77 @@
 <sb-footer></sb-footer>
 
 <script type="text/ng-template" id="availability-profile">
-    <div style="height:500px;overflow-y: scroll;">
-        <h3 style="text-align: center;
-    text-transform: uppercase;
-    margin-top: -2px;">Disponibilidad</h3>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Lunes</th>
-                    <th>Martes</th>
-                    <th>Miércoles</th>
-                    <th>Jueves</th>
-                    <th>Viernes</th>
-                    <th>Sábado</th>
-                    <th>Domingo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="time in vm.timeList">
-                    <td>{{time}}</td>
-                    <td ng-repeat="day in vm.dayList">
-                        <input type="checkbox" ng-checked="vm.availabilityList.indexOf('{{day}}-{{time}}') > -1" disabled />
-                    </td>
-                    <tr>
-            </tbody>
-        </table>
+    <div id="availabilityModal" style="height:525px;">
+        <div class="titleDiv">
+            <div class="side">
+                <div class="dot"></div>
+                <div class="line"></div>
+            </div>
+            <div class="centerTitle">
+                Disponibilidad
+            </div>
+            <div class="side">
+                <div class="line"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <div class="titleLine"></div>
+        <div class="legend">
+            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar.
+        </div>
+
+        <div class="separator"></div>
+        <form>
+            <uib-tabset justified="true">
+                <uib-tab class="mondayTab" index="0" select="vm.tabIndex = 0"></uib-tab>
+                <uib-tab class="tuesdayTab" index="1" select="vm.tabIndex = 1"></uib-tab>
+                <uib-tab class="wednesdayTab" index="2" select="vm.tabIndex = 2"></uib-tab>
+                <uib-tab class="thursdayTab" index="3" select="vm.tabIndex = 3"></uib-tab>
+                <uib-tab class="fridayTab" index="4" select="vm.tabIndex = 4"></uib-tab>
+                <uib-tab class="saturdayTab" index="5" select="vm.tabIndex = 5"></uib-tab>
+                <uib-tab class="sundayTab" index="6" select="vm.tabIndex = 6"></uib-tab>
+             </uib-tabset>
+            
+            <div class="row-form">
+                <div class="column">
+                    <label class="form-control">Todo el día</label> 
+                    <div class="checkBox" 
+                         ng-class="vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'">
+                    </div>
+                    <label>DE 8 A 23HS.</label>
+                </div>
+                <div class="column">
+                    <label class="form-control">Mañana</label>
+                    <div class="checkBox" 
+                         ng-class="vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'">
+                    </div>
+                    <label>DE 8 A 12HS.</label>
+                </div>
+            </div>
+            <div class="row-form">
+                <div class="column">
+                    <label class="form-control">Tarde</label>
+                    <div class="checkBox" 
+                         ng-class="vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'">
+                    </div>
+                    <label>DE 12 A 19HS.</label>
+                </div>
+                <div class="column">
+                    <label class="form-control">Noche</label>
+                    <div class="checkBox" 
+                         ng-class="vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'">
+                    </div>
+                    <label>DE 19 A 23HS.</label>
+                </div>
+            </div>
+            <div class="row-form">
+                <label class="form-control allCheck">Puedo jugar todos los días en cualquier horario.</label> 
+                <div class="checkBox" 
+                     ng-class="vm.always ? 'checked' : 'noChecked'" 
+                     ng-click="vm.updateChecks('always', vm.always)">
+                </div>
+            </div>
+        </form>
+        <button type="submit" class="btn" ng-click="save()">Guardar</button>
     </div>
 </script>

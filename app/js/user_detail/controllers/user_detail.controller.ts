@@ -5,24 +5,9 @@ export class UserDetailController
     public user;
     public avatar;
     public modalInstance;
-    public availabilityList = [];
-    public timeList = [ '08:00','08:30',
-                        '09:00','09:30',
-                        '10:00','10:30',
-                        '11:00','11:30',
-                        '12:00','12:30',
-                        '13:00','13:30',
-                        '14:00','14:30',
-                        '15:00','15:30',
-                        '16:00','16:30',
-                        '17:00','17:30',
-                        '18:00','18:30',
-                        '19:00','19:30',
-                        '20:00','20:30',
-                        '21:00','21:30',
-                        '22:00','22:30',
-                        '23:00','23:30'];
-    public dayList = [ '0', '1', '2', '3', '4', '5', '6'];
+    public always = false;
+    public availability;
+    
     constructor(private Load, private $http, private $state, private $scope, private PATHS, private $uibModal, private $stateParams, private toaster){
         const vm = this;
         vm.user = Load.data.user;
@@ -36,8 +21,16 @@ export class UserDetailController
         let vm =  this;
         var $paramObj = {user_id: vm.user.id};
         this.$http.post(this.PATHS.api + '/user/retrieveUserAvailability', $paramObj).then(function(resp){
-            if(resp.data.availability){
-                vm.availabilityList = resp.data.availability;
+            if(resp.data.availability.length){
+                vm.availability = resp.data.availability;
+                vm.always = 
+                vm.availability[0].allDay && 
+                vm.availability[1].allDay && 
+                vm.availability[2].allDay && 
+                vm.availability[3].allDay && 
+                vm.availability[4].allDay && 
+                vm.availability[5].allDay && 
+                vm.availability[6].allDay;
             }
         });
         this.modalInstance = this.$uibModal.open({
