@@ -47,6 +47,13 @@ export class CreateMatchController
             this.match.hour = new Date(moment('15:30','HH:mm'));
             return false;
         }
+        
+        
+        if(this.match.hour.getHours() < 8 || this.match.hour.getHours() > 23){
+            this.toaster.pop({type:'info', body:'El partido se debe jugar entre las 8 y las 23hs.'});
+            return false;
+        }
+        
         return true;
     }
 
@@ -58,11 +65,11 @@ export class CreateMatchController
             this.match.hour = new Date(moment('15:30','HH:mm'));
             return false;
         }
+        
         return true;
     }
 
     public changePartnerClub(){
-        console.log('changePartnerClub');
         if(this.partner_club > 0){
             const cancha = this.canchas.find(c => c.id == this.partner_club);
             if(cancha){
@@ -140,6 +147,10 @@ export class CreateMatchController
             this.$http.post(this.PATHS.api + '/match', this.match).then(function(resp){
                 if(resp.data.success){
                     vm.$state.go('app.suggested_players', {match_id:resp.data.match_id});
+                }else{
+                    if(resp.data.errorMessage){
+                        vm.toaster.pop({type:'warn', body: resp.data.errorMessage})
+                    }
                 }
             });
         }else{
