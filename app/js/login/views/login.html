@@ -17,10 +17,6 @@
         <div class="legend">Crea una cuenta o inicia sesión en <b>SLAMBOW</b> para conectarte con miles de usuarios.</div>
         <img ng-src="{{URL_BUCKET}}/img/face-btn.png" ng-click="vm.authenticate('facebook')"/>
         <img ng-src="{{URL_BUCKET}}/img/twitter-btn.png" ng-click="vm.authenticate('twitter')"/>
-        <!--google-plus-signin client-id="931016694606" autorender="false" customtargetid="my-custom-element">
-             <div id="my-custom-element"><button>Sign In With Google</button></div>
-         </google-plus-signin>
-
-        <img ng-src="{{URL_BUCKET}}/img/google-btn.png" data-onsuccess="vm.onSignIn" class="g-signin2" ng-click="vm.onSignIn()"/-->
+        <img ng-src="{{URL_BUCKET}}/img/google-btn.png" id="googleSignin">
     </div>
 </div>

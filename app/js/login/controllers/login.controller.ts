@@ -4,7 +4,9 @@ export class LoginController
 {
     static $inject = ['$http','PATHS', 'LoginService', '$auth'];
     private params = {};
+    private auth2;
     constructor(private $http, private PATHS, private LoginService, private $auth){
+      this.startGoogle();
     }
 
     public authenticate = function(provider:string){
@@ -12,18 +14,43 @@ export class LoginController
     }
     public onSignIn = function() {
       const vm = this;
-      (<any>window).gapi.client.request(
-        {
-            'path':'/plus/v1/people/me',
-            'method':'GET',
-            'callback': vm.userInfoCallback
-        }
-      );
+    }
+    private startGoogle = function () {
+      const vm = this;
+      (<any>window).gapi.load('auth2', function(){
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        vm.auth2 = (<any>window).gapi.auth2.init({
+          client_id: '931016694606-bj35ac8hq9kumjvm0nd4plb9lfngeit5.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin',
+          // Request scopes in addition to 'profile' and 'email'
+          //scope: 'additional_scope'
+        });
+        vm.attachSignin(document.getElementById('googleSignin'));
+      });
+    }
+    private attachSignin = function (element) {
+      console.log(element.id);
+      const vm = this;
+      this.auth2.attachClickHandler(element, {},
+      function(googleUser) {
+        const user = {
+          id: googleUser.getBasicProfile().getId(),
+          first_name: googleUser.getBasicProfile().getGivenName(),
+          last_name: googleUser.getBasicProfile().getFamilyName(),
+          image: googleUser.getBasicProfile().getImageUrl(),
+          email: googleUser.getBasicProfile().getEmail(),
+        };
+        vm.$http.post(vm.PATHS.api + '/auth', user).then(function(resp){
+            vm.LoginService.login(resp.data);
+        });
+        console.log(googleUser.getBasicProfile());
+      }, function(error) {
+        alert(JSON.stringify(error, undefined, 2));
+      });
     }
     // When callback is received, process user info.
     private userInfoCallback = function(userInfo) {
       console.log(userInfo);
-        debugger;
     };
 
     private facebook = function(){
