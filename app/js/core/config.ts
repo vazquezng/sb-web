@@ -16,8 +16,6 @@ import 'angularjs-toaster';
 
 import 'angular-loading-bar';
 
-
-
 require('angular-ui-bootstrap/dist/ui-bootstrap-tpls.js');
 
 moment.locale('es');

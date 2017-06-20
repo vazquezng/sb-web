@@ -14,7 +14,7 @@ webpackConfig.stats = {
 webpackConfig.plugins.push(
     new Webpack.DefinePlugin({
         'process.env': {
-            'NODE_ENV': 'production'
+            'NODE_ENV': "'production'"
         }
     })
 );

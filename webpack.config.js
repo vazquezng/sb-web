@@ -24,9 +24,7 @@ webpackConfig.plugins.push(new Webpack.HotModuleReplacementPlugin());
 webpackConfig.devServer = {
     hot: true,
     port: 8083,
-    host: '0.0.0.0',
     historyApiFallback: true,
-    disableHostCheck: true,
 }
 
 module.exports = webpackConfig;
