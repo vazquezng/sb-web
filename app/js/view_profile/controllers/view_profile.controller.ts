@@ -3,7 +3,6 @@ class ProfileController {
  
     public user; 
     public image; 
-+
     public avatar; 
     public emailFormat = /^[a-z]+[a-z0-9._\-]+@[a-z]+\.[a-z]{2,5}\.?[a-z]{0,5}$/; 
     public country; 
