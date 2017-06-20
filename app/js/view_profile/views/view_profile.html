@@ -1,262 +1,262 @@
-<div class="viewProfile">
-    <div class="header">
-        <img src="/img/header-profile.jpg" />
-    </div>
-
-    <div class="titleDiv">
-        <div class="centerTitle"></div>
-    </div>
-
-    <form name="formProfile" novalidate>
-        <div id="imageBox">
-            <div class="leftBracket"></div>
-            <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
-                <div class="imgContainer">
-                    <img class="profileImg" ng-src="{{vm.avatar}}" />
-                </div>
-                <div id="uploadFileBtn">
-                    <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar
-                </div>
-            </div>
-            <div class="rightBracket"></div>
-        </div>
-        <div class="row-form">
-            <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" required/>
-                        <label for="inputName">Nombre</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" required/>
-                        <label for="inputSurname">Apellido</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="form-group">
-                    <input type="email" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" ng-pattern="vm.emailFormat" required/>
-                    <label for="inputEmail">Email</label>
-                    <span class="error" style="color:darkred" ng-show="formProfile.inputEmail.$error.pattern">
-                        Formato Invalido
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="row-form">
-            <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/>
-                        <label for="inputAge">Edad</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                        </select>
-                        <label for="inputGender">Sexo</label>
-                    </div>
-                </div>
-            </div>
-            <!--div class="column">
-<div class="form-group">
-<input type="text" class="form-control" name="inputCountry" id="inputCountry" g-places-autocomplete ng-model="vm.country" />
-<label for="inputCountry">País</label>
-</div>
-</div-->
-            <div class="column">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" autocomplete="false" />
-                    <label for="inputCity">Dirección</label>
-                </div>
-            </div>
-        </div>
-        <!--div class="row-form">
-<div class="column">
-<div class="form-group">
-<input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.city" />
-<label for="inputCity">Ciudad</label>
-</div>
-</div>
-<div class="column">
-<div class="form-group">
-<input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" />
-<label for="inputCity">Dirección</label>
-</div>
-</div>
-</div-->
-        <div class="row-form">
-            <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" required>
-                            <option value="2.5">2.5</option>
-                            <option value="3">3.0</option>
-                            <option value="3.5">3.5</option>
-                            <option value="4">4.0</option>
-                            <option value="4.5">4.5</option>
-                            <option value="5">5.0</option>
-                            <option value="5.5">5.5</option>
-                            <option value="6">6.0</option>
-                            <option value="6.5">6.5</option>
-                            <option value="7">7.0</option>
-                        </select>
-                        <label for="inputGameLevel">Nivel de juego</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn" required>
-                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option>
-                        </select>
-                        <label for="inputITN">ITN</label>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.single" />
-                        <label for="inputCity">Singles</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-control" ng-model="vm.user.double" />
-                        <label for="inputCity">Dobles</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row-form">
-            <div class="column">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach">
-                    <label for="inputCoachProfessor">Coach/Professor</label>
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group">
-                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button>
-                    <label for="inputAvailability">Disponibilidad</label>
-                </div>
-            </div>
-        </div>
-        <div class="row-form">
-            <div class="column">
-                <div class="form-group">
-                    <rzslider rz-slider-model="vm.user.distance" rz-slider-options="{floor: 2,
-                                                                                    ceil: 50,
-                                                                                    step: 2,
-                                                                                    minLimit: 2,
-                                                                                    maxLimit: 50,
-                                                                                    showSelectionBar: true}"></rzslider>
-                    <label for="inputDistance">Distancia para jugar un partido</label>
-                </div>
-            </div>
-            <div class="column">
-                <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member">
-                        <option value="0" selected="selected">Ninguno</option>
-                    </select>
-                    <label for="inputPartnerClub">Sos socio de algun club?</label>
-                </div>
-            </div>
-        </div>
-        <div class="row-form">
-            <div class="form-group">
-                <label for="inputAboutMe">SOBRE MI</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
-            </div>
-        </div>
-        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
-        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
-    </form>
-</div>
-<sb-footer></sb-footer>
-
-<script type="text/ng-template" id="availability-profile">
-    <div id="availabilityModal" style="height:525px;">
-        <div class="titleDiv">
-            <div class="side">
-                <div class="dot"></div>
-                <div class="line"></div>
-            </div>
-            <div class="centerTitle">
-                Disponibilidad
-            </div>
-            <div class="side">
-                <div class="line"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
-        <div class="titleLine"></div>
-        <div class="legend">
-            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar.
-        </div>
-
-        <div class="separator"></div>
-        <form>
-            <uib-tabset justified="true">
-                <uib-tab class="mondayTab" index="0" select="vm.tabIndex = 0"></uib-tab>
-                <uib-tab class="tuesdayTab" index="1" select="vm.tabIndex = 1"></uib-tab>
-                <uib-tab class="wednesdayTab" index="2" select="vm.tabIndex = 2"></uib-tab>
-                <uib-tab class="thursdayTab" index="3" select="vm.tabIndex = 3"></uib-tab>
-                <uib-tab class="fridayTab" index="4" select="vm.tabIndex = 4"></uib-tab>
-                <uib-tab class="saturdayTab" index="5" select="vm.tabIndex = 5"></uib-tab>
-                <uib-tab class="sundayTab" index="6" select="vm.tabIndex = 6"></uib-tab>
-             </uib-tabset>
-            
-            <div class="row-form">
-                <div class="column">
-                    <label class="form-control">Todo el día</label> 
-                    <div class="checkBox" 
-                         ng-class="vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'" 
-                         ng-click="vm.updateChecks('allDay', vm.availability[vm.tabIndex].allDay)">
-                    </div>
-                    <label>DE 8 A 23HS.</label>
-                </div>
-                <div class="column">
-                    <label class="form-control">Mañana</label>
-                    <div class="checkBox" 
-                         ng-class="vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'" 
-                         ng-click="vm.updateChecks('morning', vm.availability[vm.tabIndex].morning)">
-                    </div>
-                    <label>DE 8 A 12HS.</label>
-                </div>
-            </div>
-            <div class="row-form">
-                <div class="column">
-                    <label class="form-control">Tarde</label>
-                    <div class="checkBox" 
-                         ng-class="vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'" 
-                         ng-click="vm.updateChecks('evening', vm.availability[vm.tabIndex].evening)">
-                    </div>
-                    <label>DE 12 A 19HS.</label>
-                </div>
-                <div class="column">
-                    <label class="form-control">Noche</label>
-                    <div class="checkBox" 
-                         ng-class="vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'" 
-                         ng-click="vm.updateChecks('night', vm.availability[vm.tabIndex].night)">
-                    </div>
-                    <label>DE 19 A 23HS.</label>
-                </div>
-            </div>
-            <div class="row-form">
-                <label class="form-control allCheck">Puedo jugar todos los días en cualquier horario.</label> 
-                <div class="checkBox" 
-                     ng-class="vm.always ? 'checked' : 'noChecked'" 
-                     ng-click="vm.updateChecks('always', vm.always)">
-                </div>
-            </div>
-        </form>
-        <button type="submit" class="btn" ng-click="save()">Guardar</button>
-    </div>
-</script>
+<div class="viewProfile"> 
+    <div class="header"> 
+        <img src="/img/header-profile.jpg" /> 
+    </div> 
+ 
+    <div class="titleDiv"> 
+        <div class="centerTitle"></div> 
+    </div> 
+ 
+    <form name="formProfile" novalidate> 
+        <div id="imageBox"> 
+            <div class="leftBracket"></div> 
+            <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}"> 
+                <div class="imgContainer"> 
+                    <img class="profileImg" ng-src="{{vm.avatar}}" /> 
+                </div> 
+                <div id="uploadFileBtn"> 
+                    <img ng-src="{{URL_BUCKET}}/img/profile/image-icon.png" /> Seleccionar 
+                </div> 
+            </div> 
+            <div class="rightBracket"></div> 
+        </div> 
+        <div class="row-form"> 
+            <div class="column"> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <input type="text" class="form-control" name="inputName" id="inputName" ng-model="vm.user.first_name" required/> 
+                        <label for="inputName">Nombre</label> 
+                    </div> 
+                </div> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <input type="text" class="form-control" name="inputSurname" id="inputSurname" ng-model="vm.user.last_name" required/> 
+                        <label for="inputSurname">Apellido</label> 
+                    </div> 
+                </div> 
+            </div> 
+ 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <input type="email" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" ng-pattern="vm.emailFormat" required/> 
+                    <label for="inputEmail">Email</label> 
+                    <span class="error" style="color:darkred" ng-show="formProfile.inputEmail.$error.pattern"> 
+                        Formato Invalido 
+                    </span> 
+                </div> 
+            </div> 
+        </div> 
+        <div class="row-form"> 
+            <div class="column"> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/> 
+                        <label for="inputAge">Edad</label> 
+                    </div> 
+                </div> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required> 
+                            <option value="male">Masculino</option> 
+                            <option value="female">Femenino</option> 
+                        </select> 
+                        <label for="inputGender">Sexo</label> 
+                    </div> 
+                </div> 
+            </div> 
+            <!--div class="column"> 
+<div class="form-group"> 
+<input type="text" class="form-control" name="inputCountry" id="inputCountry" g-places-autocomplete ng-model="vm.country" /> 
+<label for="inputCountry">País</label> 
+</div> 
+</div--> 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" autocomplete="false" /> 
+                    <label for="inputCity">Dirección</label> 
+                </div> 
+            </div> 
+        </div> 
+        <!--div class="row-form"> 
+<div class="column"> 
+<div class="form-group"> 
+<input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.city" /> 
+<label for="inputCity">Ciudad</label> 
+</div> 
+</div> 
+<div class="column"> 
+<div class="form-group"> 
+<input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" /> 
+<label for="inputCity">Dirección</label> 
+</div> 
+</div> 
+</div--> 
+        <div class="row-form"> 
+            <div class="column"> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" required> 
+                            <option value="2.5">2.5</option> 
+                            <option value="3">3.0</option> 
+                            <option value="3.5">3.5</option> 
+                            <option value="4">4.0</option> 
+                            <option value="4.5">4.5</option> 
+                            <option value="5">5.0</option> 
+                            <option value="5.5">5.5</option> 
+                            <option value="6">6.0</option> 
+                            <option value="6.5">6.5</option> 
+                            <option value="7">7.0</option> 
+                        </select> 
+                        <label for="inputGameLevel">Nivel de juego</label> 
+                    </div> 
+                </div> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn" required> 
+                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option> 
+                        </select> 
+                        <label for="inputITN">ITN</label> 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="column"> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" /> 
+                        <label for="inputCity">Singles</label> 
+                    </div> 
+                </div> 
+                <div class="column"> 
+                    <div class="form-group"> 
+                        <input type="checkbox" class="form-control" ng-model="vm.user.double" /> 
+                        <label for="inputCity">Dobles</label> 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+        <div class="row-form"> 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach"> 
+                    <label for="inputCoachProfessor">Coach/Professor</label> 
+                </div> 
+            </div> 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button> 
+                    <label for="inputAvailability">Disponibilidad</label> 
+                </div> 
+            </div> 
+        </div> 
+        <div class="row-form"> 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <rzslider rz-slider-model="vm.user.distance" rz-slider-options="{floor: 2, 
+                                                                                    ceil: 50, 
+                                                                                    step: 2, 
+                                                                                    minLimit: 2, 
+                                                                                    maxLimit: 50, 
+                                                                                    showSelectionBar: true}"></rzslider> 
+                    <label for="inputDistance">Distancia para jugar un partido</label> 
+                </div> 
+            </div> 
+            <div class="column"> 
+                <div class="form-group"> 
+                    <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
+                        <option value="0" selected="selected">Ninguno</option> 
+                    </select> 
+                    <label for="inputPartnerClub">Sos socio de algun club?</label> 
+                </div> 
+            </div> 
+        </div> 
+        <div class="row-form"> 
+            <div class="form-group"> 
+                <label for="inputAboutMe">SOBRE MI</label> 
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea> 
+            </div> 
+        </div> 
+        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button> 
+        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span> 
+    </form> 
+</div> 
+<sb-footer></sb-footer> 
+ 
+<script type="text/ng-template" id="availability-profile"> 
+    <div id="availabilityModal" style="height:525px;"> 
+        <div class="titleDiv"> 
+            <div class="side"> 
+                <div class="dot"></div> 
+                <div class="line"></div> 
+            </div> 
+            <div class="centerTitle"> 
+                Disponibilidad 
+            </div> 
+            <div class="side"> 
+                <div class="line"></div> 
+                <div class="dot"></div> 
+            </div> 
+        </div> 
+        <div class="titleLine"></div> 
+        <div class="legend"> 
+            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar. 
+        </div> 
+ 
+        <div class="separator"></div> 
+        <form> 
+            <uib-tabset justified="true"> 
+                <uib-tab class="mondayTab" index="0" select="vm.tabIndex = 0"></uib-tab> 
+                <uib-tab class="tuesdayTab" index="1" select="vm.tabIndex = 1"></uib-tab> 
+                <uib-tab class="wednesdayTab" index="2" select="vm.tabIndex = 2"></uib-tab> 
+                <uib-tab class="thursdayTab" index="3" select="vm.tabIndex = 3"></uib-tab> 
+                <uib-tab class="fridayTab" index="4" select="vm.tabIndex = 4"></uib-tab> 
+                <uib-tab class="saturdayTab" index="5" select="vm.tabIndex = 5"></uib-tab> 
+                <uib-tab class="sundayTab" index="6" select="vm.tabIndex = 6"></uib-tab> 
+             </uib-tabset> 
+             
+            <div class="row-form"> 
+                <div class="column"> 
+                    <label class="form-control">Todo el día</label>  
+                    <div class="checkBox"  
+                         ng-class="vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'"  
+                         ng-click="vm.updateChecks('allDay', vm.availability[vm.tabIndex].allDay)"> 
+                    </div> 
+                    <label>DE 8 A 23HS.</label> 
+                </div> 
+                <div class="column"> 
+                    <label class="form-control">Mañana</label> 
+                    <div class="checkBox"  
+                         ng-class="vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'"  
+                         ng-click="vm.updateChecks('morning', vm.availability[vm.tabIndex].morning)"> 
+                    </div> 
+                    <label>DE 8 A 12HS.</label> 
+                </div> 
+            </div> 
+            <div class="row-form"> 
+                <div class="column"> 
+                    <label class="form-control">Tarde</label> 
+                    <div class="checkBox"  
+                         ng-class="vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'"  
+                         ng-click="vm.updateChecks('evening', vm.availability[vm.tabIndex].evening)"> 
+                    </div> 
+                    <label>DE 12 A 19HS.</label> 
+                </div> 
+                <div class="column"> 
+                    <label class="form-control">Noche</label> 
+                    <div class="checkBox"  
+                         ng-class="vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'"  
+                         ng-click="vm.updateChecks('night', vm.availability[vm.tabIndex].night)"> 
+                    </div> 
+                    <label>DE 19 A 23HS.</label> 
+                </div> 
+            </div> 
+            <div class="row-form"> 
+                <label class="form-control allCheck">Puedo jugar todos los días en cualquier horario.</label>  
+                <div class="checkBox"  
+                     ng-class="vm.always ? 'checked' : 'noChecked'"  
+                     ng-click="vm.updateChecks('always', vm.always)"> 
+                </div> 
+            </div> 
+        </form> 
+        <button type="submit" class="btn" ng-click="save()">Guardar</button> 
+    </div> 
+</script> 

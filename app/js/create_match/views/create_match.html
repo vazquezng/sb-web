@@ -12,10 +12,11 @@
             <div class="leftBracket"></div>
             <div class="centerBracket">
                 Completá los datos y que el
-                <spam>juego empiece.</spam>
+                <spam>juego empiece.</spam> Te recomendamos reservar la cancha previamente, un partido creado y luego cancelado, restará puntos en Slambow.
             </div>
             <div class="rightBracket"></div>
         </div>
+        
         <div class="row-form" style="margin-top: 5%;">
             <div class="column">
                 <div class="form-group">
@@ -42,11 +43,11 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club">
+                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club" tooltip-placement="left-bottom" uib-tooltip="Seleccioná la cancha donde se disputará el partido. Si la misma no se encuentra en el listado seleccioná OTRA e ingresá la dirección manualmente.">
                         <option value="" selected="selected">Otra</option>
                         <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
-                    <label for="inputPlace">Canchas Abonadas</label>
+                    <label for="inputPlace">Canchas Registradas</label>
                 </div>
             </div>
         </div>
@@ -66,10 +67,10 @@
         </div>
         <div class="row-form">
             <div class="column">
-                <label class="subtitle">Nivel de juego</label>
+                <label class="subtitle" >Nivel de juego de tus rivales</label>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required>
+                        <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required tooltip-placement="left-bottom" uib-tooltip="Selecciona el nivel de juego que deberán tener tus rivales para poder jugar.">
                            <option value="2.5">2.5</option>
                             <option value="3.0">3.0</option>
                             <option value="3.5">3.5</option>
@@ -86,7 +87,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required>
+                        <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" ng-blur="vm.validateLevel()" required tooltip-placement="left-bottom" uib-tooltip="Selecciona el nivel de juego que deberán tener tus rivales para poder jugar.">
                             <option value="2.5">2.5</option>
                             <option value="3.0">3.0</option>
                             <option value="3.5">3.5</option>
@@ -102,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="column">
+            <div class="column" ng-if="vm.match.address_lat && vm.match.address_lng">
                 <ui-gmap-google-map center='vm.map.center' zoom='vm.map.zoom' options="{draggable:false}">
                     <ui-gmap-marker idkey="1" coords='vm.market' options="{crossOnDrag:false, draggable:true}"></ui-gmap-marker>
                 </ui-gmap-google-map>
@@ -121,7 +122,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required>
+                    <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required tooltip-placement="left-bottom" uib-tooltip="Querés jugar singles o dobles?">
                         <option value="singles" >Singles</option>
                         <option value="dobles">Dobles</option>
                     </select>
@@ -131,7 +132,7 @@
         </div>
         <div class="row-form">
             <div class="column">
-                <label class="subtitle">Edad</label>
+                <label class="subtitle">Edad de tus rivales</label>
                 <div class="column">
                     <div class="form-group">
                         <input type="text" onkeypress="return validaNumber(event)" maxlength="2" minlength="2" class="form-control minimal" ng-model="vm.match.years_from" id="yearsFrom" ng-blur="vm.validateYears()" required/>
@@ -149,7 +150,7 @@
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAgeTo">COMENTARIOS</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.match.about" required maxlength="250"></textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.match.about" required maxlength="250" placeholder="Ingresá un comentario sobre el partido para atraer a tus rivales."></textarea>
             </div>
         </div>
         <!--label class="subtitle">Busca jugadores</label>
