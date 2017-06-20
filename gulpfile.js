@@ -31,14 +31,14 @@ const config = {
 };
 
 const URL_BUCKET = {
-    dev: 'http://www.socialtenis.dev:8083',
+    dev: 'http://localhost:8083',
     prod: 'http://web.slambow.com'
 }
 
 
 process.env.ENVIRONMENT = 'dev';
 process.env.URL_BUCKET = URL_BUCKET[process.env.ENVIRONMENT];
-process.env.URL_API = 'http://api.socialtenis.dev/api/v1';
+process.env.URL_API = 'http://api.slambow.com/api/v1';//'http://api.socialtenis.dev/api/v1';
 process.env.FACEBOOK_ID = '188438681613821';
 process.env.TWITTER_ID = '';
 
@@ -81,7 +81,7 @@ gulp.task('webpack-dev-server', ( /* callback */ ) => {
         if (err) {
             throw new gutil.PluginError('webpack-dev-server', err);
         }
-        const startUrl = 'http://localhost:8083/';
+        const startUrl = 'http://www.socialtenis.com:8083/';
         //open(startUrl);
         gutil.log('[webpack-dev-server]', startUrl);
     });

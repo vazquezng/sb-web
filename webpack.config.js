@@ -11,12 +11,12 @@ Object.keys(webpackConfig.entry).forEach(function(entry) {
     }
     if (Array.isArray(webpackConfig.entry[entry])) {
         webpackConfig.entry[entry].push('webpack/hot/dev-server');
-        webpackConfig.entry[entry].push('webpack-dev-server/client?http://localhost:8083');
+        webpackConfig.entry[entry].push('webpack-dev-server/client?http://www.socialtenis.com:8083');
     }
 });
 
 
-webpackConfig.output.publicPath = "http://127.0.0.1:8083/";
+webpackConfig.output.publicPath = "http://www.socialtenis.com:8083/";
 
 
 webpackConfig.plugins.push(new Webpack.HotModuleReplacementPlugin());
@@ -24,7 +24,9 @@ webpackConfig.plugins.push(new Webpack.HotModuleReplacementPlugin());
 webpackConfig.devServer = {
     hot: true,
     port: 8083,
+    host: '0.0.0.0',
     historyApiFallback: true,
+    disableHostCheck: true,
 }
 
 module.exports = webpackConfig;

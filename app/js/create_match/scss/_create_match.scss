@@ -66,7 +66,8 @@
     }
     form {
         label.subtitle {
-            margin-top: 50px;
+            margin-top: 12px;
+            margin-bottom: -8px;
             color: #20a3d4;
             display: block;
             margin-left: 10px;
@@ -108,4 +109,16 @@
     .angular-google-map-container {
         height: 100px;
     }
+}
+
+@media (max-width: 1100px) {
+  .createMatch #imageBox .centerBracket {
+    font-size: 14px;
+  }
+  .createMatch #imageBox .leftBracket {
+    left: inherit;
+  }
+  .createMatch #imageBox .rightBracket {
+    right: 22%;
+  }
 }

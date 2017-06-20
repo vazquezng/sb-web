@@ -139,7 +139,7 @@ body {
             border-radius: 2px;
         }
     }
-    
+
     .group {
         display: flex;
     }
@@ -151,7 +151,7 @@ body {
         margin: 0;
         margin-left: -25px;
     }
-    
+
     .checkBox.checked{
         background-image: url(/img/check-icon.png);
         background-size: contain;
@@ -263,7 +263,7 @@ header {
                 }
             }
             li.closeSession:hover{
-                opacity: 0.6;   
+                opacity: 0.6;
             }
         }
         .profileImg {
@@ -359,7 +359,7 @@ footer {
             }
         }
     }
-    
+
 }
 
 .noselect {
@@ -370,4 +370,13 @@ footer {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+
+@media only screen and (max-width: 1100px) {
+  body {
+    form {
+      width: 80% !important;
+    }
+  }
 }
