@@ -35,7 +35,7 @@
             height: 63px;
             display: block;
             position: absolute;
-            padding-top: 18px;
+            padding-top: 3px;
             font-size: 20px;
             spam {
                 font-weight: bold;
@@ -66,6 +66,7 @@
     }
     form {
         label.subtitle {
+            margin-top: 50px;
             color: #20a3d4;
             display: block;
             margin-left: 10px;
