@@ -37,10 +37,10 @@ class ProfileController {
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
-
+        
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         // this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
-        this.user.club_member = this.user.club_member ? this.user.club_member.toString(): this.user.club_member;
+        this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
 
