@@ -93,42 +93,32 @@
 </div--> 
         <div class="row-form"> 
             <div class="column"> 
-                <div class="column"> 
-                    <div class="form-group"> 
-                        <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" required> 
-                            <option value="2.5">2.5</option> 
-                            <option value="3">3.0</option> 
-                            <option value="3.5">3.5</option> 
-                            <option value="4">4.0</option> 
-                            <option value="4.5">4.5</option> 
-                            <option value="5">5.0</option> 
-                            <option value="5.5">5.5</option> 
-                            <option value="6">6.0</option> 
-                            <option value="6.5">6.5</option> 
-                            <option value="7">7.0</option> 
-                        </select> 
-                        <label for="inputGameLevel">Nivel de juego</label> 
-                    </div> 
-                </div> 
-                <div class="column"> 
-                    <div class="form-group"> 
-                        <select class="form-control minimal" name="inputITN" id="inputITN" ng-model="vm.user.itn" required> 
-                            <option ng-repeat="itn in ::[1,2,3,4,5,6,7,8,9,10]" value="{{itn}}">{{itn}}</option> 
-                        </select> 
-                        <label for="inputITN">ITN</label> 
-                    </div> 
+                <div class="form-group"> 
+                    <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"  required tooltip-placement="left-bottom"> 
+                    <option value="2.5" title="Principiante. Estás aprendiendo, recién comenzaste a tomar clases o nunca lo hiciste.">2.5</option> 
+                    <option value="3.0" title="Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.">3.0</option> 
+                    <option value="3.5" title="Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.">3.5</option> 
+                    <option value="4.0" title="Intermedio. Lograste golpes confiables, con approach y revés pero con errores.">4.0</option> 
+                    <option value="4.5" title="Intermedio. Lográs golpes efectivos y ya pensás en competencia.">4.5</option> 
+                    <option value="5" title="Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.">5.0</option> 
+                    <option value="5.5" title="Avanzado. Tenés constancia y control en los golpes. Podés variar las estrategias en situaciones de presion/estrés.">5.5</option> 
+                    <option value="6" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option> 
+                    <option value="6.5" title="Avanzado. Ya jugás en circuitos y querés tener una profesional.">6.5</option> 
+                    <option value="7" title="Profesional. Ya sos un jugador profesional.">7.0</option> 
+                </select>  
+                    <label for="inputGameLevel">Nivel de juego</label> 
                 </div> 
             </div> 
             <div class="column"> 
                 <div class="column"> 
                     <div class="form-group"> 
-                        <input type="checkbox" class="form-control" ng-model="vm.user.single" /> 
+                        <input type="checkbox" class="form-control" ng-model="vm.user.single" tooltip-placement="left-bottom" uib-tooltip="Estas dispuesto a jugar singles, dobles o ambos?" /> 
                         <label for="inputCity">Singles</label> 
                     </div> 
                 </div> 
                 <div class="column"> 
                     <div class="form-group"> 
-                        <input type="checkbox" class="form-control" ng-model="vm.user.double" /> 
+                        <input type="checkbox" class="form-control" ng-model="vm.user.double" tooltip-placement="left-bottom" uib-tooltip="Estas dispuesto a jugar singles, dobles o ambos?" /> 
                         <label for="inputCity">Dobles</label> 
                     </div> 
                 </div> 
@@ -137,7 +127,7 @@
         <div class="row-form"> 
             <div class="column"> 
                 <div class="form-group"> 
-                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach"> 
+                    <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach"  tooltip-placement="left-bottom" uib-tooltip="Tenés profesor actualmente? Indica nombre, apellido y club">  
                     <label for="inputCoachProfessor">Coach/Professor</label> 
                 </div> 
             </div> 
@@ -151,19 +141,22 @@
         <div class="row-form"> 
             <div class="column"> 
                 <div class="form-group"> 
-                    <rzslider rz-slider-model="vm.user.distance" rz-slider-options="{floor: 2, 
-                                                                                    ceil: 50, 
-                                                                                    step: 2, 
-                                                                                    minLimit: 2, 
-                                                                                    maxLimit: 50, 
-                                                                                    showSelectionBar: true}"></rzslider> 
+                    <rzslider rz-slider-model="vm.user.distance" 
+                              rz-slider-options="{floor: 2, 
+                                                ceil: 50, 
+                                                step: 2, 
+                                                minLimit: 2, 
+                                                maxLimit: 50, 
+                                                showSelectionBar: true}" 
+                              tooltip-placement="left-bottom" uib-tooltip="Es la distancia que estás dispuesto a recorrer para jugar un partido"></rzslider> 
                     <label for="inputDistance">Distancia para jugar un partido</label> 
                 </div> 
             </div> 
             <div class="column"> 
                 <div class="form-group"> 
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member"> 
-                        <option value="0" selected="selected">Ninguno</option> 
+                        <option value="0" selected>Otro</option> 
+                        <option value="1">Ninguno</option>  
                     </select> 
                     <label for="inputPartnerClub">Sos socio de algun club?</label> 
                 </div> 
@@ -172,7 +165,7 @@
         <div class="row-form"> 
             <div class="form-group"> 
                 <label for="inputAboutMe">SOBRE MI</label> 
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea> 
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required placeholder="Contanos algo mas sobre vos, tus habilidades, hobbies. ¿Por qué deberían jugar con vos?"></textarea> 
             </div> 
         </div> 
         <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button> 

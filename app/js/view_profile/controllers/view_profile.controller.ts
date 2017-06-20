@@ -12,6 +12,7 @@ class ProfileController {
     public availabilityList = []; 
     public completeForm =false; 
     public tabIndex = 0; 
+    public isSetted = false;
  
     //always y allDay son variables auxiliares para ahorrar control en el html. 
     public always = false; 
@@ -102,7 +103,18 @@ class ProfileController {
             this.availability[this.tabIndex].morning &&  
             this.availability[this.tabIndex].evening &&  
             this.availability[this.tabIndex].night; 
-             
+        
+        this.isSetted = false;
+        
+        
+        for (let entry of this.availability) {
+            if(entry.morning || entry.evening || entry.night){
+                this.isSetted = true;
+                break;
+            }
+        }
+        
+        
         this.always =  
             this.availability[0].allDay &&  
             this.availability[1].allDay &&  
