@@ -14,6 +14,11 @@ angular
         template: tplAppProfile,
         controller: 'ProfileController',
         controllerAs: 'vm',
+        resolve:{
+          Canchas:['$http', 'PATHS', function($http, PATHS){
+            return $http.get(`${PATHS.api}/canchas`);
+          }],
+        },
         authenticate: true,
     });
     /*$stateProvider.state('app.profile', {
