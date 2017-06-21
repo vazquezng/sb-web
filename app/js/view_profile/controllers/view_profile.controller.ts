@@ -37,7 +37,7 @@ class ProfileController {
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
-        
+
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         // this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
@@ -200,15 +200,15 @@ class ProfileController {
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 vm.stopSave = false;
                 if(resp.data.success){
+                    const firstLoad = vm.user.complete;
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
+                    vm.user.complete = true;
+                    vm.LoginService.setUser(vm.user);
                     vm.$rootScope.$broadcast('profile-update');
-                    if(!vm.user.complete){
-                        vm.user.complete = true;
-                        vm.LoginService.setUser(vm.user);
-                        vm.$state.go('app.createMatch');
-                    }
 
-                    //vm.$state.reload();
+                    if (!firstLoad) {
+                      vm.$state.go('app.createMatch');
+                    }
                 }else{
                     vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
                 }
