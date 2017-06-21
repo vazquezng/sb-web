@@ -2,7 +2,7 @@ import * as angular from 'angular';
 
 class MenuController
 {
-    static $inject = ['$rootScope', '$scope'];
+    static $inject = [' LoginService', '$rootScope', '$scope'];
 
     public user;
     public avatar;
@@ -32,4 +32,4 @@ class MenuController
 }
 
 angular.module('Home')
-        .controller('MenuController', ['LoginService', '$rootScope', MenuController]);
+        .controller('MenuController', ['LoginService', '$rootScope', '$scope', MenuController]);
