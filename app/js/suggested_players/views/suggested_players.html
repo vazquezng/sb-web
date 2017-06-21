@@ -32,7 +32,7 @@
                         <div class="userName">
                             <a ui-sref="app.user_detail({user_id: user.id})">{{user.last_name}}</a>
                         </div>
-                        <button type="button" class="btn" ng-click="vm.invite(user.id)" ng-disabled="vm.stopSave">Invitar</button>
+                        <button type="button" class="btn" ng-click="vm.invite(user)" ng-disabled="user.disabled">Invitar</button>
                     </div>
                 </div>
                 <div class="rightBracket"></div>
@@ -53,7 +53,7 @@
                             <div class="userName">
                                 <a ui-sref="app.user_detail({user_id: user.id})">{{user.name}}</a>
                             </div>
-                            <button type="button" class="btn" ng-click="vm.invite(user.id)" ng-disabled="vm.stopSave">Invitar</button>
+                            <button type="button" class="btn" ng-click="vm.invite(user)" ng-disabled="user.disabled">Invitar</button>
                         </div>
                     </div>
                     <div class="rightBracket"></div>

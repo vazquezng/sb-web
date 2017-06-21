@@ -133,7 +133,8 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button>
+                    <!--button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button-->
+                    <input type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" value="{{vm.isSetted?'Cargada':'Hacé click para cargarla'}}" readonly>
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
@@ -155,7 +156,7 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member">
-                        <option value="0" selected="selected">Otro</option>
+                        <option value="0" selected>Otro</option>
                         <option value="1">Ninguno</option>
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>

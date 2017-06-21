@@ -32,15 +32,15 @@ class ProfileController {
 
         this.user = LoginService.getUser();
         let vm =  this;
+        this.isSetted = this.user.availability == 'Loaded';
         vm.avatar = this.user.image && this.user.image !== '' ? this.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
-
+        
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         // this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
-        this.user.club_member = this.user.club_member ? this.user.club_member.toString(): this.user.club_member;
-        console.log(this.user.club_member );
+        this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
 
@@ -55,7 +55,6 @@ class ProfileController {
                     console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
                     vm.user.image = resp.data;
                     vm.avatar = resp.data;
-
                 }, function (resp) {
                     console.log('Error status: ' + resp.status);
                 }, function (evt:any) {
@@ -67,6 +66,13 @@ class ProfileController {
 
 
         $scope.save = function(){
+            vm.isSetted = false;
+            for (let entry of vm.availability) {
+                if(entry.morning || entry.evening || entry.night){
+                    vm.isSetted = true;
+                    break;
+                }
+            }
             vm.saveAvailability();
         };
     }
@@ -101,17 +107,6 @@ class ProfileController {
             this.availability[this.tabIndex].morning &&
             this.availability[this.tabIndex].evening &&
             this.availability[this.tabIndex].night;
-
-        this.isSetted = false;
-
-
-        for (let entry of this.availability) {
-            if(entry.morning || entry.evening || entry.night){
-                this.isSetted = true;
-                break;
-            }
-        }
-
 
         this.always =
             this.availability[0].allDay &&
@@ -160,7 +155,7 @@ class ProfileController {
                 vm.toaster.pop({type: 'success', body: 'Tu disponibilidad se guardo correctamente!',timeout: 2000});
                 vm.modalInstance.close();
             }else{
-                vm.toaster.pop({type: 'error', body: 'Ocurrió un error al guardar tu disponibilidad',timeout: 2000});
+                vm.toaster.pop({type: 'error', body: 'Debés seleccionar al menos un rango horario.',timeout: 2000});
             }
         });
     }
