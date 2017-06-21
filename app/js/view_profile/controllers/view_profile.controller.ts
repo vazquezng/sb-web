@@ -1,5 +1,5 @@
 class ProfileController {
-    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster'];
+    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', '$rootScope'];
 
     public user;
     public image;
@@ -25,7 +25,7 @@ class ProfileController {
                           {allDay: false, morning: false, evening: false, night: false}];
 
     public stopSave = false;
-    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
+    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster, private $rootScope){
         if(!LoginService.isAuth()){
             $state.go('app.home');
         }
@@ -206,6 +206,7 @@ class ProfileController {
                 vm.stopSave = false;
                 if(resp.data.success){
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
+                    vm.$rootScope.$broadcast('profile-update');
                     if(!vm.user.complete){
                         vm.user.complete = true;
                         vm.LoginService.setUser(vm.user);
@@ -225,4 +226,4 @@ class ProfileController {
 }
 
 angular.module('Profile')
-    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', ProfileController]);
+    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', '$rootScope', ProfileController]);
