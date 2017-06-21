@@ -33,8 +33,13 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <div class="input-group">
-                        <div uib-timepicker show-spinners="false" ng-model="vm.match.hour" minute-step="30" show-meridian="vm.ismeridian"></div>
+                    <div class="input-group timeContainer">
+                        <div uib-timepicker 
+                             show-spinners="false" 
+                             ng-model="vm.match.hour" 
+                             minute-step="30" 
+                             show-meridian="false">
+                        </div>
                     </div>
                     <label for="inputHora">Hora</label>
                 </div>
