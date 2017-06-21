@@ -18,7 +18,9 @@ class MenuController
         $rootScope.$on('profile-update', () => {
           vm.user = LoginService.getUser();
           vm.avatar = vm.user.image && vm.user.image !== '' ? vm.user.image : (<any>window).URL_BUCKET+'/img/profile/profile-blank.png';
-          $scope.$apply();
+          if(!$scope.$$phase) {
+            $scope.$apply();
+          }
         });
     }
 
