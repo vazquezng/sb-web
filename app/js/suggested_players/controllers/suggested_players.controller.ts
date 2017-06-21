@@ -18,9 +18,10 @@ export class SuggestedPlayersController
         this.match_id = $stateParams.match_id;
     }
 
-    public invite(user_id){
+    public invite(user){
         const vm = this;
-        var paramObj = {user_id: user_id, match_id: this.match_id};
+        var paramObj = {user_id: user.id, match_id: this.match_id};
+        user['disabled'] = 'true';
         this.$http.post(this.PATHS.api + '/match/invite', paramObj).then(function(resp){
                 if(resp.data.success){
                     vm.toaster.pop({type:'info', body:'Invitación enviada.'})

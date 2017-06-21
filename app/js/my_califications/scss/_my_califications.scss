@@ -98,3 +98,43 @@
         }
     }
 }
+#feedbackDetailModal{
+    border: 4px #d8d8dc solid;
+    border-radius: 6px;
+    form{
+        width: 95%;
+        .imgContainer {
+            margin-left: 23%;
+            margin-bottom: 20px;
+            margin-top: 25px;
+            width: 179px;
+            height: 182px;
+            background-image: url(../img/profile/back-profile.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: inline-block;
+            img {
+                margin-top: 10px;
+                width: 179px;
+                height: 182px;
+                border-radius: 100%;
+            }
+        }
+        .row-form .column {
+            display: inline-block;
+            width: 237px;
+            margin: 10px;
+        }
+        .row-form .column-med {
+            display: inline-block;
+            width: 150px;
+        }
+        .textarea{
+            width: 498px;
+            margin: 10px;
+        }
+    }
+    .column-med{
+        margin: 10px;
+    }
+}

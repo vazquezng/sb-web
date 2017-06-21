@@ -30,7 +30,7 @@
                         <img class="closeQT" src="/img/play/closeQT.png" />
                     </div>
                     <div class="btnContainer">
-                        <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit"/>
+                        <input type="image" name="submit" src="/img/play/eye-icon.png" border="0" alt="Submit" ng-click="vm.openModalFeedback(feedback)"/>
                     </div>
                 </div>
             </div>
@@ -39,6 +39,72 @@
             <span>Aún no tenés calificaciones.</span>
         </div>
     </div>
-
 </div>
 <sb-footer></sb-footer>
+<script type="text/ng-template" id="feedback-detail">
+    <div id="feedbackDetailModal">
+        <form>
+            <div class="row-form">
+                <div class="column">
+                    <div class="imgContainer">
+                        <img class="profileImg" src="{{user_from.image}}" />
+                    </div>
+                </div>
+                <div class="column" style="vertical-align: middle;">
+                    <input type="text" class="form-control" ng-model="user_from.name">
+                    <label>JUGADOR</label>
+                    <input type="text" class="form-control" ng-model="match.address">
+                    <label>LUGAR</label>
+                </div>
+            </div>
+            <div class="row-form">
+                <div class="column-med">
+                    <input type="text" class="form-control" ng-model="match.date">
+                    <label>FECHA</label>
+                </div>
+                <div class="column-med">
+                    <input type="text" class="form-control" ng-model="match.hour">
+                    <label>HORA</label>
+                </div>
+                <div class="column-med">
+                    <input type="text" class="form-control" ng-model="match.type">
+                    <label>TIPO DE PARTIDO</label>
+                </div>
+            </div>
+            <div class="row-form ">
+                <div class="column">
+                    <input type="text" class="form-control" ng-model="match.date">
+                    <label>NIVEL DE JUEGO</label>
+                </div>
+                <div class="column">
+                    <input type="text" class="form-control" ng-model="match.hour">
+                    <label>EDAD</label>
+                </div>
+            </div>
+            <div class="row-form">
+                <div class="column">
+                    <input type="text" class="form-control" ng-model="feedback.punctuality">
+                    <label>PUNTUALIDAD</label>
+                </div>
+                <div class="column">
+                    <input type="text" class="form-control" ng-model="feedback.respect">
+                    <label>RESPETO</label>
+                </div>
+            </div>
+            <div class="row-form">
+                <div class="column-med">
+                    <input type="text" class="form-control" ng-value="feedback.has_attended?'SI':'NO'">
+                    <label>ASISTIO AL PARTIDO</label>
+                </div>
+            </div>
+            <div class="form-group textarea" ng-if="!feedback.has_attended">
+                <label for="inputAboutMe">¿CUÁL FUE EL MOTIVO?</label>
+                <textarea class="form-control" rows="5" ng-model="feedback.reason"></textarea>
+            </div>
+            <div class="row-form textarea">
+                <label for="inputAboutMe">COMENTARIOS</label>
+                <textarea class="form-control" rows="5" ng-model="feedback.comment"></textarea>
+            </div>
+        </form>
+    </div>
+</script>
