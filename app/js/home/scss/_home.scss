@@ -6,21 +6,24 @@
     }
     .desc {
         position: absolute;
-        right: 4%;
-        top: 35%;
-        text-align: right;
+        /* right: 7%; */
+        top: 50%;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, -50%);
         h1 {
-            font-size: 100px;
+            font-size: 58px;
             font-family: "Open Sans";
             color: rgb(255, 255, 255);
             text-transform: uppercase;
             /*line-height: 0.179;*/
-            text-align: right;
+            text-align: center;
             text-shadow: 0.5px 0.866px 1px rgba(0, 0, 0, 0.5);
             z-index: 110;
             margin: 0;
             padding: 0;
             margin-bottom: -4%;
+            width: 100%;
         }
         h2 {
             margin-top: -3%;
