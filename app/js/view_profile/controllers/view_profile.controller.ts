@@ -1,5 +1,5 @@
 class ProfileController {
-    static $inject = ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster'];
+    static $inject = ['Canchas', 'LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', '$rootScope'];
 
     public user;
     public image;
@@ -23,9 +23,10 @@ class ProfileController {
                           {allDay: false, morning: false, evening: false, night: false},
                           {allDay: false, morning: false, evening: false, night: false},
                           {allDay: false, morning: false, evening: false, night: false}];
+    public canchas = [];
 
     public stopSave = false;
-    constructor (private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster){
+    constructor (private Canchas, private LoginService, private $http, private $state, private $scope, private PATHS, private Upload, private $uibModal, private toaster, private $rootScope){
         if(!LoginService.isAuth()){
             $state.go('app.home');
         }
@@ -37,12 +38,14 @@ class ProfileController {
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
-        
+
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         // this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
+
+        this.canchas = Canchas.data.canchas;
 
         $scope.$watch('image', function(newImage, lastImage){
             if(newImage && newImage !== lastImage){
@@ -63,7 +66,6 @@ class ProfileController {
                 });
             }
         });
-
 
         $scope.save = function(){
             vm.isSetted = false;
@@ -200,14 +202,15 @@ class ProfileController {
             this.$http.post(this.PATHS.api + '/user', this.user).then(function(resp){
                 vm.stopSave = false;
                 if(resp.data.success){
+                    const firstLoad = vm.user.complete;
                     vm.toaster.pop({type: 'success', body: 'Se guardo correctamente!',timeout: 2000});
-                    if(!vm.user.complete){
-                        vm.user.complete = true;
-                        vm.LoginService.setUser(vm.user);
-                        vm.$state.go('app.createMatch');
-                    }
+                    vm.user.complete = true;
+                    vm.LoginService.setUser(vm.user);
+                    vm.$rootScope.$broadcast('profile-update');
 
-                    //vm.$state.reload();
+                    if (!firstLoad) {
+                      vm.$state.go('app.createMatch');
+                    }
                 }else{
                     vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
                 }
@@ -220,4 +223,4 @@ class ProfileController {
 }
 
 angular.module('Profile')
-    .controller('ProfileController', ['LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', ProfileController]);
+    .controller('ProfileController', ['Canchas', 'LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', '$rootScope', ProfileController]);

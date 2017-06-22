@@ -18,7 +18,7 @@
         height: 63px;
         color: #818184;
         text-align: center;
-        spam {
+        span {
             color: #20a3d4;
         }
         .leftBracket {
@@ -31,13 +31,13 @@
             position: absolute;
         }
         .centerBracket {
-            width: 65%;
+            width: 64%;
             height: 63px;
             display: block;
             position: absolute;
             padding-top: 3px;
-            font-size: 20px;
-            spam {
+            font-size: 17px;
+            span {
                 font-weight: bold;
             }
         }

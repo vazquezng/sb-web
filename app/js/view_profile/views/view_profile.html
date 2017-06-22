@@ -156,8 +156,9 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member">
-                        <option value="0" selected>Otro</option>
-                        <option value="1">Ninguno</option>
+                        <option value="-1">Ninguno</option>
+                        <option value="0" selected="selected">Otra</option>
+                        <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>
                 </div>
