@@ -22,7 +22,7 @@
                 <div class="centerBracket">
                     <div class="level-1">
                         <div class="imgContainer">
-                            <img ng-src="{{user.image}}" style="border-radius: 150px; width: 116px;">
+                            <img ng-src="{{user.image?user.image:'/img/profile/profile-blank.png'}}" style="border-radius: 150px; width: 116px;">
                         </div>
                     </div>
                     <div class="level-2">
@@ -46,7 +46,7 @@
                     <div class="centerBracket">
                         <div class="level-1">
                             <div class="imgContainer">
-                                <img ng-src="{{user.image}}" style="border-radius: 150px; width: 116px;">
+                                <img ng-src="{{user.image?user.image:'/img/profile/profile-blank.png'}}" style="border-radius: 150px; width: 116px;">
                             </div>
                         </div>
                         <div class="level-2">
