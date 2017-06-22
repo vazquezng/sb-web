@@ -13,7 +13,7 @@ export class CreateMatchController
         address_lng: '',
         game_level_from: '2.5',
         game_level_to: '2.5',
-        type:'single',
+        type:'',
         sexo:'mixto'
     };
     public partner_club:any = '0';
