@@ -13,7 +13,7 @@ export class CreateMatchController
         address_lng: '',
         game_level_from: '2.5',
         game_level_to: '2.5',
-        type:'single',
+        type:'',
         sexo:'mixto'
     };
     public partner_club:any = '0';
@@ -42,15 +42,21 @@ export class CreateMatchController
     }
 
     public validateTime(){
-        if(this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30){
-            this.toaster.pop({type:'info', body:'En la hora del partido, solo se admiten intervalos de 30 minutos.'});
-            this.match.hour = new Date(moment('15:30','HH:mm'));
+        
+        if(!this.match.hour){
+            this.toaster.pop({type:'info', body:'Ingresaste un horario incorrecto. Recordá que los partidos se pueden jugar de 8 a 23hs y que la hora se encuentra en formato 24hs.'});
             return false;
         }
         
         
         if(this.match.hour.getHours() < 8 || this.match.hour.getHours() > 23){
             this.toaster.pop({type:'info', body:'El partido se debe jugar entre las 8 y las 23hs.'});
+            return false;
+        }
+        
+        if(this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30){
+            this.toaster.pop({type:'info', body:'En la hora del partido, solo se admiten intervalos de 30 minutos.'});
+            this.match.hour = new Date(moment('15:30','HH:mm'));
             return false;
         }
         

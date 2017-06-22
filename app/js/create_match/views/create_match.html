@@ -34,8 +34,13 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <div class="input-group">
-                        <div uib-timepicker show-spinners="false" ng-model="vm.match.hour" minute-step="30" show-meridian="vm.ismeridian"></div>
+                    <div class="input-group timeContainer">
+                        <div uib-timepicker 
+                             show-spinners="false" 
+                             ng-model="vm.match.hour" 
+                             minute-step="30" 
+                             show-meridian="false">
+                        </div>
                     </div>
                     <label for="inputHora">Hora</label>
                 </div>
@@ -44,8 +49,9 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club" tooltip-placement="left-bottom" uib-tooltip="Seleccioná la cancha donde se disputará el partido. Si la misma no se encuentra en el listado seleccioná OTRA e ingresá la dirección manualmente.">
-                        <option value="" selected="selected">Otra</option>
+                    <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club" required tooltip-placement="left-bottom" uib-tooltip="Seleccioná la cancha donde se disputará el partido. Si la misma no se encuentra en el listado seleccioná OTRA e ingresá la dirección manualmente.">
+                        <option value="0">Seleccione</option>
+                        <option value="">Otra</option>
                         <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
                     <label for="inputPlace">Canchas Registradas</label>
@@ -72,7 +78,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" ng-blur="vm.validateLevel()" required tooltip-placement="left-bottom" uib-tooltip="Selecciona el nivel de juego que deberán tener tus rivales para poder jugar.">
-                           <option value="2.5">2.5</option>
+                            <option value="2.5">2.5</option>
                             <option value="3.0">3.0</option>
                             <option value="3.5">3.5</option>
                             <option value="4.0">4.0</option>
@@ -124,6 +130,7 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required tooltip-placement="left-bottom" uib-tooltip="Querés jugar singles o dobles?">
+                        <option value="">Seleccione</option>
                         <option value="singles" >Singles</option>
                         <option value="dobles">Dobles</option>
                     </select>
