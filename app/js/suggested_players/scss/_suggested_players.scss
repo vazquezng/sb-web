@@ -30,8 +30,10 @@
         margin-top: 50px;
         .leftBracket {
             left: 17%;
-            background-image: url(../img/play/left-bracket.png);
-            background-repeat: no-repeat;
+            border-left: 2px solid #dde1e3;
+            border-top: 2px solid #dde1e3;
+            border-bottom: 2px solid #dde1e3;
+            margin-right: 25px;
             width: 27px;
             height: 62px;
             display: block;
@@ -54,8 +56,10 @@
         }
         .rightBracket {
             right: 17%;
-            background-image: url(../img/play/right-bracket.png);
-            background-repeat: no-repeat;
+            border-right: 2px solid #dde1e3;
+            border-top: 2px solid #dde1e3;
+            border-bottom: 2px solid #dde1e3;
+            margin-left: 25px;
             width: 27px;
             height: 62px;
             display: block;
@@ -87,25 +91,27 @@
         margin-top: 50px;
         margin-bottom: 50px;
         .userBox {
-            height: 380px;
+            height: 215px;
             margin-top: 2%;
             .leftBracket {
-                background-image: url(../img/play/left-bracket-big.png);
-                background-size: contain;
-                background-repeat: no-repeat;
+                border-left: 2px solid #dde1e3;
+                border-top: 2px solid #dde1e3;
+                border-bottom: 2px solid #dde1e3;
+                margin-right: 25px;
                 width: 15px;
-                height: 200px;
+                height: 250px;
                 display: inline-block;
-                width: 30px;
+                width: 15px;
             }
             .rightBracket {
-                background-image: url(../img/play/right-bracket-big.png);
-                background-size: contain;
-                background-repeat: no-repeat;
+                border-right: 2px solid #dde1e3;
+                border-top: 2px solid #dde1e3;
+                border-bottom: 2px solid #dde1e3;
+                margin-left: 25px;
                 width: 15px;
-                height: 200px;
+                height: 250px;
                 display: inline-block;
-                width: 30px;
+                width: 15px;
                 background-position: right;
             }
             .centerBracket {
