@@ -230,10 +230,17 @@
     }
 }
 #tableNTRP{
-    height: 300px;
     border: 4px #d8d8dc solid;
     border-radius: 6px;
     overflow: hidden;
+    .tab-pane{
+        margin: 15px;
+        height: 150px;
+    }
+    button{
+        margin-right: 40px;
+        float:right;
+    }
     ul.nav-tabs{
         background-color: rgb(242, 242, 242);
         border-top-right-radius: 5px;
@@ -284,4 +291,13 @@
         font-size: 18px;
         margin: auto;
     }
+    .legend{
+        width: 420px;
+        margin: auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        color: #818184;
+        text-align: center;
+    }
+    
 }

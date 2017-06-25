@@ -44,7 +44,7 @@ class ProfileController {
         this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
-
+        this.user.game_level = '2.5';
         this.canchas = Canchas.data.canchas;
 
         $scope.$watch('image', function(newImage, lastImage){
@@ -118,6 +118,21 @@ class ProfileController {
             this.availability[4].allDay &&
             this.availability[5].allDay &&
             this.availability[6].allDay;
+    }
+
+    public openGameLevelModal(){ 
+        let vm =  this; 
+        vm.modalInstance = vm.$uibModal.open({ 
+                animation: true, 
+                ariaLabelledBy: 'modal-title', 
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'game-level-table', 
+                scope:vm.$scope 
+            }); 
+    } 
+
+    public updateLevel(value){
+        this.user.game_level= value;
     }
 
     public openModalAvailable(){

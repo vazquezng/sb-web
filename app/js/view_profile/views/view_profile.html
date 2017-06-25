@@ -100,13 +100,13 @@
                     <option value="3.5" title="Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.">3.5</option>
                     <option value="4.0" title="Intermedio. Lograste golpes confiables, con approach y revés pero con errores.">4.0</option>
                     <option value="4.5" title="Intermedio. Lográs golpes efectivos y ya pensás en competencia.">4.5</option>
-                    <option value="5" title="Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.">5.0</option>
+                    <option value="5.0" title="Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.">5.0</option>
                     <option value="5.5" title="Avanzado. Tenés constancia y control en los golpes. Podés variar las estrategias en situaciones de presion/estrés.">5.5</option>
-                    <option value="6" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option>
+                    <option value="6.0" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option>
                     <option value="6.5" title="Avanzado. Ya jugás en circuitos y querés tener una profesional.">6.5</option>
-                    <option value="7" title="Profesional. Ya sos un jugador profesional.">7.0</option>
+                    <option value="7.0" title="Profesional. Ya sos un jugador profesional.">7.0</option>
                 </select>
-                    <label for="inputGameLevel">Nivel de juego</label>
+                    <label for="inputGameLevel">Nivel de juego</label><small class="badge" ng-click="vm.openGameLevelModal()">?</small>
                 </div>
             </div>
             <div class="column">
@@ -255,3 +255,78 @@
         <button type="submit" class="btn" ng-click="save()">Guardar</button>
     </div>
 </script>
+<script type="text/ng-template" id="game-level-table"> 
+    <div id="tableNTRP" style="height: 475"> 
+        <div class="titleDiv"> 
+            <div class="side"> 
+                <div class="dot"></div> 
+                <div class="line"></div> 
+            </div> 
+            <div class="centerTitle"> 
+                Tabla NTRP 
+            </div> 
+            <div class="side"> 
+                <div class="line"></div> 
+                <div class="dot"></div> 
+            </div> 
+        </div> 
+        <div class="titleLine"></div>
+        <div class="legend">
+            Indicanos cuál es el nivel que mejor te describe.
+        </div>
+        
+        <uib-tabset justified="true">
+            <uib-tab heading="2.5" index="2.5" select="vm.updateLevel('2.5')">
+                <span> 
+                    Este jugador esta aprendiendo a moverse según la dirección de la bola, sin embargo la cobertura de la cancha es débil. También puede sostener un rally corto de poca intensidad con otro jugador del mismo nivel.
+                </span> 
+            </uib-tab> 
+            <uib-tab heading="3.0" index="3.0" select="vm.updateLevel('3.0')">
+                <span> 
+                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.
+                </span> 
+            </uib-tab> 
+            <uib-tab heading="3.5" index="3.5" select="vm.updateLevel('3.5')">
+                <span> 
+                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.
+                </span> 
+            </uib-tab> 
+            <uib-tab heading="4.0" index="4.0" select="vm.updateLevel('4.0')">
+                <span> 
+                    Este jugador tiene golpes confiables, incluyendo la dirección y profundidad de la bola en los dos golpes de derecha y revés. Usted puede hacer approach y boleas con éxito pero comete algunos errores al servir al servir. Puede perder en los rallies por impaciencia. Es conciente que en dobles se necesita trabajo en equipo y lo practica.
+                </span> 
+            </uib-tab> 
+            <uib-tab heading="4.5" index="4.5" select="vm.updateLevel('4.5')">
+                <span>
+                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo. 
+                </span>
+            </uib-tab> 
+            <uib-tab heading="5.0" index="5.0" select="vm.updateLevel('5.0')"> 
+                <span>
+                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles. 
+                </span>
+            </uib-tab> 
+            <uib-tab heading="5.5" index="5.5" select="vm.updateLevel('5.5')"> 
+                <span>
+                    Tiene consistencia y control en los golpes. Puede variar las estrategias y golpea con confianza en jugadas o situaciones de presión/estrés. 
+                </span>
+            </uib-tab> 
+            <uib-tab heading="6.0" index="6.0" select="vm.updateLevel('6.0')"> 
+                <span>
+                    Usted ha tenido entrenamiento intensivo y ha participado en competencias que le han otorgado un ranking en la sección o a nivel nacional. 
+                </span>
+            </uib-tab> 
+            <uib-tab heading="6.5" index="6.5" select="vm.updateLevel('6.5')"> 
+                <span>
+                    Usted juega los circuitos USTA y espera tener una carrera tener una carrera profesional en el tenis. 
+                </span>
+            </uib-tab> 
+            <uib-tab heading="7.0" index="7.0" select="vm.updateLevel('7.0')"> 
+                <span>
+                    Usted es un jugador de tenis profesional 
+                </span>
+            </uib-tab> 
+         </uib-tabset> 
+        <button class="btn" ng-click="vm.modalInstance.close();">Cerrar</button>
+    </div> 
+</script> 
