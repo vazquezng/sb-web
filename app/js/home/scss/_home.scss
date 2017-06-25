@@ -6,21 +6,24 @@
     }
     .desc {
         position: absolute;
-        right: 4%;
-        top: 35%;
-        text-align: right;
+        top: 50%;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
         h1 {
-            font-size: 100px;
+            font-size: 58px;
             font-family: "Open Sans";
             color: rgb(255, 255, 255);
             text-transform: uppercase;
             /*line-height: 0.179;*/
-            text-align: right;
+            text-align: center;
             text-shadow: 0.5px 0.866px 1px rgba(0, 0, 0, 0.5);
             z-index: 110;
             margin: 0;
             padding: 0;
             margin-bottom: -4%;
+            width: 100%;
         }
         h2 {
             margin-top: -3%;
@@ -132,7 +135,7 @@ sb-sections {
     max-width: 100%;
     overflow: hidden;
     .canchas {
-        background: url(../img/home-canchas.png) center center no-repeat;
+        background: url(../img/home-canchas.jpg) center center no-repeat;
         background-size: cover;
         height: 326px;
         border-right: 1px solid #ffffff;
@@ -140,7 +143,7 @@ sb-sections {
         padding-left: 8%;
     }
     .torneos {
-        background: url(../img/home-torneos.png) center center no-repeat;
+        background: url(../img/home-torneos.jpg) center center no-repeat;
         background-size: cover;
         height: 326px;
         padding-top: 3%;

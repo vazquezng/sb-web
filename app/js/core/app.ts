@@ -26,7 +26,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
                   }else if ( window.localStorage.getItem('token-cancha')){
                     config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token-cancha');
                   }
-                  
+
                   return config;
               },
               'responseError': function (response) {
@@ -72,7 +72,7 @@ angular.module(APP.NAME, APP.DEPENDENCIES)
         });
 
         $rootScope.URL_BUCKET = (<any>window).URL_BUCKET;
-
+        $rootScope.HASH = (<any>window).HASH;
     }]);
 
 if (!(<any>window).DEV) {
