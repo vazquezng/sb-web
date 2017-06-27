@@ -7,7 +7,7 @@
         <div class="centerTitle"></div>
     </div>
 
-    <form name="formProfile" novalidate>
+    <form name="formProfile" ng-submit="vm.save(formProfile)">
         <div id="imageBox">
             <div class="leftBracket"></div>
             <div class="centerBracket" class="button" ngf-select ng-model="image" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 200, height: 200}">
@@ -57,6 +57,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
+                            <option value="" disabled selected hidden>Seleccione</option>
                             <option value="male">Masculino</option>
                             <option value="female">Femenino</option>
                         </select>
@@ -72,7 +73,7 @@
 </div-->
             <div class="column">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" autocomplete="false" />
+                    <input type="text" class="form-control" name="inputCity" id="inputCity" g-places-autocomplete ng-model="vm.address" autocomplete="false" required/>
                     <label for="inputCity">Dirección</label>
                 </div>
             </div>
@@ -170,8 +171,8 @@
                 <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required placeholder="Contanos algo mas sobre vos, tus habilidades, hobbies. ¿Por qué deberían jugar con vos?"></textarea>
             </div>
         </div>
-        <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>
-        <span ng-show="vm.completeForm" style="color:darkred">Completar los datos del formulario</span>
+        <button type="submit" class="btn" ng-disabled="vm.stopSave">Guardar</button>
+        
     </form>
 </div>
 <sb-footer></sb-footer>

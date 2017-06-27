@@ -93,7 +93,9 @@
             margin-right: 10px;
         }
         
-        
+        .badge{
+            cursor: pointer;
+        }
     }
     .rz-bubble.rz-limit.rz-floor:after,
     .rz-bubble.rz-limit.rz-ceil:after {

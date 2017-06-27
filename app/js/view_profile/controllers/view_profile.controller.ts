@@ -196,14 +196,33 @@ class ProfileController {
         }
     }
 
+    public validateAddress(){
+        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
+             this.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
+             return false;
+        }
+        return true;
+    }
+
+    public validateType(){
+        if(!this.user.single && !this.user.double){
+            this.toaster.pop({type: 'error', body: 'Debés seleccionar el tipo de partido que querés jugar.',timeout: 2000});
+            return false;
+        }
+        return true;
+    }
+
     public save(form){
         const vm = this;
-        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
-             vm.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
-             return;
+        
+        if(!vm.validateAddress()){
+            return;
+        }
+        if(!vm.validateType()){
+            return;
         }
 
-        if(form.$valid && !this.stopSave && (this.user.single || this.user.double)){
+        if(form.$valid && !this.stopSave){
             this.stopSave = true;
             this.completeForm= false;
             /*this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
