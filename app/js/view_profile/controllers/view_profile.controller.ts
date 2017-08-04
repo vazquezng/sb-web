@@ -246,7 +246,12 @@ class ProfileController {
                       vm.$state.go('app.createMatch');
                     }
                 }else{
-                    vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
+                    if(resp.data.errorMessage){
+                       vm.toaster.pop({type: 'error', body: resp.data.errorMessage, timeout: 2000});
+                    }else{
+                       vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde', timeout: 2000});
+                    }
+                    this.stopSave = false;
                 }
             });
         }else{

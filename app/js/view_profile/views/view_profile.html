@@ -1,7 +1,5 @@
 <div class="viewProfile">
-    <div class="header">
-        <img src="/img/header-profile.jpg" />
-    </div>
+    <div class="solidHeader"></div>
 
     <div class="titleDiv">
         <div class="centerTitle"></div>
@@ -57,7 +55,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
-                            <option value="" disabled selected hidden>Seleccione</option>
+                            <option value="" disabled selected hidden>Selecciona</option>
                             <option value="male">Masculino</option>
                             <option value="female">Femenino</option>
                         </select>
@@ -158,7 +156,7 @@
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member">
                         <option value="-1">Ninguno</option>
-                        <option value="0" selected="selected">Otra</option>
+                        <option value="0" selected="selected">Otro</option>
                         <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>

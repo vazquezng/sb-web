@@ -11,8 +11,8 @@
   .header {
     .desc {
       position: absolute;
-      left: 0%;
-      top: 35%;
+      /*left: 0%;*/
+      /*top: 35%;*/
       text-align: center;
     }
     a {
@@ -29,7 +29,7 @@
 .canchas-create {
   .header {
     .desc {
-      top: 22%;
+      /*top: 22%;*/
     }
   }
   form {
@@ -38,11 +38,11 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    input[type=text] {
-      background: transparent !important;
+    input {
+      background-color: rgba(0, 0, 0, 0.82) !important;
       border: 1px solid #fff !important;
       border-radius: 5px !important;
-      padding: 2%;
+      padding: 2% !important;
     }
   }
 }

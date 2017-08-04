@@ -86,7 +86,7 @@
             background-image: url(../img/profile/calendar-time.png);
             background-repeat: no-repeat;
             background-size: 30px;
-            padding-left: 30px;
+            padding-left: 40px;
         }
         .btn {
             float: right;
@@ -95,6 +95,7 @@
         
         .badge{
             cursor: pointer;
+            margin-left: 10px;
         }
     }
     .rz-bubble.rz-limit.rz-floor:after,

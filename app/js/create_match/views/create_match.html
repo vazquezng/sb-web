@@ -1,8 +1,5 @@
 <div class="createMatch">
-    <div class="header">
-        <img src="/img/header-crea-partido.jpg" />
-    </div>
-
+    <div class="solidHeader"></div>
     <div class="titleDiv">
         <div class="centerTitle"></div>
     </div>
@@ -50,7 +47,7 @@
             <div class="column location">
                 <div class="form-group">
                     <select class="form-control minimal" ng-change="vm.changePartnerClub()" name="inputGender" id="inputPartnerClub" ng-model="vm.partner_club" required tooltip-placement="left-bottom" uib-tooltip="Seleccioná la cancha donde se disputará el partido. Si la misma no se encuentra en el listado seleccioná OTRA e ingresá la dirección manualmente.">
-                        <option value="" disabled selected hidden>Seleccione</option>
+                        <option value="" disabled selected hidden>Selecciona</option>
                         <option value="Custom">Otra</option>
                         <option ng-repeat="cancha in vm.canchas" value="{{cancha.id}}" ng-if="cancha.state == 'confirmed'" ng-bind="cancha.name"></option>
                     </select>
@@ -83,7 +80,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGameLevelFrom" id="inputGameLevelFrom" ng-model="vm.match.game_level_from" required tooltip-placement="left-bottom" uib-tooltip="Selecciona el nivel de juego que deberán tener tus rivales para poder jugar.">
-                            <option value="" disabled selected hidden>Seleccione</option>
+                            <option value="" disabled selected hidden>Selecciona</option>
                             <option value="2.5">2.5</option>
                             <option value="3.0">3.0</option>
                             <option value="3.5">3.5</option>
@@ -101,7 +98,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGameLevelTo" id="inputGameLevelTo" ng-model="vm.match.game_level_to" required tooltip-placement="left-bottom" uib-tooltip="Selecciona el nivel de juego que deberán tener tus rivales para poder jugar.">
-                            <option value="" disabled selected hidden>Seleccione</option>
+                            <option value="" disabled selected hidden>Selecciona</option>
                             <option value="2.5">2.5</option>
                             <option value="3.0">3.0</option>
                             <option value="3.5">3.5</option>
@@ -132,7 +129,7 @@
             <div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.match.type" required tooltip-placement="left-bottom" uib-tooltip="Querés jugar singles o dobles?">
-                        <option value="" disabled selected hidden>Seleccione</option>
+                        <option value="" disabled selected hidden>Selecciona</option>
                         <option value="singles" >Singles</option>
                         <option value="dobles">Dobles</option>
                     </select>

@@ -8,23 +8,23 @@
             <span ng-if="vm.user != null" uib-dropdown on-toggle="toggled(open)">
                 <a class="noselect" ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name ? vm.user.name : vm.user.first_name + ' ' + vm.user.last_name"></a>
                 <ul class="dropdown-menu"  uib-dropdown-menu aria-labelledby="simple-dropdown">
-                    <li>
-                        <img ng-src="{{URL_BUCKET}}/img/profile-icon.png"/> <a class="noselect" ui-sref="app.profile" ng-if="!vm.user.admin">Perfil</a>
+                    <li ui-sref="app.profile">
+                        <img ng-src="{{URL_BUCKET}}/img/profile-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Perfil</a>
                     </li>
-                    <li>
-                        <img ng-src="{{URL_BUCKET}}/img/match-history-icon.png"/> <a class="noselect" ui-sref="app.matchHistory" ng-if="!vm.user.admin">Mis Partidos</a>
+                    <li ui-sref="app.matchHistory">
+                        <img ng-src="{{URL_BUCKET}}/img/match-history-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Partidos</a>
                     </li>
-                    <li>
-                        <img ng-src="{{URL_BUCKET}}/img/my-califications-icon.png"/> <a class="noselect" ui-sref="app.myCalifications" ng-if="!vm.user.admin">Mis Calificaciones</a>
+                    <li ui-sref="app.myCalifications">
+                        <img ng-src="{{URL_BUCKET}}/img/my-califications-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Calificaciones</a>
                     </li>
-                    <li>
-                        <img ng-src="{{URL_BUCKET}}/img/logros-icon.png"/> <a class="noselect" ui-sref="app.logros" ng-if="!vm.user.admin">Mis Logros</a>
+                    <li ui-sref="app.logros">
+                        <img ng-src="{{URL_BUCKET}}/img/logros-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Logros</a>
                     </li>
-                    <li>
-                        <img ng-src="{{URL_BUCKET}}/img/canchas-icon.png"/> <a class="noselect" ui-sref="app.canchas" ng-if="!vm.user.admin">Canchas</a>
+                    <li ui-sref="app.canchas">
+                        <img ng-src="{{URL_BUCKET}}/img/canchas-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Canchas</a>
                     </li>
-                    <li class="closeSession">
-                        <a class="noselect" ng-click="vm.logout()">Cerrar Sesión</a>
+                    <li class="closeSession" ng-click="vm.logout()">
+                        <a class="noselect">Cerrar Sesión</a>
                     </li>
                 </ul>
             </span>

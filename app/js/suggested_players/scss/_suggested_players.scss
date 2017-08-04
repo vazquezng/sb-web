@@ -25,24 +25,21 @@
     }
     #imageBox {
         height: 62px;
-        width: 55%;
+        width: 812px;
         margin: auto;
         margin-top: 50px;
         .leftBracket {
-            left: 17%;
             border-left: 2px solid #dde1e3;
             border-top: 2px solid #dde1e3;
             border-bottom: 2px solid #dde1e3;
-            margin-right: 25px;
             width: 27px;
             height: 62px;
-            display: block;
-            position: absolute;
+            display: inline-block;
         }
         .centerBracket {
-            display: block;
-            position: absolute;
+            display: inline-block;
             text-align: center;
+            vertical-align: 20PX;
             .text {
                 width: 750px;
                 margin: auto;
@@ -55,15 +52,12 @@
             }
         }
         .rightBracket {
-            right: 17%;
             border-right: 2px solid #dde1e3;
             border-top: 2px solid #dde1e3;
             border-bottom: 2px solid #dde1e3;
-            margin-left: 25px;
             width: 27px;
             height: 62px;
-            display: block;
-            position: absolute;
+            display: inline-block;
         }
         .centerBracket {
             img.profileImg {
