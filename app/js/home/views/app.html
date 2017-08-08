@@ -8,20 +8,20 @@
             <span ng-if="vm.user != null" uib-dropdown on-toggle="toggled(open)">
                 <a class="noselect" ng-if="vm.user != null"  id="simple-dropdown" uib-dropdown-toggle ng-bind="vm.user.name ? vm.user.name : vm.user.first_name + ' ' + vm.user.last_name"></a>
                 <ul class="dropdown-menu"  uib-dropdown-menu aria-labelledby="simple-dropdown">
-                    <li ui-sref="app.profile">
-                        <img ng-src="{{URL_BUCKET}}/img/profile-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Perfil</a>
+                    <li ui-sref="app.profile" ng-if="!vm.user.admin" ng-if="!vm.user.admin">
+                        <img ng-src="{{URL_BUCKET}}/img/profile-icon.png"/> <a class="noselect">Perfil</a>
                     </li>
-                    <li ui-sref="app.matchHistory">
-                        <img ng-src="{{URL_BUCKET}}/img/match-history-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Partidos</a>
+                    <li ui-sref="app.matchHistory" ng-if="!vm.user.admin" ng-if="!vm.user.admin">
+                        <img ng-src="{{URL_BUCKET}}/img/match-history-icon.png"/> <a class="noselect">Mis Partidos</a>
                     </li>
-                    <li ui-sref="app.myCalifications">
-                        <img ng-src="{{URL_BUCKET}}/img/my-califications-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Calificaciones</a>
+                    <li ui-sref="app.myCalifications" ng-if="!vm.user.admin">
+                        <img ng-src="{{URL_BUCKET}}/img/my-califications-icon.png"/> <a class="noselect">Mis Calificaciones</a>
                     </li>
-                    <li ui-sref="app.logros">
-                        <img ng-src="{{URL_BUCKET}}/img/logros-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Mis Logros</a>
+                    <li ui-sref="app.logros" ng-if="!vm.user.admin">
+                        <img ng-src="{{URL_BUCKET}}/img/logros-icon.png"/> <a class="noselect">Mis Logros</a>
                     </li>
                     <li ui-sref="app.canchas">
-                        <img ng-src="{{URL_BUCKET}}/img/canchas-icon.png"/> <a class="noselect" ng-if="!vm.user.admin">Canchas</a>
+                        <img ng-src="{{URL_BUCKET}}/img/canchas-icon.png"/> <a class="noselect">Canchas</a>
                     </li>
                     <li class="closeSession" ng-click="vm.logout()">
                         <a class="noselect">Cerrar Sesión</a>
@@ -34,9 +34,9 @@
             <img ng-src="{{URL_BUCKET}}/img/logo.png" />
             <ul>
                 <li><a href="/">Home</a></li>
-                <li ng-if="vm.user != null"><a href="/">Torneos</a></li>
-                <li ng-if="vm.user != null"><a ui-sref="app.createMatch">Crear Partido</a></li>
-                <li ng-if="vm.user != null"><a ui-sref="app.play">Quiero jugar</a></li>
+                <li ng-if="vm.user != null && !vm.user.admin"><a href="/">Torneos</a></li>
+                <li ng-if="vm.user != null && !vm.user.admin"><a ui-sref="app.createMatch">Crear Partido</a></li>
+                <li ng-if="vm.user != null && !vm.user.admin"><a ui-sref="app.play">Quiero jugar</a></li>
                 <!--li ng-if="vm.user != null"><a ui-sref="app.profile">Perfil</a></li-->
                 <li><a href="/">Sobre Slambow</a></li>
                 <li><a href="/">Blog</a></li>
