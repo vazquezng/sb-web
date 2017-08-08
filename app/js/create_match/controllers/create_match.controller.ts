@@ -49,7 +49,7 @@ export class CreateMatchController
         
         
         if(this.match.hour.getHours() < 8 || (this.match.hour.getHours() > 23 || (this.match.hour.getHours() == 23 && this.match.hour.getMinutes() == 30))){
-            this.toaster.pop({type:'info', body:'El partido no puede hacerse antes de las 8 hs o después de las 23 hs.'});
+            this.toaster.pop({type:'info', body:'El partido no puede hacerse antes de las 8 hs ni después de las 23 hs.'});
             return false;
         }
         
