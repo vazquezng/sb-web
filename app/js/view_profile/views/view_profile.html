@@ -55,7 +55,7 @@
                 <div class="column">
                     <div class="form-group">
                         <select class="form-control minimal" name="inputGender" id="inputGender" ng-model="vm.user.sexo" required>
-                            <option value="" disabled selected hidden>Selecciona</option>
+                            <option value="" disabled selected hidden ng-if="!vm.user.sexo">Seleccioná</option>
                             <option value="male">Masculino</option>
                             <option value="female">Femenino</option>
                         </select>
@@ -95,15 +95,15 @@
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"  required tooltip-placement="left-bottom">
                     <option value="2.5" title="Principiante. Estás aprendiendo, recién comenzaste a tomar clases o nunca lo hiciste.">2.5</option>
-                    <option value="3.0" title="Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.">3.0</option>
+                    <option value="3" title="Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.">3.0</option>
                     <option value="3.5" title="Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.">3.5</option>
-                    <option value="4.0" title="Intermedio. Lograste golpes confiables, con approach y revés pero con errores.">4.0</option>
+                    <option value="4" title="Intermedio. Lograste golpes confiables, con approach y revés pero con errores.">4.0</option>
                     <option value="4.5" title="Intermedio. Lográs golpes efectivos y ya pensás en competencia.">4.5</option>
-                    <option value="5.0" title="Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.">5.0</option>
+                    <option value="5" title="Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.">5.0</option>
                     <option value="5.5" title="Avanzado. Tenés constancia y control en los golpes. Podés variar las estrategias en situaciones de presion/estrés.">5.5</option>
-                    <option value="6.0" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option>
+                    <option value="6" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option>
                     <option value="6.5" title="Avanzado. Ya jugás en circuitos y querés tener una profesional.">6.5</option>
-                    <option value="7.0" title="Profesional. Ya sos un jugador profesional.">7.0</option>
+                    <option value="7" title="Profesional. Ya sos un jugador profesional.">7.0</option>
                 </select>
                     <label for="inputGameLevel">Nivel de juego</label><small class="badge" ng-click="vm.openGameLevelModal()">?</small>
                 </div>
