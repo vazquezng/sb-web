@@ -65,6 +65,9 @@
         .courtImage, .locationDiv, .courtDetails, .courtDescription{
             display: inline-block
         }
+        .courtDescription{
+            width: 560px;
+        }
         .flexContainer{
             display: flex;
             margin-bottom: 25px;
