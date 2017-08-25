@@ -30,6 +30,9 @@ export class FeedbackController
             if(resp.data.success){
                 vm.toaster.pop({type: 'success', body: 'Tu feedback se guardo correctamente!',timeout: 2000});
                 vm.$state.go('app.match_detail', {id:vm.$stateParams.match_id});
+            }else{
+                vm.toaster.pop({type: 'error', body: resp.data.errorMessage, timeout: 2000});
+                vm.$state.go('app.match_detail', {id:vm.$stateParams.match_id});
             }
         });
     }
