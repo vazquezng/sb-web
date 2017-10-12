@@ -58,4 +58,9 @@
     "gulp-sass": "^2.3.2",
     "vinyl-buffer": "^1.0.0"
   }
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  },
 }

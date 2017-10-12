@@ -92,11 +92,11 @@
             <div ng-if="vm.isPlayer && matchPlayer.user.id != vm.user.id">
                 <button type="submit" class="btn feedbackBtn" ng-if="!vm.match.futureMatch && !matchPlayer.user.hasFeedback" ng-click="vm.createFeedback(vm.match.id, matchPlayer.user.id)">DANOS TU FEEDBACK</button>
                 <div ng-if="matchPlayer.state == 'pendingRequest'">
-                <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.acceptUser(matchPlayer.id_user, matchPlayer.id_match)">ACEPTAR</button>
-                <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.refuseUser(matchPlayer.id_user, matchPlayer.id_match)">RECHAZAR</button>
+                  <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.acceptUser(matchPlayer.id_user, matchPlayer.id_match)">ACEPTAR</button>
+                  <button type="submit" class="btn feedbackBtn" ng-if="vm.match.futureMatch" ng-click="vm.refuseUser(matchPlayer.id_user, matchPlayer.id_match)">RECHAZAR</button>
                 </div>
                 <div class="status" ng-if="vm.match.futureMatch && matchPlayer.state == 'pendingInvitation'">
-                        INVITACIÓN ENVIADA
+                  INVITACIÓN ENVIADA
                 </div>
             </div>
             <div ng-if="vm.isPlayer && vm.match.futureMatch">

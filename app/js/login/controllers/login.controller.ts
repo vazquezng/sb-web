@@ -38,9 +38,9 @@ export class LoginController
           first_name: googleUser.getBasicProfile().getGivenName(),
           last_name: googleUser.getBasicProfile().getFamilyName(),
           image: googleUser.getBasicProfile().getImageUrl(),
-          email: googleUser.getBasicProfile().getEmail(),
+          email: googleUser.getBasicProfile().getEmail()
         };
-        vm.$http.post(vm.PATHS.api + '/auth', user).then(function(resp){
+        vm.$http.post(vm.PATHS.api + '/auth/google', user).then(function(resp){
             vm.LoginService.login(resp.data);
         });
         console.log(googleUser.getBasicProfile());
