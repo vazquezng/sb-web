@@ -2,10 +2,10 @@ import * as angular from 'angular';
 
 export class LoginController
 {
-    static $inject = ['$http','PATHS', 'LoginService', '$auth'];
+    static $inject = ['$http','PATHS', 'LoginService', 'toaster','$auth'];
     private params = {};
     private auth2;
-    constructor(private $http, private PATHS, private LoginService, private $auth){
+    constructor(private $http, private PATHS, private LoginService, private toaster, private $auth){
       this.startGoogle();
     }
 
@@ -40,8 +40,14 @@ export class LoginController
           image: googleUser.getBasicProfile().getImageUrl(),
           email: googleUser.getBasicProfile().getEmail()
         };
+        
         vm.$http.post(vm.PATHS.api + '/auth/google', user).then(function(resp){
             vm.LoginService.login(resp.data);
+            if(!resp.data.success && resp.data.errorMessage){
+                vm.toaster.pop({type:'error', body:resp.data.errorMessage});
+            }else{
+                vm.LoginService.login(resp.data);
+            }
         });
         console.log(googleUser.getBasicProfile());
       }, function(error) {
@@ -78,7 +84,12 @@ export class LoginController
             (<any>vm).params.accessToken = authResponse.accessToken;
             (<any>vm).params.provider = 'facebook';
             vm.$http.post(vm.PATHS.api + '/auth', vm.params).then(function(resp){
-                vm.LoginService.login(resp.data);
+                if(!resp.data.success && resp.data.errorMessage){
+                    console.log(resp.data);
+                    vm.toaster.pop({type:'error', body:resp.data.errorMessage});
+                }else{
+                    vm.LoginService.login(resp.data);
+                }
             });
         });
     }
@@ -104,5 +115,5 @@ class AuthTwitterController{
 }
 
 angular.module('Login')
-        .controller('LoginController', ['$http', 'PATHS', 'LoginService', '$auth', LoginController])
+        .controller('LoginController', ['$http', 'PATHS', 'LoginService', 'toaster','$auth', LoginController])
         .controller('AuthTwitterController', ['User', 'LoginService', '$stateParams', AuthTwitterController]);

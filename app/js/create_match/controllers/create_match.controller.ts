@@ -21,7 +21,6 @@ export class CreateMatchController
     public map;
     public market;
     public date = new Date((new Date()).getTime() + 24 * 60 * 60 * 1000);
-
     public mytime = new Date(moment('15:30','HH:mm'));
 
     public ismeridian = true;
@@ -49,8 +48,8 @@ export class CreateMatchController
         }
         
         
-        if(this.match.hour.getHours() < 8 || this.match.hour.getHours() > 23){
-            this.toaster.pop({type:'info', body:'El partido se debe jugar entre las 8 y las 23hs.'});
+        if(this.match.hour.getHours() < 8 || (this.match.hour.getHours() > 23 || (this.match.hour.getHours() == 23 && this.match.hour.getMinutes() == 30))){
+            this.toaster.pop({type:'info', body:'El partido no puede hacerse antes de las 8 hs ni después de las 23 hs.'});
             return false;
         }
         
@@ -76,7 +75,7 @@ export class CreateMatchController
     }
 
     public changePartnerClub(){
-        if(this.partner_club > 0){
+        if(this.partner_club != 'Custom'){
             const cancha = this.canchas.find(c => c.id == this.partner_club);
             if(cancha){
                 this.map.center.latitude= cancha.address_lat;
@@ -89,6 +88,7 @@ export class CreateMatchController
                 this.match.address_lng = cancha.address_lng;
             }
         }else{
+            this.address = null;
             this.match.id_cancha = null;
             this.match.club_name = '';
             this.match.address = null;
@@ -109,44 +109,48 @@ export class CreateMatchController
     }
 
     public validateYears(){
-
+        
         if(!this.match.years_from || !this.match.years_to){
-           return;
+            this.toaster.pop({type:'info', body:'Los campos "Edad desde" y "Edad hasta" son obligatorios.'});
+            return false;
         }
 
         if(this.match.years_from <= 17){
             this.match.years_from = 18;
-            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser mayor a 17 años.'})
+            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser mayor a 17 años.'});
+            return false;
         }
         if(this.match.years_from > 100){
             this.match.years_to = null;
-            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a 100 años.'})
+            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a 100 años.'});
+            return false;
         }
         if(this.match.years_from > this.match.years_to){
             this.match.years_to = null;
-            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a la "Edad hasta".'})
+            this.toaster.pop({type:'info', body:'La "Edad desde" debe ser menor a la "Edad hasta".'});
+            return false;
         }
+        return true;
     }
 
     public validateLevel(){
         if(this.match.game_level_from > this.match.game_level_to){
             this.match.game_level_to = this.match.game_level_from;
-            this.toaster.pop({type:'info', body:'El "Nivel desde" debe ser menor o igual al "Nivel hasta".'})
+            this.toaster.pop({type:'info', body:'El "Nivel desde" debe ser menor o igual al "Nivel hasta".'});
+            return false;
         }
+        return true;
     }
 
     public save(form){
         
-        if(!this.validateTime()){
+        if(!this.validateTime() || !this.validateDateTime() || !this.validateYears() ||
+            !this.validateLevel()){
            return; 
         }
 
-        if(!this.validateDateTime()){
-           return; 
-        }
-        
         const vm = this;
-        if(form.$valid && this.match.years_from > 17 && this.match.years_to<100 && this.match.years_from<=this.match.years_to && !this.stopSave){
+        if(form.$valid && !this.stopSave){
             this.stopSave = !this.stopSave;
 
             this.match.hour = this.match.hour.toLocaleTimeString();

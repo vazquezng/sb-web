@@ -25,7 +25,7 @@
         border-left: 1px solid #f2f2f2; 
         border-bottom: 1px solid #f2f2f2; 
         width: 20px;
-        height: 420px;
+        height: 400px;
         display: block;
     }
     .centerBracket {
@@ -45,18 +45,29 @@
         .locationDiv{
             margin-left: 25px;
             .courtMap, .angular-google-map-container { 
-                height: 174px; 
+                height: 161px; 
                 width: 300px;
             }
             .courtAddress{
                 font-family:Roboto;
                 font-size:15px;
                 font-weight:lighter;
-                color:#434344
+                color:#434344;
+                height: 35px;
+                max-width: 300px;
             }
         }
+        .courtImage{
+            width: 464px;
+            height: 227px;
+        }
+        
         .courtImage, .locationDiv, .courtDetails, .courtDescription{
             display: inline-block
+        }
+        .courtDescription{
+            width: 560px;
+            overflow-x: hidden;
         }
         .flexContainer{
             display: flex;
@@ -74,7 +85,7 @@
         border-right: 1px solid #f2f2f2; 
         border-bottom: 1px solid #f2f2f2; 
         width: 20px;
-        height: 420px;
+        height: 400px;
         display: block;
     }
     

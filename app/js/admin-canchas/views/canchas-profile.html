@@ -1,7 +1,5 @@
 <div class="canchas-profile">
-    <div class="header">
-        <img src="/img/profile/header-profile.png" />
-    </div>
+    <div class="solidHeader"></div>
 
     <div class="titleDiv">
         <div class="centerTitle"></div>
@@ -47,17 +45,11 @@
                     </div>
                 </div>
             </div>
-            <div class="column">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="inputPrice" id="inputPrice" ng-model="vm.user.price" onkeypress="return validaNumber(event)"/>
-                    <label for="inputCity">Precio por Hora</label>
-                </div>
-            </div>
         </div>
         <div class="row-form">
             <div class="form-group">
                 <label for="inputAboutMe">SOBRE MI</label>
-                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required></textarea>
+                <textarea class="form-control" name="inputAboutMe" id="inputAboutMe" rows="5" ng-model="vm.user.about" required maxlength="254"></textarea>
             </div>
         </div>
         <button type="submit" class="btn" ng-click="vm.save(formProfile)" ng-disabled="vm.stopSave">Guardar</button>

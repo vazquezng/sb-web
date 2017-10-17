@@ -1,7 +1,5 @@
 <div class="userDetail">
-    <div class="header">
-        <img src="/img/profile/header-profile.png" />
-    </div>
+    <div class="solidHeader"></div>
 
    <div class="titleDiv">
         <div class="centerTitle">
@@ -72,17 +70,9 @@
         </div-->
         <div class="row-form">
             <div class="column">
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" disabled="true"/>
-                        <label for="inputITN">Nivel de juego</label>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputITN" id="inputITN" ng-model="vm.user.itn" disabled="true"/>
-                        <label for="inputITN">ITN</label>
-                    </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level" disabled="true"/>
+                    <label for="inputITN">Nivel de juego</label>
                 </div>
             </div>
             <div class="column">
@@ -109,7 +99,7 @@
             </div>
             <div class="column">
                 <div class="form-group">
-                    <button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button>
+                    <input type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" value="Click para ver su disponibilidad" readonly>
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
@@ -157,7 +147,7 @@
         </div>
         <div class="titleLine"></div>
         <div class="legend">
-            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar.
+            Acá podes ver los días y horarios en el que el usuario puede jugar.
         </div>
 
         <div class="separator"></div>

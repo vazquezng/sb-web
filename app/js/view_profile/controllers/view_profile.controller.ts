@@ -8,6 +8,7 @@ class ProfileController {
     public country;
     public city;
     public address;
+    public sexo;
     public modalInstance;
     public availabilityList = [];
     public completeForm =false;
@@ -38,13 +39,13 @@ class ProfileController {
         this.city = this.user.city;
         this.country = this.user.country;
         this.address = this.user.address;
+        
 
         this.user.game_level = this.user.game_level ? this.user.game_level.toString(): this.user.game_level;
         // this.user.itn = this.user.itn ? this.user.itn.toString(): this.user.itn;
         this.user.club_member = this.user.club_member ? this.user.club_member.toString() : '0';
         this.user.single = (this.user.single==1);
         this.user.double = (this.user.double==1);
-
         this.canchas = Canchas.data.canchas;
 
         $scope.$watch('image', function(newImage, lastImage){
@@ -120,6 +121,21 @@ class ProfileController {
             this.availability[6].allDay;
     }
 
+    public openGameLevelModal(){ 
+        let vm =  this; 
+        vm.modalInstance = vm.$uibModal.open({ 
+                animation: true, 
+                ariaLabelledBy: 'modal-title', 
+                ariaDescribedBy: 'modal-body', 
+                templateUrl: 'game-level-table', 
+                scope:vm.$scope 
+            }); 
+    } 
+
+    public updateLevel(value){
+        this.user.game_level= value;
+    }
+
     public openModalAvailable(){
         let vm =  this;
         var $paramObj = {user_id: vm.user.id};
@@ -181,14 +197,33 @@ class ProfileController {
         }
     }
 
+    public validateAddress(){
+        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
+             this.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
+             return false;
+        }
+        return true;
+    }
+
+    public validateType(){
+        if(!this.user.single && !this.user.double){
+            this.toaster.pop({type: 'error', body: 'Debés seleccionar el tipo de partido que querés jugar.',timeout: 2000});
+            return false;
+        }
+        return true;
+    }
+
     public save(form){
         const vm = this;
-        if(this.address != this.user.address && (!this.address.types || this.address.types[0] != "street_address")){
-             vm.toaster.pop({type: 'error', body: 'El campo dirección debe contener una dirección exácta',timeout: 2000});
-             return;
+        
+        if(!vm.validateAddress()){
+            return;
+        }
+        if(!vm.validateType()){
+            return;
         }
 
-        if(form.$valid && !this.stopSave && (this.user.single || this.user.double)){
+        if(form.$valid && !this.stopSave){
             this.stopSave = true;
             this.completeForm= false;
             /*this.user.city = this.city && this.city.formatted_address ? this.city.formatted_address : this.city;
@@ -212,7 +247,12 @@ class ProfileController {
                       vm.$state.go('app.createMatch');
                     }
                 }else{
-                    vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde',timeout: 2000});
+                    if(resp.data.errorMessage){
+                       vm.toaster.pop({type: 'error', body: resp.data.errorMessage, timeout: 2000});
+                    }else{
+                       vm.toaster.pop({type: 'error', body: 'Hubo un error, intente más tarde', timeout: 2000});
+                    }
+                    this.stopSave = false;
                 }
             });
         }else{

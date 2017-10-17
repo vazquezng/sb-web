@@ -22,33 +22,35 @@
             color: #20a3d4;
         }
         .leftBracket {
-            left: 17%;
-            background-image: url(../img/match/left-bracket.png);
-            background-repeat: no-repeat;
+            border-left: 2px solid #00a4d7;
+            border-top: 2px solid #00a4d7;
+            border-bottom: 2px solid #00a4d7;
             width: 27px;
-            height: 63px;
-            display: block;
-            position: absolute;
+            height: 100px;
+            display: inline-block;
         }
         .centerBracket {
-            width: 64%;
-            height: 63px;
-            display: block;
-            position: absolute;
-            padding-top: 3px;
-            font-size: 17px;
-            span {
-                font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            vertical-align: 20PX;
+            .text {
+                width: 750px;
+                margin: auto;
+                margin-top: 15px;
+                font-size: 18px;
+                color: #818184;
+                span {
+                    font-weight: bold;
+                }
             }
         }
         .rightBracket {
-            right: 17%;
-            background-image: url(../img/match/right-bracket.png);
-            background-repeat: no-repeat;
+            border-right: 2px solid #00a4d7;
+            border-top: 2px solid #00a4d7;
+            border-bottom: 2px solid #00a4d7;
             width: 27px;
-            height: 63px;
-            display: block;
-            position: absolute;
+            height: 100px;
+            display: inline-block;
         }
         .centerBracket {
             img.profileImg {
@@ -108,6 +110,9 @@
         
         .timeContainer, .timeContainer table{
             width: 100%;
+        }
+        .location{
+            vertical-align: top;
         }
     }
     .angular-google-map-container {
