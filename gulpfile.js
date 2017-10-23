@@ -20,7 +20,6 @@ const cssnano = require('cssnano');
 //AWS.config.update({accessKeyId: '', secretAccessKey: ''});
 //var s3Stream = require('s3-upload-stream')(new AWS.S3());
 
-
 const paths = {
     sass: ['./app/js/**/scss/*.scss'],
     dist: './dist/',

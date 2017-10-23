@@ -4,8 +4,8 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Home');
 
-import './controllers/home.controller.ts';
-import './controllers/menu.controller.ts';
+import './controllers/home.controller';
+import './controllers/menu.controller';
 
 import './directives/welcome.directive.ts';
 import './directives/want-to-play.directive.ts';

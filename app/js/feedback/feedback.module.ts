@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Feedback');
 
-import './controllers/feedback.controller.ts';
+import './controllers/feedback.controller';
 angular
   .module('Feedback')
   .config(['$stateProvider', function($stateProvider){

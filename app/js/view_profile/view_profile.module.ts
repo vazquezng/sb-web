@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Profile',['Login']);
 
-import './controllers/view_profile.controller.ts';
+import './controllers/view_profile.controller';
 angular
   .module('Profile')
   .config(['$stateProvider', function($stateProvider){

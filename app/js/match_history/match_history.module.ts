@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('MatchHistory');
 
-import './controllers/match_history.controller.ts';
+import './controllers/match_history.controller';
 angular
   .module('MatchHistory')
   .config(['$stateProvider', function($stateProvider){

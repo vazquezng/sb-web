@@ -2,7 +2,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Achievements');
 
-import './controllers/achievements.controller.ts';
+import './controllers/achievements.controller';
 
 angular
   .module('Achievements')

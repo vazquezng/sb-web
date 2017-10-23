@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('MatchDetail');
 
-import './controllers/match_detail.controller.ts';
+import './controllers/match_detail.controller';
 angular
   .module('MatchDetail')
   .config(['$stateProvider', function($stateProvider){

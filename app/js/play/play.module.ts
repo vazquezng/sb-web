@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Play');
 
-import './controllers/play.controller.ts';
+import './controllers/play.controller';
 
 angular
   .module('Play')

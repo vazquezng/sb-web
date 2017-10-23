@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp sass && gulp fonts && cross-env ENVIRONMENT=dev URL_BUCKET=http://www.socialtenis.dev:8083 URL_API=http://api.slambow.com/api/v1 FACEBOOK_ID=353935338297275  webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,7 +27,18 @@
     "babelify": "^7.3.0",
     "bootstrap": "^3.3.7",
     "bootstrap-sass": "^3.3.7",
-    "eslint": "^3.9.1",
+    "cross-env": "^5.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "extract-text-webpack-plugin": "^3.0.1",
     "google-maps": "^3.2.1",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
@@ -36,16 +48,17 @@
     "gulp-scss": "^1.4.0",
     "gulp-shell": "^0.5.2",
     "gulp-util": "^3.0.7",
-    "html-loader": "^0.4.4",
-    "html-webpack-plugin": "^2.24.1",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
     "lodash": "^4.17.4",
     "moment": "^2.16.0",
     "ng-file-upload": "^12.2.13",
     "satellizer": "^0.15.5",
     "ts-loader": "^1.2.0",
-    "typescript": "^2.0.9",
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
+    "typescript": "^2.4.1",
+    "webpack": "^3.8.1",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.9.3"
   },
   "devDependencies": {
     "@types/node": "^6.0.46",
@@ -58,9 +71,4 @@
     "gulp-sass": "^2.3.2",
     "vinyl-buffer": "^1.0.0"
   }
-  "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
-  },
 }

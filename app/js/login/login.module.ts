@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Login');
 
-import './controllers/login.controller.ts';
+import './controllers/login.controller';
 import './services/login.service.ts';
 angular
   .module('Login')

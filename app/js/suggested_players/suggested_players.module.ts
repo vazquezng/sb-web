@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('SuggestedPlayers');
 
-import './controllers/suggested_players.controller.ts';
+import './controllers/suggested_players.controller';
 
 angular
   .module('SuggestedPlayers')

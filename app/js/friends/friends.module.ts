@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Friends');
 
-import './controllers/friends.controller.ts';
+import './controllers/friends.controller';
 
 angular
   .module('Friends')

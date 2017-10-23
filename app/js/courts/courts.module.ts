@@ -2,7 +2,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('Courts');
 
-import './controllers/courts.controller.ts';
+import './controllers/courts.controller';
 
 angular
   .module('Courts')

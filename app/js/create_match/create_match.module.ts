@@ -4,7 +4,7 @@ import { APP } from '../core/config.ts';
 
 APP.ADD_MODULE('CreateMatch');
 
-import './controllers/create_match.controller.ts';
+import './controllers/create_match.controller';
 angular
   .module('CreateMatch')
   .config(['$stateProvider', function($stateProvider){
