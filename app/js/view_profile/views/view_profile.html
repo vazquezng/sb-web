@@ -1,10 +1,8 @@
 <div class="viewProfile">
     <div class="solidHeader"></div>
-
     <div class="titleDiv">
         <div class="centerTitle"></div>
     </div>
-
     <form name="formProfile" ng-submit="vm.save(formProfile)">
         <div id="imageBox">
             <div class="leftBracket"></div>
@@ -35,22 +33,14 @@
             </div>
 
             <div class="column">
-                <div class="form-group">
-                    <input type="email" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" ng-pattern="vm.emailFormat" required/>
-                    <label for="inputEmail">Email</label>
-                    <span class="error" style="color:darkred" ng-show="formProfile.inputEmail.$error.pattern">
-                        Formato Invalido
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="row-form">
-            <div class="column">
                 <div class="column">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/>
-                        <label for="inputAge">Edad</label>
-                    </div>
+                  <div class="form-group">
+                      <input type="email" class="form-control" name="inputEmail" id="inputEmail" ng-model="vm.user.email" ng-pattern="vm.emailFormat" required/>
+                      <label for="inputEmail">Email</label>
+                      <span class="error" style="color:darkred" ng-show="formProfile.inputEmail.$error.pattern">
+                          Formato Invalido
+                      </span>
+                  </div>
                 </div>
                 <div class="column">
                     <div class="form-group">
@@ -62,6 +52,22 @@
                         <label for="inputGender">Sexo</label>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row-form">
+            <div class="column">
+              <div class="form-group">
+                <rzslider rz-slider-model="vm.user.years"
+                          rz-slider-options="{floor: 18,
+                                            ceil: 99,
+                                            step: 1,
+                                            minLimit: 18,
+                                            maxLimit: 99,
+                                            showSelectionBar: true}"
+                          tooltip-placement="left-bottom" required></rzslider>
+                  <!--input type="text" class="form-control" name="inputAge" id="inputAge" onkeypress="return validaNumber(event)" ng-model="vm.user.years" required/-->
+                  <label for="inputAge">Edad</label>
+              </div>
             </div>
             <!--div class="column">
 <div class="form-group">
@@ -93,7 +99,7 @@
         <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"  required tooltip-placement="left-bottom">
+                  <!--select class="form-control minimal" name="inputGameLevel" id="inputGameLevel" ng-model="vm.user.game_level"  required tooltip-placement="left-bottom">
                     <option value="2.5" title="Principiante. Estás aprendiendo, recién comenzaste a tomar clases o nunca lo hiciste.">2.5</option>
                     <option value="3" title="Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.">3.0</option>
                     <option value="3.5" title="Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.">3.5</option>
@@ -104,7 +110,17 @@
                     <option value="6" title="Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.">6.0</option>
                     <option value="6.5" title="Avanzado. Ya jugás en circuitos y querés tener una profesional.">6.5</option>
                     <option value="7" title="Profesional. Ya sos un jugador profesional.">7.0</option>
-                </select>
+                  </select-->
+                  <rzslider rz-slider-model="vm.user.game_level"
+                            rz-slider-options="{floor: 2,
+                                              ceil: 7,
+                                              step: 0.5,
+                                              precision: 1,
+                                              minLimit: 2,
+                                              maxLimit: 7,
+                                              showSelectionBar: true}"
+                            rz-slider-precision="1=0.5"
+                            tooltip-placement="left-bottom" required></rzslider>
                     <label for="inputGameLevel">Nivel de juego</label><small class="badge" ng-click="vm.openGameLevelModal()">?</small>
                 </div>
             </div>
@@ -124,12 +140,12 @@
             </div>
         </div>
         <div class="row-form">
-            <div class="column">
+            <!--div class="column">
                 <div class="form-group">
                     <input type="text" class="form-control" name="inputCoachProfessor" id="inputCoachProfessor" ng-model="vm.user.coach"  tooltip-placement="left-bottom" uib-tooltip="Tenés profesor actualmente? Indica nombre, apellido y club">
                     <label for="inputCoachProfessor">Coach/Profesor</label>
                 </div>
-            </div>
+            </div-->
             <div class="column">
                 <div class="form-group">
                     <!--button type="text" class="form-control" name="inputAvailability" id="inputAvailability" ng-click="vm.openModalAvailable()" ng-model="vm.user.availability"></button-->
@@ -137,11 +153,9 @@
                     <label for="inputAvailability">Disponibilidad</label>
                 </div>
             </div>
-        </div>
-        <div class="row-form">
             <div class="column">
                 <div class="form-group">
-                    <rzslider rz-slider-model="vm.user.distance"
+                    <rzslider class="distancia" rz-slider-model="vm.user.distance"
                               rz-slider-options="{floor: 2,
                                                 ceil: 50,
                                                 step: 2,
@@ -152,7 +166,10 @@
                     <label for="inputDistance">Distancia para jugar un partido</label>
                 </div>
             </div>
-            <div class="column">
+        </div>
+        <div class="row-form">
+
+            <!--div class="column">
                 <div class="form-group">
                     <select class="form-control minimal" name="inputGender" id="inputPartnerClub" ng-model="vm.user.club_member">
                         <option value="-1">Ninguno</option>
@@ -161,7 +178,7 @@
                     </select>
                     <label for="inputPartnerClub">Sos socio de algun club?</label>
                 </div>
-            </div>
+            </div-->
         </div>
         <div class="row-form">
             <div class="form-group">
@@ -170,7 +187,7 @@
             </div>
         </div>
         <button type="submit" class="btn" ng-disabled="vm.stopSave">Guardar</button>
-        
+
     </form>
 </div>
 <sb-footer></sb-footer>
@@ -254,78 +271,78 @@
         <button type="submit" class="btn" ng-click="save()">Guardar</button>
     </div>
 </script>
-<script type="text/ng-template" id="game-level-table"> 
-    <div id="tableNTRP" style="height: 475"> 
-        <div class="titleDiv"> 
-            <div class="side"> 
-                <div class="dot"></div> 
-                <div class="line"></div> 
-            </div> 
-            <div class="centerTitle"> 
-                Tabla NTRP 
-            </div> 
-            <div class="side"> 
-                <div class="line"></div> 
-                <div class="dot"></div> 
-            </div> 
-        </div> 
+<script type="text/ng-template" id="game-level-table">
+    <div id="tableNTRP" style="height: 475">
+        <div class="titleDiv">
+            <div class="side">
+                <div class="dot"></div>
+                <div class="line"></div>
+            </div>
+            <div class="centerTitle">
+                Tabla NTRP
+            </div>
+            <div class="side">
+                <div class="line"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
         <div class="titleLine"></div>
         <div class="legend">
             Indicanos cuál es el nivel que mejor te describe.
         </div>
-        
+
         <uib-tabset justified="true">
             <uib-tab heading="2.5" index="2.5" select="vm.updateLevel('2.5')">
-                <span> 
+                <span>
                     Este jugador esta aprendiendo a moverse según la dirección de la bola, sin embargo la cobertura de la cancha es débil. También puede sostener un rally corto de poca intensidad con otro jugador del mismo nivel.
-                </span> 
-            </uib-tab> 
+                </span>
+            </uib-tab>
             <uib-tab heading="3.0" index="3.0" select="vm.updateLevel('3.0')">
-                <span> 
+                <span>
                     Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.
-                </span> 
-            </uib-tab> 
+                </span>
+            </uib-tab>
             <uib-tab heading="3.5" index="3.5" select="vm.updateLevel('3.5')">
-                <span> 
+                <span>
                     Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.
-                </span> 
-            </uib-tab> 
+                </span>
+            </uib-tab>
             <uib-tab heading="4.0" index="4.0" select="vm.updateLevel('4.0')">
-                <span> 
+                <span>
                     Este jugador tiene golpes confiables, incluyendo la dirección y profundidad de la bola en los dos golpes de derecha y revés. Usted puede hacer approach y boleas con éxito pero comete algunos errores al servir al servir. Puede perder en los rallies por impaciencia. Es conciente que en dobles se necesita trabajo en equipo y lo practica.
-                </span> 
-            </uib-tab> 
+                </span>
+            </uib-tab>
             <uib-tab heading="4.5" index="4.5" select="vm.updateLevel('4.5')">
                 <span>
-                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo. 
+                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.
                 </span>
-            </uib-tab> 
-            <uib-tab heading="5.0" index="5.0" select="vm.updateLevel('5.0')"> 
+            </uib-tab>
+            <uib-tab heading="5.0" index="5.0" select="vm.updateLevel('5.0')">
                 <span>
-                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles. 
+                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.
                 </span>
-            </uib-tab> 
-            <uib-tab heading="5.5" index="5.5" select="vm.updateLevel('5.5')"> 
+            </uib-tab>
+            <uib-tab heading="5.5" index="5.5" select="vm.updateLevel('5.5')">
                 <span>
-                    Tiene consistencia y control en los golpes. Puede variar las estrategias y golpea con confianza en jugadas o situaciones de presión/estrés. 
+                    Tiene consistencia y control en los golpes. Puede variar las estrategias y golpea con confianza en jugadas o situaciones de presión/estrés.
                 </span>
-            </uib-tab> 
-            <uib-tab heading="6.0" index="6.0" select="vm.updateLevel('6.0')"> 
+            </uib-tab>
+            <uib-tab heading="6.0" index="6.0" select="vm.updateLevel('6.0')">
                 <span>
-                    Usted ha tenido entrenamiento intensivo y ha participado en competencias que le han otorgado un ranking en la sección o a nivel nacional. 
+                    Usted ha tenido entrenamiento intensivo y ha participado en competencias que le han otorgado un ranking en la sección o a nivel nacional.
                 </span>
-            </uib-tab> 
-            <uib-tab heading="6.5" index="6.5" select="vm.updateLevel('6.5')"> 
+            </uib-tab>
+            <uib-tab heading="6.5" index="6.5" select="vm.updateLevel('6.5')">
                 <span>
-                    Usted juega los circuitos USTA y espera tener una carrera tener una carrera profesional en el tenis. 
+                    Usted juega los circuitos USTA y espera tener una carrera tener una carrera profesional en el tenis.
                 </span>
-            </uib-tab> 
-            <uib-tab heading="7.0" index="7.0" select="vm.updateLevel('7.0')"> 
+            </uib-tab>
+            <uib-tab heading="7.0" index="7.0" select="vm.updateLevel('7.0')">
                 <span>
-                    Usted es un jugador de tenis profesional 
+                    Usted es un jugador de tenis profesional
                 </span>
-            </uib-tab> 
-         </uib-tabset> 
+            </uib-tab>
+         </uib-tabset>
         <button class="btn" ng-click="vm.modalInstance.close();">Cerrar</button>
-    </div> 
-</script> 
+    </div>
+</script>

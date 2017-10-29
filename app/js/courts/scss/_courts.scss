@@ -13,7 +13,7 @@
             display: inline-block;
             background-image: url(../img/center-title-gray.png);
             background-repeat: no-repeat;
-            font-family: CookieRegular;
+            font-family: Cookie-Regular;
             font-size: 60px;
             padding-top: 50px;
             color: #00a5d7;
@@ -21,9 +21,9 @@
     }
     .leftBracket {
         float:left;
-        border-top: 1px solid #f2f2f2; 
-        border-left: 1px solid #f2f2f2; 
-        border-bottom: 1px solid #f2f2f2; 
+        border-top: 1px solid #f2f2f2;
+        border-left: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
         width: 20px;
         height: 400px;
         display: block;
@@ -44,8 +44,8 @@
         }
         .locationDiv{
             margin-left: 25px;
-            .courtMap, .angular-google-map-container { 
-                height: 161px; 
+            .courtMap, .angular-google-map-container {
+                height: 161px;
                 width: 300px;
             }
             .courtAddress{
@@ -61,7 +61,7 @@
             width: 464px;
             height: 227px;
         }
-        
+
         .courtImage, .locationDiv, .courtDetails, .courtDescription{
             display: inline-block
         }
@@ -76,19 +76,19 @@
         .courtDetails p {
             width: 230px;
         }
-        
-        
+
+
     }
     .rightBracket {
         float: right;
-        border-top: 1px solid #f2f2f2; 
-        border-right: 1px solid #f2f2f2; 
-        border-bottom: 1px solid #f2f2f2; 
+        border-top: 1px solid #f2f2f2;
+        border-right: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
         width: 20px;
         height: 400px;
         display: block;
     }
-    
+
     .courtDetail{
         height: 420px;
         width: 850px;

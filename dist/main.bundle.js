@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bf9a8692ab1b6a107f59"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "92d71a843716fb5c408f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -17825,7 +17825,7 @@ module.exports = "<div id=loginDiv>\n    <div class=titleDiv>\n        <div clas
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var EventEmitter = __webpack_require__(102);
+var EventEmitter = __webpack_require__(96);
 module.exports = new EventEmitter();
 
 
@@ -18030,8 +18030,8 @@ module.exports = Html5Entities;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(12);
-__webpack_require__(100);
-module.exports = __webpack_require__(103);
+__webpack_require__(94);
+module.exports = __webpack_require__(97);
 
 
 /***/ }),
@@ -18042,9 +18042,9 @@ module.exports = __webpack_require__(103);
 
 
 __webpack_require__(13);
-
-__webpack_require__(43);
-__webpack_require__(44);
+__webpack_require__(38);
+__webpack_require__(55);
+__webpack_require__(58);
 __webpack_require__(61);
 __webpack_require__(64);
 __webpack_require__(67);
@@ -18056,21 +18056,21 @@ __webpack_require__(82);
 __webpack_require__(85);
 __webpack_require__(88);
 __webpack_require__(91);
-__webpack_require__(94);
-__webpack_require__(97);
+
+// import './js/admin-canchas/admin-canchas.module';
 
 window.validaNumber = function (e) {
-    var tecla = document.all ? e.keyCode : e.which;
+  var tecla = document.all ? e.keyCode : e.which;
 
-    //Tecla de retroceso para borrar, siempre la permite
-    if (tecla == 8) {
-        return true;
-    }
+  // Tecla de retroceso para borrar, siempre la permite
+  if (tecla == 8) {
+    return true;
+  }
 
-    // Patron de entrada, en este caso solo acepta numeros
-    var patron = /[0-9]/;
-    var tecla_final = String.fromCharCode(tecla);
-    return patron.test(tecla_final);
+  // Patron de entrada, en este caso solo acepta numeros
+  var patron = /[0-9]/;
+  var tecla_final = String.fromCharCode(tecla);
+  return patron.test(tecla_final);
 };
 
 /***/ }),
@@ -18080,42 +18080,94 @@ window.validaNumber = function (e) {
 "use strict";
 
 
-var _angular = __webpack_require__(0);
-
-var angular = _interopRequireWildcard(_angular);
-
-__webpack_require__(2);
-
-var _config = __webpack_require__(1);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-_config.APP.ADD_MODULE('AdminCanchas');
-
-__webpack_require__(38);
-__webpack_require__(39);
-
-angular.module('AdminCanchas').config(['$stateProvider', function ($stateProvider) {
-    var tplCanchasLogin = __webpack_require__(40);
-    var tplCanchasCreate = __webpack_require__(41);
-    var tplCanchasProfile = __webpack_require__(42);
-    $stateProvider.state('app.admin-canchas', {
-        url: '/admin-canchas',
-        template: tplCanchasLogin,
-        controller: 'CanchasLoginController',
-        controllerAs: 'vm'
-    }).state('app.admin-canchas-crear', {
-        url: '/admin-canchas/create',
-        template: tplCanchasCreate,
-        controller: 'CanchasCreateController',
-        controllerAs: 'vm'
-    }).state('app.admin-canchas-profile', {
-        url: '/admin-canchas/profile',
-        template: tplCanchasProfile,
-        controller: 'CanchasProfileController',
-        controllerAs: 'vm'
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular = __webpack_require__(0);
+var config_ts_1 = __webpack_require__(1);
+window.DEV = true;
+//Start by defining the main module and adding the module dependencies
+angular.module(config_ts_1.APP.NAME, config_ts_1.APP.DEPENDENCIES).constant('PATHS', {
+    api: window.API_URL
+}).config(['$httpProvider', '$locationProvider', '$urlRouterProvider', '$authProvider', function ($httpProvider, $locationProvider, $urlRouterProvider, $authProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    //$locationProvider.html5Mode(true).hashPrefix('*');
+    $urlRouterProvider.otherwise('/');
+}]).config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(['$q', '$location', '$rootScope', function ($q, $location, $rootScope) {
+        return {
+            'request': function request(config) {
+                config.headers = config.headers || {};
+                if (window.localStorage.getItem('token')) {
+                    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token');
+                } else if (window.localStorage.getItem('token-cancha')) {
+                    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token-cancha');
+                }
+                return config;
+            },
+            'responseError': function responseError(response) {
+                if (response.status === 401 || response.status === 403) {
+                    $rootScope.$broadcast('logout');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+    $httpProvider.defaults.headers.patch = {
+        'Content-Type': 'application/json;charset=utf-8'
+    };
+}]).config(['uiGmapGoogleMapApiProvider', function (GoogleMapApiProviders) {
+    GoogleMapApiProviders.configure({
+        argentina: true
     });
+}]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+    cfpLoadingBarProvider.latencyThreshold = 500;
+}]).run(['$rootScope', '$state', '$window', 'LoginService', function ($rootScope, $state, $window, LoginService) {
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+        if (toState.authenticate && !LoginService.isAuth()) {
+            // User isn’t authenticated
+            $state.transitionTo("home");
+            event.preventDefault();
+        }
+    });
+    //If the route change failed due to authentication error, redirect them out
+    $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+        if (rejection === 'Not Authenticated') {
+            $state.go('login');
+        }
+    });
+    $rootScope.$on('$stateChangeSuccess', function () {
+        // display new view from top
+        $window.scrollTo(0, 0);
+    });
+    $rootScope.URL_BUCKET = window.URL_BUCKET;
+    $rootScope.HASH = window.HASH;
 }]);
+if (!window.DEV) {
+    angular.module(config_ts_1.APP.NAME).config(['$compileProvider', function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+    }]);
+}
+//Then define the init function for starting up the application
+angular.element(document).ready(function () {
+    //Fixing facebook bug with redirect
+    if (window.location.hash === '#_=_') {
+        window.location.hash = '#!';
+    }
+    //Then init the app
+    angular.bootstrap(document, [config_ts_1.APP.NAME], {
+        strictDi: true
+    });
+});
+window.fbAsyncInit = function () {
+    console.log('fbAsyncInit');
+    window.FB.init({
+        appId: window.FACEBOOK_ID,
+        status: true,
+        cookie: true,
+        version: 'v2.4'
+    });
+};
 
 /***/ }),
 /* 14 */
@@ -93547,303 +93599,22 @@ angular.module('cfp.loadingBar', [])
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _moment = __webpack_require__(4);
-
-var moment = _interopRequireWildcard(_moment);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CanchasLoginController = function () {
-  function CanchasLoginController($http, PATHS, $state, toaster, LoginService) {
-    _classCallCheck(this, CanchasLoginController);
-
-    var token = localStorage.getItem('token-cancha');
-    if (token) {
-      $state.go('app.admin-canchas-profile');
-    }
-
-    this.$http = $http;
-    this.PATHS = PATHS;
-    this.$state = $state;
-    this.toaster = toaster;
-    this.LoginService = LoginService;
-  }
-
-  _createClass(CanchasLoginController, [{
-    key: 'auth',
-    value: function auth(form) {
-      if (form.$valid) {
-        var vm = this;
-        vm.$http.post(this.PATHS.api + '/canchas/auth', { email: this.email, password: this.password }).then(function (resp) {
-          if (!resp.data.error) {
-            vm.LoginService.loginCancha(resp.data);
-          } else {
-            vm.toaster.error('Hubo un error, intente más tarde.');
-          }
-        });
-      }
-    }
-  }]);
-
-  return CanchasLoginController;
-}();
-
-angular.module('AdminCanchas').controller('CanchasLoginController', ['$http', 'PATHS', '$state', 'toaster', 'LoginService', CanchasLoginController]);
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CanchasCreateController = function () {
-  function CanchasCreateController($http, PATHS, $state, LoginService) {
-    _classCallCheck(this, CanchasCreateController);
-
-    console.log('CanchasCreateController');
-    this.$http = $http;
-    this.PATHS = PATHS;
-    this.$state = $state;
-    this.LoginService = LoginService;
-  }
-
-  _createClass(CanchasCreateController, [{
-    key: 'create',
-    value: function create(form) {
-      if (form.$valid && this.password === this.password_repeat) {
-        var vm = this;
-        this.$http.post(this.PATHS.api + '/canchas', { name: this.name, email: this.email, password: this.password }).then(function (resp) {
-          localStorage.setItem('user-cancha', JSON.stringify(resp.data.user));
-          localStorage.setItem('token-cancha', resp.data.token.token);
-
-          vm.$state.go('app.admin-canchas-profile');
-        });
-      }
-    }
-  }]);
-
-  return CanchasCreateController;
-}();
-
-var CanchasProfileController = function () {
-  function CanchasProfileController($http, PATHS, toaster, $state, $scope, Upload) {
-    _classCallCheck(this, CanchasProfileController);
-
-    var token = localStorage.getItem('token-cancha');
-    if (!token) {
-      $state.go('app.admin-canchas');
-    }
-    var vm = this;
-    this.user = JSON.parse(localStorage.getItem('user-cancha'));
-    this.Upload = Upload;
-    this.$http = $http;
-    this.PATHS = PATHS;
-    this.toaster = toaster;
-    this.stopSave = false;
-    this.avatar = this.user.image || '';
-    this.address = this.user.address || '';
-    $scope.$watch('image', function (newImage, lastImage) {
-      if (newImage && newImage !== lastImage) {
-        var formData = new FormData();
-        formData.append("file", newImage);
-        vm.Upload.upload({
-          url: vm.PATHS.api + '/canchas/profile/image',
-          data: { file: newImage, 'name': vm.user.name }
-        }).then(function (resp) {
-          console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-          vm.user.image = resp.data;
-          vm.avatar = resp.data;
-        }, function (resp) {
-          console.log('Error status: ' + resp.status);
-        }, function (evt) {
-          //let progressPercentage:any = parseInt( 100.0 * evt.loaded / evt.total );
-          //console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        });
-      }
-    });
-  }
-
-  _createClass(CanchasProfileController, [{
-    key: 'save',
-    value: function save(form) {
-      var vm = this;
-      if (!this.user.address && !this.user.address_lat && !this.user.address_lng && this.address && (!this.address.types || this.address.types[0] != "street_address")) {
-        vm.toaster.pop({ type: 'error', body: 'El campo dirección debe contener una dirección exácta', timeout: 2000 });
-        return;
-      }
-
-      if (form.$valid && !this.stopSave) {
-        this.stopSave = true;
-        this.user.address = this.address && this.address.formatted_address ? this.address.formatted_address : this.address;
-        this.user.address_lat = this.address && this.address.geometry ? this.address.geometry.location.lat() : this.user.lat;
-        this.user.address_lng = this.address && this.address.geometry ? this.address.geometry.location.lng() : this.user.lng;
-        this.$http.put(this.PATHS.api + '/canchas', this.user).then(function (resp) {
-          vm.stopSave = false;
-          if (resp.data.success) {
-            vm.toaster.pop({ type: 'success', body: 'Se guardo correctamente!', timeout: 2000 });
-            localStorage.setItem('user-cancha', JSON.stringify(resp.data.user));
-          } else {
-            vm.toaster.pop({ type: 'error', body: 'Hubo un error, intente más tarde', timeout: 2000 });
-          }
-        }, function () {
-          vm.stopSave = false;
-          vm.toaster.pop({ type: 'error', body: 'Hubo un error, intente más tarde', timeout: 2000 });
-        });
-      }
-    }
-  }]);
-
-  return CanchasProfileController;
-}();
-
-angular.module('AdminCanchas').controller('CanchasCreateController', ['$http', 'PATHS', '$state', 'LoginService', CanchasCreateController]).controller('CanchasProfileController', ['$http', 'PATHS', 'toaster', '$state', '$scope', 'Upload', CanchasProfileController]);
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=canchas-login>\n  <div class=\"header ng-scope\"> \n    <img ng-src=/img/header-home.png> \n    <div class=desc> \n      <form name=canchasLogin>\n        <input type=email placeholder=email ng-model=vm.email />\n        <input type=password placeholder=password ng-model=vm.password />\n        <button ng-click=vm.auth(canchasLogin)>INGRESAR</button>\n      </form>\n      <a ui-sref=app.admin-canchas-crear>Crear Usuario</a>\n    </div> \n  </div>\n</div>\n<sb-footer></sb-footer>\n\n";
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=canchas-create>\n  <div class=\"header ng-scope\"> \n    <img ng-src=/img/header-home.png> \n    <div class=desc> \n      <form name=canchasForm>\n        <input type=text placeholder=\"Nombre del club\" ng-model=vm.name required/>\n        <input type=email placeholder=Email ng-model=vm.email required/>\n        <input type=password placeholder=Password minlength=8 ng-model=vm.password required/>\n        <input type=password placeholder=\"Repetir password\" minlength=8 ng-model=vm.password_repeat required/>\n        <button ng-click=vm.create(canchasForm)>CREAR</button>\n      </form>\n      <a ui-sref=app.admin-canchas>Login</a>\n    </div> \n  </div>\n</div>\n<sb-footer></sb-footer>\n\n";
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=canchas-profile>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle></div>\n    </div>\n\n    <form name=formProfile novalidate>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputName id=inputName ng-model=vm.user.name required/>\n                    <label for=inputName>Nombre</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputEmail id=inputEmail ng-model=vm.user.email required/>\n                    <label for=inputEmail>Email</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCity id=inputCity g-places-autocomplete ng-model=vm.address autocomplete=false />\n                    <label for=inputCity>Dirección</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputPhone id=inputPhone ng-model=vm.user.phone onkeypress=\"return validaNumber(event)\" required/>\n                    <label for=inputCity>Telefono</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <div class=image class=button ngf-select ng-model=image name=file ngf-pattern=\"'image/*'\" ngf-accept=\"'image/*'\" ngf-max-size=20MB ngf-min-height=100 ngf-resize=\"{width: 200, height: 200}\">\n                      <label for=inputCity>Image <small>(Haz click aquí)</small></label>\n                    </div>\n                    <div class=imgContainer ng-if=\"vm.avatar !== ''\">\n                      <img class=\"\" ng-src={{vm.avatar}} />\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=form-group>\n                <label for=inputAboutMe>SOBRE MI</label>\n                <textarea class=form-control name=inputAboutMe id=inputAboutMe rows=5 ng-model=vm.user.about required maxlength=254></textarea>\n            </div>\n        </div>\n        <button type=submit class=btn ng-click=vm.save(formProfile) ng-disabled=vm.stopSave>Guardar</button>\n        <span ng-show=vm.completeForm style=color:#8b0000>Completar los datos del formulario</span>\n    </form>\n</div>\n<sb-footer></sb-footer>\n";
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var angular = __webpack_require__(0);
-var config_ts_1 = __webpack_require__(1);
-window.DEV = true;
-//Start by defining the main module and adding the module dependencies
-angular.module(config_ts_1.APP.NAME, config_ts_1.APP.DEPENDENCIES).constant('PATHS', {
-    api: window.API_URL
-}).config(['$httpProvider', '$locationProvider', '$urlRouterProvider', '$authProvider', function ($httpProvider, $locationProvider, $urlRouterProvider, $authProvider) {
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    //$locationProvider.html5Mode(true).hashPrefix('*');
-    $urlRouterProvider.otherwise('/');
-}]).config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.interceptors.push(['$q', '$location', '$rootScope', function ($q, $location, $rootScope) {
-        return {
-            'request': function request(config) {
-                config.headers = config.headers || {};
-                if (window.localStorage.getItem('token')) {
-                    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token');
-                } else if (window.localStorage.getItem('token-cancha')) {
-                    config.headers.Authorization = 'Bearer ' + window.localStorage.getItem('token-cancha');
-                }
-                return config;
-            },
-            'responseError': function responseError(response) {
-                if (response.status === 401 || response.status === 403) {
-                    $rootScope.$broadcast('logout');
-                }
-                return $q.reject(response);
-            }
-        };
-    }]);
-    $httpProvider.defaults.headers.patch = {
-        'Content-Type': 'application/json;charset=utf-8'
-    };
-}]).config(['uiGmapGoogleMapApiProvider', function (GoogleMapApiProviders) {
-    GoogleMapApiProviders.configure({
-        argentina: true
-    });
-}]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-    cfpLoadingBarProvider.latencyThreshold = 500;
-}]).run(['$rootScope', '$state', '$window', 'LoginService', function ($rootScope, $state, $window, LoginService) {
-    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-        if (toState.authenticate && !LoginService.isAuth()) {
-            // User isn’t authenticated
-            $state.transitionTo("home");
-            event.preventDefault();
-        }
-    });
-    //If the route change failed due to authentication error, redirect them out
-    $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
-        if (rejection === 'Not Authenticated') {
-            $state.go('login');
-        }
-    });
-    $rootScope.$on('$stateChangeSuccess', function () {
-        // display new view from top
-        $window.scrollTo(0, 0);
-    });
-    $rootScope.URL_BUCKET = window.URL_BUCKET;
-    $rootScope.HASH = window.HASH;
-}]);
-if (!window.DEV) {
-    angular.module(config_ts_1.APP.NAME).config(['$compileProvider', function ($compileProvider) {
-        $compileProvider.debugInfoEnabled(false);
-    }]);
-}
-//Then define the init function for starting up the application
-angular.element(document).ready(function () {
-    //Fixing facebook bug with redirect
-    if (window.location.hash === '#_=_') {
-        window.location.hash = '#!';
-    }
-    //Then init the app
-    angular.bootstrap(document, [config_ts_1.APP.NAME], {
-        strictDi: true
-    });
-});
-window.fbAsyncInit = function () {
-    console.log('fbAsyncInit');
-    window.FB.init({
-        appId: window.FACEBOOK_ID,
-        status: true,
-        cookie: true,
-        version: 'v2.4'
-    });
-};
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Home');
+__webpack_require__(39);
+__webpack_require__(40);
+__webpack_require__(41);
+__webpack_require__(43);
 __webpack_require__(45);
-__webpack_require__(46);
 __webpack_require__(47);
 __webpack_require__(49);
 __webpack_require__(51);
-__webpack_require__(53);
-__webpack_require__(55);
-__webpack_require__(57);
 angular.module('Home').config(['$stateProvider', function ($stateProvider) {
-    var tplApp = __webpack_require__(59);
-    var tplHome = __webpack_require__(60);
+    var tplApp = __webpack_require__(53);
+    var tplHome = __webpack_require__(54);
     $stateProvider.state('app', {
         abstact: true,
         template: tplApp,
@@ -93858,7 +93629,7 @@ angular.module('Home').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 45 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93872,7 +93643,7 @@ var HomeController = /** @class */function () {
 angular.module('Home').controller('HomeController', [HomeController]);
 
 /***/ }),
-/* 46 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93908,7 +93679,7 @@ var MenuController = /** @class */function () {
 angular.module('Home').controller('MenuController', ['LoginService', '$rootScope', '$scope', MenuController]);
 
 /***/ }),
-/* 47 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93916,9 +93687,72 @@ angular.module('Home').controller('MenuController', ['LoginService', '$rootScope
 
 angular.module('Home').directive('welcome', welcome);
 function welcome() {
-    var tpl = __webpack_require__(48);
+    var tpl = __webpack_require__(42);
     return {
         template: tpl
+    };
+}
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=container>\n    <h4><span>BIENVENIDOS</span> A SLAMBOW</h4>\n    <div class=commentary>\n        <p>Es una red social que permitirá a muchos jugadores compartir lo mejor del tenis</p>\n        <span>JUAN MARTÍN DEL POTRO</span>\n    </div>\n    <div class=desc>\n        <p>Con Slambow tu próximo partido comienza acá.\n          Podés encontrar rivales de tu nivel, organizar partidos en tu club más cercano y conocer las mejores canchas.</p>\n    </div>\n    <a class=btn>CONOCENOS</a>\n</div>\n";
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('Home').directive('wantToPlay', wantToPlay);
+function wantToPlay() {
+    var tpl = __webpack_require__(44);
+    return {
+        template: tpl
+    };
+}
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=container>\n    <div class=\"quiero-jugar col-md-3\">\n        <h5>QUIERO</h5>\n        <h6>JUGAR</h6>\n    </div>\n    <div class=\"desc col-md-7\">\n        <p>\n            Jugar al tenis con Slambow es muy simple, sólo tenés que crear tu perfil de jugador por única vez,\n            indicando tu nombre, nivel de juego, disponibilidad y filtros para elección de jugadores y te ayudaremos\n             a encontrar el rival ideal y organizar tu primer partido\n        </p>\n    </div>\n    <div class=\"play col-md-2\">\n        <a class=btn>PLAY</a>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('Home').directive('sbSections', sbSections);
+function sbSections() {
+    var tpl = __webpack_require__(46);
+    return {
+        template: tpl
+    };
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=row>\n    <div class=\"canchas col-md-6\">\n        <p><b>BUSCA</b></p>\n        <p>TU CANCHA IDEAL</p>\n        <span>Encontrá tu cancha ideal y como llegar</span>\n        <a class=btn>+ INFO</a>\n    </div>\n    <div class=\"torneos col-md-6\">\n        <p><b>CONOCÉ</b></p>\n        <p>OTROS JUGADORES</p>\n        <span>Buscá a tus rivales ideales y a otros apasionados por este deporte como vos.</span>\n        <a class=btn>+ INFO</a>\n    </div>\n</div>\n";
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+angular.module('Home').directive('homeBlog', homeBlog);
+function homeBlog() {
+    var tplBlog = __webpack_require__(48);
+    return {
+        template: tplBlog
     };
 }
 
@@ -93926,7 +93760,7 @@ function welcome() {
 /* 48 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=container>\n    <h4><span>BIENVENIDOS</span> A SLAMBOW</h4>\n    <div class=commentary>\n        <p>Es una red social que permitirá a muchos jugadores compartir lo mejor del tenis</p>\n        <span>JUAN MARTÍN DEL POTRO</span>\n    </div>\n    <div class=desc>\n        <p>Con Slambow tu próximo partido comienza acá.\n          Podés encontrar rivales de tu nivel, organizar partidos en tu club más cercano y conocer las mejores canchas.</p>\n    </div>\n    <a class=btn>CONOCENOS</a>\n</div>\n";
+module.exports = "<div class=container>\n    <!--h3>BLOG</h3-->\n    <h4>ULTIMAS NOTICIAS</h4>\n    <div class=noticias>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/blog-1.png />\n            <p class=date>Sept 30.2016</p>\n            <div class=inline>\n                <p class=desc>Sed loreet aliquam leote llus dolor dapibus T an eu lacuestibuluEtiamursus leo vel metus.</p>\n                <a class=more>+</a>\n            </div>\n        </div>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/blog-2.png />\n            <p class=date>Sept 30.2016</p>\n            <div class=inline>\n                <p class=desc>Sed loreet aliquam leote llus dolor dapibus T an eu lacuestibuluEtiamursus leo vel metus.</p>\n                <a class=more>+</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 49 */
@@ -93935,11 +93769,11 @@ module.exports = "<div class=container>\n    <h4><span>BIENVENIDOS</span> A SLAM
 "use strict";
 
 
-angular.module('Home').directive('wantToPlay', wantToPlay);
-function wantToPlay() {
-    var tpl = __webpack_require__(50);
+angular.module('Home').directive('homeComunidad', homeComunidad);
+function homeComunidad() {
+    var tplComunidad = __webpack_require__(50);
     return {
-        template: tpl
+        template: tplComunidad
     };
 }
 
@@ -93947,7 +93781,7 @@ function wantToPlay() {
 /* 50 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=container>\n    <div class=\"quiero-jugar col-md-3\">\n        <h5>QUIERO</h5>\n        <h6>JUGAR</h6>\n    </div>\n    <div class=\"desc col-md-7\">\n        <p>\n            Jugar al tenis con Slambow es muy simple, sólo tenés que crear tu perfil de jugador por única vez,\n            indicando tu nombre, nivel de juego, disponibilidad y filtros para elección de jugadores y te ayudaremos\n             a encontrar el rival ideal y organizar tu primer partido\n        </p>\n    </div>\n    <div class=\"play col-md-2\">\n        <a class=btn>PLAY</a>\n    </div>\n</div>\n";
+module.exports = "<div class=container>\n    <div class=group>\n        <div class=item>\n            <h3>Entidades que apoyan nuestro proyecto</h3>\n            <div class=group>\n                <h4>SLAMBOW</h4>\n                <a class=unite>SUMATE</a>\n            </div>\n            <p>\n                Fusce euismod consequat ante. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed dolor. Aliquam congue fermentum nisl. Mauris accumsan nulla vel diam. Sed in lacus ut enim adipiscing aliquet. Nulla venenatis. In pede mi, aliquet\n                sit. amet.\n            </p>\n        </div>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/cancha-tennis.png />\n        </div>\n    </div>\n\n</div>\n";
 
 /***/ }),
 /* 51 */
@@ -93956,72 +93790,9 @@ module.exports = "<div class=container>\n    <div class=\"quiero-jugar col-md-3\
 "use strict";
 
 
-angular.module('Home').directive('sbSections', sbSections);
-function sbSections() {
-    var tpl = __webpack_require__(52);
-    return {
-        template: tpl
-    };
-}
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=row>\n    <div class=\"canchas col-md-6\">\n        <p><b>BUSCA</b></p>\n        <p>TU CANCHA IDEAL</p>\n        <span>Encontrá tu cancha ideal y como llegar</span>\n        <a class=btn>+ INFO</a>\n    </div>\n    <div class=\"torneos col-md-6\">\n        <p><b>CONOCÉ</b></p>\n        <p>OTROS JUGADORES</p>\n        <span>Buscá a tus rivales ideales y a otros apasionados por este deporte como vos.</span>\n        <a class=btn>+ INFO</a>\n    </div>\n</div>\n";
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-angular.module('Home').directive('homeBlog', homeBlog);
-function homeBlog() {
-    var tplBlog = __webpack_require__(54);
-    return {
-        template: tplBlog
-    };
-}
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=container>\n    <!--h3>BLOG</h3-->\n    <h4>ULTIMAS NOTICIAS</h4>\n    <div class=noticias>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/blog-1.png />\n            <p class=date>Sept 30.2016</p>\n            <div class=inline>\n                <p class=desc>Sed loreet aliquam leote llus dolor dapibus T an eu lacuestibuluEtiamursus leo vel metus.</p>\n                <a class=more>+</a>\n            </div>\n        </div>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/blog-2.png />\n            <p class=date>Sept 30.2016</p>\n            <div class=inline>\n                <p class=desc>Sed loreet aliquam leote llus dolor dapibus T an eu lacuestibuluEtiamursus leo vel metus.</p>\n                <a class=more>+</a>\n            </div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-angular.module('Home').directive('homeComunidad', homeComunidad);
-function homeComunidad() {
-    var tplComunidad = __webpack_require__(56);
-    return {
-        template: tplComunidad
-    };
-}
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=container>\n    <div class=group>\n        <div class=item>\n            <h3>Entidades que apoyan nuestro proyecto</h3>\n            <div class=group>\n                <h4>SLAMBOW</h4>\n                <a class=unite>SUMATE</a>\n            </div>\n            <p>\n                Fusce euismod consequat ante. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed dolor. Aliquam congue fermentum nisl. Mauris accumsan nulla vel diam. Sed in lacus ut enim adipiscing aliquet. Nulla venenatis. In pede mi, aliquet\n                sit. amet.\n            </p>\n        </div>\n        <div class=item>\n            <img ng-src={{URL_BUCKET}}/img/cancha-tennis.png />\n        </div>\n    </div>\n\n</div>\n";
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 angular.module('Home').directive('sbFooter', sbFooter);
 function sbFooter() {
-    var tplFooter = __webpack_require__(58);
+    var tplFooter = __webpack_require__(52);
     return {
         template: tplFooter,
         replace: true
@@ -94029,25 +93800,25 @@ function sbFooter() {
 }
 
 /***/ }),
-/* 58 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = "<footer>\n    <div class=container>\n        <img ng-src={{URL_BUCKET}}/img/logo.png />\n        <h3>EL TENIS EN UN SOLO LUGAR</h3>\n        <ul>\n            <li>Torneos\n                <div class=vertical></div>\n            </li>\n            <li>Quiero jugar\n                <div class=vertical></div>\n            </li>\n            <li>Perfil\n                <div class=vertical></div>\n            </li>\n            <li>Sobre Slambow\n                <div class=vertical></div>\n            </li>\n            <li>Blog</li>\n        </ul>\n    </div>\n</footer>";
 
 /***/ }),
-/* 59 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = "<header>\n    <div class=container>\n        <div class=auth>\n            <a class=noselect ng-click=vm.auth() ng-if=\"vm.user == null\" style=margin-top:12px;display:block>LOGIN | REGISTRATE</a>\n            <!-- Simple dropdown -->\n            <img ng-if=\"vm.user != null\" class=profileImg ng-src={{vm.avatar}} style=border-radius:164px;width:40px;height:40px;margin:0;margin-right:5px />\n            <span ng-if=\"vm.user != null\" uib-dropdown on-toggle=toggled(open)>\n                <a class=noselect ng-if=\"vm.user != null\" id=simple-dropdown uib-dropdown-toggle ng-bind=\"vm.user.name ? vm.user.name : vm.user.first_name + ' ' + vm.user.last_name\"></a>\n                <ul class=dropdown-menu uib-dropdown-menu aria-labelledby=simple-dropdown>\n                    <li ui-sref=app.profile ng-if=!vm.user.admin ng-if=!vm.user.admin>\n                        <img ng-src={{URL_BUCKET}}/img/profile-icon.png /> <a class=noselect>Perfil</a>\n                    </li>\n                    <li ui-sref=app.matchHistory ng-if=!vm.user.admin ng-if=!vm.user.admin>\n                        <img ng-src={{URL_BUCKET}}/img/match-history-icon.png /> <a class=noselect>Mis Partidos</a>\n                    </li>\n                    <li ui-sref=app.myCalifications ng-if=!vm.user.admin>\n                        <img ng-src={{URL_BUCKET}}/img/my-califications-icon.png /> <a class=noselect>Mis Calificaciones</a>\n                    </li>\n                    <li ui-sref=app.logros ng-if=!vm.user.admin>\n                        <img ng-src={{URL_BUCKET}}/img/logros-icon.png /> <a class=noselect>Mis Logros</a>\n                    </li>\n                    <li ui-sref=app.canchas>\n                        <img ng-src={{URL_BUCKET}}/img/canchas-icon.png /> <a class=noselect>Canchas</a>\n                    </li>\n                    <li class=closeSession ng-click=vm.logout()>\n                        <a class=noselect>Cerrar Sesión</a>\n                    </li>\n                </ul>\n            </span>\n\n        </div>\n        <nav>\n            <img ng-src={{URL_BUCKET}}/img/logo.png />\n            <ul>\n                <li><a href=/ >Home</a></li>\n                <li ng-if=\"vm.user != null && !vm.user.admin\"><a href=/ >Torneos</a></li>\n                <li ng-if=\"vm.user != null && !vm.user.admin\"><a ui-sref=app.createMatch>Crear Partido</a></li>\n                <li ng-if=\"vm.user != null && !vm.user.admin\"><a ui-sref=app.play>Quiero jugar</a></li>\n                <!--li ng-if=\"vm.user != null\"><a ui-sref=\"app.profile\">Perfil</a></li-->\n                <li><a href=/ >Sobre Slambow</a></li>\n                <li><a href=/ >Blog</a></li>\n            </ul>\n        </nav>\n    </div>\n\n</header>\n<div ui-view></div>\n";
 
 /***/ }),
-/* 60 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=header>\n    <img class=noselect ng-src=\"{{URL_BUCKET}}/img/header-home.jpg?v={{HASH}}\"/>\n    <div class=desc>\n        <!--h1>EL TENIS</h1-->\n        <!--h1 style=\"margin-bottom: 0px;\">Tu lugar para ganar</h1>\n        <br/>\n        <h1>partidos y amigos</h1-->\n    </div>\n</div>\n<welcome></welcome>\n<want-to-play></want-to-play>\n<sb-sections></sb-sections>\n<home-blog></home-blog>\n<home-comunidad></home-comunidad>\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 61 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94058,9 +93829,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Profile', ['Login']);
-__webpack_require__(62);
+__webpack_require__(56);
 angular.module('Profile').config(['$stateProvider', function ($stateProvider) {
-    var tplAppProfile = __webpack_require__(63);
+    var tplAppProfile = __webpack_require__(57);
     $stateProvider.state('app.profile', {
         url: '/view_profile',
         template: tplAppProfile,
@@ -94101,7 +93872,7 @@ angular.module('Profile').directive('file', function () {
 });
 
 /***/ }),
-/* 62 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94318,13 +94089,13 @@ var ProfileController = /** @class */function () {
 angular.module('Profile').controller('ProfileController', ['Canchas', 'LoginService', '$http', '$state', '$scope', 'PATHS', 'Upload', '$uibModal', 'toaster', '$rootScope', ProfileController]);
 
 /***/ }),
-/* 63 */
+/* 57 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=viewProfile>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle></div>\n    </div>\n\n    <form name=formProfile ng-submit=vm.save(formProfile)>\n        <div id=imageBox>\n            <div class=leftBracket></div>\n            <div class=centerBracket class=button ngf-select ng-model=image name=file ngf-pattern=\"'image/*'\" ngf-accept=\"'image/*'\" ngf-max-size=20MB ngf-min-height=100 ngf-resize=\"{width: 200, height: 200}\">\n                <div class=imgContainer>\n                    <img class=profileImg ng-src=\"{{vm.avatar?vm.avatar:'/img/profile/profile-blank.png'}}\"/>\n                </div>\n                <div id=uploadFileBtn>\n                    <img ng-src={{URL_BUCKET}}/img/profile/image-icon.png /> Seleccionar\n                </div>\n            </div>\n            <div class=rightBracket></div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputName id=inputName ng-model=vm.user.first_name required/>\n                        <label for=inputName>Nombre</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputSurname id=inputSurname ng-model=vm.user.last_name required/>\n                        <label for=inputSurname>Apellido</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class=column>\n                <div class=form-group>\n                    <input type=email class=form-control name=inputEmail id=inputEmail ng-model=vm.user.email ng-pattern=vm.emailFormat required/>\n                    <label for=inputEmail>Email</label>\n                    <span class=error style=color:#8b0000 ng-show=formProfile.inputEmail.$error.pattern>\n                        Formato Invalido\n                    </span>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputAge id=inputAge onkeypress=\"return validaNumber(event)\" ng-model=vm.user.years required/>\n                        <label for=inputAge>Edad</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputGender id=inputGender ng-model=vm.user.sexo required>\n                            <option value=\"\" disabled=disabled selected=selected hidden ng-if=!vm.user.sexo>Seleccioná</option>\n                            <option value=male>Masculino</option>\n                            <option value=female>Femenino</option>\n                        </select>\n                        <label for=inputGender>Sexo</label>\n                    </div>\n                </div>\n            </div>\n            <!--div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCountry\" id=\"inputCountry\" g-places-autocomplete ng-model=\"vm.country\" />\n<label for=\"inputCountry\">País</label>\n</div>\n</div-->\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCity id=inputCity g-places-autocomplete ng-model=vm.address autocomplete=false required/>\n                    <label for=inputCity>Dirección</label>\n                </div>\n            </div>\n        </div>\n        <!--div class=\"row-form\">\n<div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.city\" />\n<label for=\"inputCity\">Ciudad</label>\n</div>\n</div>\n<div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.address\" />\n<label for=\"inputCity\">Dirección</label>\n</div>\n</div>\n</div-->\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGameLevel id=inputGameLevel ng-model=vm.user.game_level required tooltip-placement=left-bottom>\n                    <option value=2.5 title=\"Principiante. Estás aprendiendo, recién comenzaste a tomar clases o nunca lo hiciste.\">2.5</option>\n                    <option value=3 title=\"Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.\">3.0</option>\n                    <option value=3.5 title=\"Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.\">3.5</option>\n                    <option value=4 title=\"Intermedio. Lograste golpes confiables, con approach y revés pero con errores.\">4.0</option>\n                    <option value=4.5 title=\"Intermedio. Lográs golpes efectivos y ya pensás en competencia.\">4.5</option>\n                    <option value=5 title=\"Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.\">5.0</option>\n                    <option value=5.5 title=\"Avanzado. Tenés constancia y control en los golpes. Podés variar las estrategias en situaciones de presion/estrés.\">5.5</option>\n                    <option value=6 title=\"Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.\">6.0</option>\n                    <option value=6.5 title=\"Avanzado. Ya jugás en circuitos y querés tener una profesional.\">6.5</option>\n                    <option value=7 title=\"Profesional. Ya sos un jugador profesional.\">7.0</option>\n                </select>\n                    <label for=inputGameLevel>Nivel de juego</label><small class=badge ng-click=vm.openGameLevelModal()>?</small>\n                </div>\n            </div>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.single tooltip-placement=left-bottom uib-tooltip=\"Estas dispuesto a jugar singles, dobles o ambos?\"/>\n                        <label for=inputCity>Singles</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.double tooltip-placement=left-bottom uib-tooltip=\"Estas dispuesto a jugar singles, dobles o ambos?\"/>\n                        <label for=inputCity>Dobles</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCoachProfessor id=inputCoachProfessor ng-model=vm.user.coach tooltip-placement=left-bottom uib-tooltip=\"Tenés profesor actualmente? Indica nombre, apellido y club\">\n                    <label for=inputCoachProfessor>Coach/Profesor</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <!--button type=\"text\" class=\"form-control\" name=\"inputAvailability\" id=\"inputAvailability\" ng-click=\"vm.openModalAvailable()\" ng-model=\"vm.user.availability\"></button-->\n                    <input type=text class=form-control name=inputAvailability id=inputAvailability ng-click=vm.openModalAvailable() value=\"{{vm.isSetted?'Cargada':'Hacé click para cargarla'}}\" readonly=readonly>\n                    <label for=inputAvailability>Disponibilidad</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <rzslider rz-slider-model=vm.user.distance rz-slider-options=\"{floor: 2,\n                                                ceil: 50,\n                                                step: 2,\n                                                minLimit: 2,\n                                                maxLimit: 50,\n                                                showSelectionBar: true}\" tooltip-placement=left-bottom uib-tooltip=\"Es la distancia que estás dispuesto a recorrer para jugar un partido\"></rzslider>\n                    <label for=inputDistance>Distancia para jugar un partido</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputPartnerClub ng-model=vm.user.club_member>\n                        <option value=-1>Ninguno</option>\n                        <option value=0 selected=selected>Otro</option>\n                        <option ng-repeat=\"cancha in vm.canchas\" value={{cancha.id}} ng-if=\"cancha.state == 'confirmed'\" ng-bind=cancha.name></option>\n                    </select>\n                    <label for=inputPartnerClub>Sos socio de algun club?</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=form-group>\n                <label for=inputAboutMe>SOBRE MI</label>\n                <textarea class=form-control name=inputAboutMe id=inputAboutMe rows=5 ng-model=vm.user.about required placeholder=\"Contanos algo mas sobre vos, tus habilidades, hobbies. ¿Por qué deberían jugar con vos?\"></textarea>\n            </div>\n        </div>\n        <button type=submit class=btn ng-disabled=vm.stopSave>Guardar</button>\n        \n    </form>\n</div>\n<sb-footer></sb-footer>\n\n<script type=text/ng-template id=availability-profile>\n    <div id=\"availabilityModal\" style=\"height:525px;\">\n        <div class=\"titleDiv\">\n            <div class=\"side\">\n                <div class=\"dot\"></div>\n                <div class=\"line\"></div>\n            </div>\n            <div class=\"centerTitle\">\n                Disponibilidad\n            </div>\n            <div class=\"side\">\n                <div class=\"line\"></div>\n                <div class=\"dot\"></div>\n            </div>\n        </div>\n        <div class=\"titleLine\"></div>\n        <div class=\"legend\">\n            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar.\n        </div>\n\n        <div class=\"separator\"></div>\n        <form>\n            <uib-tabset justified=\"true\">\n                <uib-tab class=\"mondayTab\" index=\"0\" select=\"vm.tabIndex = 0\"></uib-tab>\n                <uib-tab class=\"tuesdayTab\" index=\"1\" select=\"vm.tabIndex = 1\"></uib-tab>\n                <uib-tab class=\"wednesdayTab\" index=\"2\" select=\"vm.tabIndex = 2\"></uib-tab>\n                <uib-tab class=\"thursdayTab\" index=\"3\" select=\"vm.tabIndex = 3\"></uib-tab>\n                <uib-tab class=\"fridayTab\" index=\"4\" select=\"vm.tabIndex = 4\"></uib-tab>\n                <uib-tab class=\"saturdayTab\" index=\"5\" select=\"vm.tabIndex = 5\"></uib-tab>\n                <uib-tab class=\"sundayTab\" index=\"6\" select=\"vm.tabIndex = 6\"></uib-tab>\n             </uib-tabset>\n\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Todo el día</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('allDay', vm.availability[vm.tabIndex].allDay)\">\n                    </div>\n                    <label>DE 8 A 23HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Mañana</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('morning', vm.availability[vm.tabIndex].morning)\">\n                    </div>\n                    <label>DE 8 A 12HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Tarde</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('evening', vm.availability[vm.tabIndex].evening)\">\n                    </div>\n                    <label>DE 12 A 19HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Noche</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('night', vm.availability[vm.tabIndex].night)\">\n                    </div>\n                    <label>DE 19 A 23HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <label class=\"form-control allCheck\">Puedo jugar todos los días en cualquier horario.</label>\n                <div class=\"checkBox\"\n                     ng-class=\"vm.always ? 'checked' : 'noChecked'\"\n                     ng-click=\"vm.updateChecks('always', vm.always)\">\n                </div>\n            </div>\n        </form>\n        <button type=\"submit\" class=\"btn\" ng-click=\"save()\">Guardar</button>\n    </div>\n</script>\n<script type=text/ng-template id=game-level-table> \n    <div id=\"tableNTRP\" style=\"height: 475\"> \n        <div class=\"titleDiv\"> \n            <div class=\"side\"> \n                <div class=\"dot\"></div> \n                <div class=\"line\"></div> \n            </div> \n            <div class=\"centerTitle\"> \n                Tabla NTRP \n            </div> \n            <div class=\"side\"> \n                <div class=\"line\"></div> \n                <div class=\"dot\"></div> \n            </div> \n        </div> \n        <div class=\"titleLine\"></div>\n        <div class=\"legend\">\n            Indicanos cuál es el nivel que mejor te describe.\n        </div>\n        \n        <uib-tabset justified=\"true\">\n            <uib-tab heading=\"2.5\" index=\"2.5\" select=\"vm.updateLevel('2.5')\">\n                <span> \n                    Este jugador esta aprendiendo a moverse según la dirección de la bola, sin embargo la cobertura de la cancha es débil. También puede sostener un rally corto de poca intensidad con otro jugador del mismo nivel.\n                </span> \n            </uib-tab> \n            <uib-tab heading=\"3.0\" index=\"3.0\" select=\"vm.updateLevel('3.0')\">\n                <span> \n                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.\n                </span> \n            </uib-tab> \n            <uib-tab heading=\"3.5\" index=\"3.5\" select=\"vm.updateLevel('3.5')\">\n                <span> \n                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.\n                </span> \n            </uib-tab> \n            <uib-tab heading=\"4.0\" index=\"4.0\" select=\"vm.updateLevel('4.0')\">\n                <span> \n                    Este jugador tiene golpes confiables, incluyendo la dirección y profundidad de la bola en los dos golpes de derecha y revés. Usted puede hacer approach y boleas con éxito pero comete algunos errores al servir al servir. Puede perder en los rallies por impaciencia. Es conciente que en dobles se necesita trabajo en equipo y lo practica.\n                </span> \n            </uib-tab> \n            <uib-tab heading=\"4.5\" index=\"4.5\" select=\"vm.updateLevel('4.5')\">\n                <span>\n                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo. \n                </span>\n            </uib-tab> \n            <uib-tab heading=\"5.0\" index=\"5.0\" select=\"vm.updateLevel('5.0')\"> \n                <span>\n                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles. \n                </span>\n            </uib-tab> \n            <uib-tab heading=\"5.5\" index=\"5.5\" select=\"vm.updateLevel('5.5')\"> \n                <span>\n                    Tiene consistencia y control en los golpes. Puede variar las estrategias y golpea con confianza en jugadas o situaciones de presión/estrés. \n                </span>\n            </uib-tab> \n            <uib-tab heading=\"6.0\" index=\"6.0\" select=\"vm.updateLevel('6.0')\"> \n                <span>\n                    Usted ha tenido entrenamiento intensivo y ha participado en competencias que le han otorgado un ranking en la sección o a nivel nacional. \n                </span>\n            </uib-tab> \n            <uib-tab heading=\"6.5\" index=\"6.5\" select=\"vm.updateLevel('6.5')\"> \n                <span>\n                    Usted juega los circuitos USTA y espera tener una carrera tener una carrera profesional en el tenis. \n                </span>\n            </uib-tab> \n            <uib-tab heading=\"7.0\" index=\"7.0\" select=\"vm.updateLevel('7.0')\"> \n                <span>\n                    Usted es un jugador de tenis profesional \n                </span>\n            </uib-tab> \n         </uib-tabset> \n        <button class=\"btn\" ng-click=\"vm.modalInstance.close();\">Cerrar</button>\n    </div> \n</script> ";
+module.exports = "<div class=viewProfile>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle></div>\n    </div>\n    <form name=formProfile ng-submit=vm.save(formProfile)>\n        <div id=imageBox>\n            <div class=leftBracket></div>\n            <div class=centerBracket class=button ngf-select ng-model=image name=file ngf-pattern=\"'image/*'\" ngf-accept=\"'image/*'\" ngf-max-size=20MB ngf-min-height=100 ngf-resize=\"{width: 200, height: 200}\">\n                <div class=imgContainer>\n                    <img class=profileImg ng-src=\"{{vm.avatar?vm.avatar:'/img/profile/profile-blank.png'}}\"/>\n                </div>\n                <div id=uploadFileBtn>\n                    <img ng-src={{URL_BUCKET}}/img/profile/image-icon.png /> Seleccionar\n                </div>\n            </div>\n            <div class=rightBracket></div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputName id=inputName ng-model=vm.user.first_name required/>\n                        <label for=inputName>Nombre</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputSurname id=inputSurname ng-model=vm.user.last_name required/>\n                        <label for=inputSurname>Apellido</label>\n                    </div>\n                </div>\n            </div>\n\n            <div class=column>\n                <div class=column>\n                  <div class=form-group>\n                      <input type=email class=form-control name=inputEmail id=inputEmail ng-model=vm.user.email ng-pattern=vm.emailFormat required/>\n                      <label for=inputEmail>Email</label>\n                      <span class=error style=color:#8b0000 ng-show=formProfile.inputEmail.$error.pattern>\n                          Formato Invalido\n                      </span>\n                  </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputGender id=inputGender ng-model=vm.user.sexo required>\n                            <option value=\"\" disabled=disabled selected=selected hidden ng-if=!vm.user.sexo>Seleccioná</option>\n                            <option value=male>Masculino</option>\n                            <option value=female>Femenino</option>\n                        </select>\n                        <label for=inputGender>Sexo</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n              <div class=column>\n                  <div class=form-group>\n                      <input type=text class=form-control name=inputAge id=inputAge onkeypress=\"return validaNumber(event)\" ng-model=vm.user.years required/>\n                      <label for=inputAge>Edad</label>\n                  </div>\n              </div>\n            </div>\n            <!--div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCountry\" id=\"inputCountry\" g-places-autocomplete ng-model=\"vm.country\" />\n<label for=\"inputCountry\">País</label>\n</div>\n</div-->\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCity id=inputCity g-places-autocomplete ng-model=vm.address autocomplete=false required/>\n                    <label for=inputCity>Dirección</label>\n                </div>\n            </div>\n        </div>\n        <!--div class=\"row-form\">\n<div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.city\" />\n<label for=\"inputCity\">Ciudad</label>\n</div>\n</div>\n<div class=\"column\">\n<div class=\"form-group\">\n<input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.address\" />\n<label for=\"inputCity\">Dirección</label>\n</div>\n</div>\n</div-->\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGameLevel id=inputGameLevel ng-model=vm.user.game_level required tooltip-placement=left-bottom>\n                    <option value=2.5 title=\"Principiante. Estás aprendiendo, recién comenzaste a tomar clases o nunca lo hiciste.\">2.5</option>\n                    <option value=3 title=\"Principiante. Estás aprendiendo las reglas y los golpes. Sin control de pelota aún.\">3.0</option>\n                    <option value=3.5 title=\"Principiante. Mejoraste el control de los golpes pero sin profundidad o variedad.\">3.5</option>\n                    <option value=4 title=\"Intermedio. Lograste golpes confiables, con approach y revés pero con errores.\">4.0</option>\n                    <option value=4.5 title=\"Intermedio. Lográs golpes efectivos y ya pensás en competencia.\">4.5</option>\n                    <option value=5 title=\"Intermedio. Ya te anticipás a los golpes y tenés control para errores no forzados.\">5.0</option>\n                    <option value=5.5 title=\"Avanzado. Tenés constancia y control en los golpes. Podés variar las estrategias en situaciones de presion/estrés.\">5.5</option>\n                    <option value=6 title=\"Avanzado. Ya realizás entrenamientos intensivos y tenés un ranking en torneos nacionales.\">6.0</option>\n                    <option value=6.5 title=\"Avanzado. Ya jugás en circuitos y querés tener una profesional.\">6.5</option>\n                    <option value=7 title=\"Profesional. Ya sos un jugador profesional.\">7.0</option>\n                </select>\n                    <label for=inputGameLevel>Nivel de juego</label><small class=badge ng-click=vm.openGameLevelModal()>?</small>\n                </div>\n            </div>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.single tooltip-placement=left-bottom uib-tooltip=\"Estas dispuesto a jugar singles, dobles o ambos?\"/>\n                        <label for=inputCity>Singles</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.double tooltip-placement=left-bottom uib-tooltip=\"Estas dispuesto a jugar singles, dobles o ambos?\"/>\n                        <label for=inputCity>Dobles</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCoachProfessor id=inputCoachProfessor ng-model=vm.user.coach tooltip-placement=left-bottom uib-tooltip=\"Tenés profesor actualmente? Indica nombre, apellido y club\">\n                    <label for=inputCoachProfessor>Coach/Profesor</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <!--button type=\"text\" class=\"form-control\" name=\"inputAvailability\" id=\"inputAvailability\" ng-click=\"vm.openModalAvailable()\" ng-model=\"vm.user.availability\"></button-->\n                    <input type=text class=form-control name=inputAvailability id=inputAvailability ng-click=vm.openModalAvailable() value=\"{{vm.isSetted?'Cargada':'Hacé click para cargarla'}}\" readonly=readonly>\n                    <label for=inputAvailability>Disponibilidad</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <rzslider rz-slider-model=vm.user.distance rz-slider-options=\"{floor: 2,\n                                                ceil: 50,\n                                                step: 2,\n                                                minLimit: 2,\n                                                maxLimit: 50,\n                                                showSelectionBar: true}\" tooltip-placement=left-bottom uib-tooltip=\"Es la distancia que estás dispuesto a recorrer para jugar un partido\"></rzslider>\n                    <label for=inputDistance>Distancia para jugar un partido</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputPartnerClub ng-model=vm.user.club_member>\n                        <option value=-1>Ninguno</option>\n                        <option value=0 selected=selected>Otro</option>\n                        <option ng-repeat=\"cancha in vm.canchas\" value={{cancha.id}} ng-if=\"cancha.state == 'confirmed'\" ng-bind=cancha.name></option>\n                    </select>\n                    <label for=inputPartnerClub>Sos socio de algun club?</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=form-group>\n                <label for=inputAboutMe>SOBRE MI</label>\n                <textarea class=form-control name=inputAboutMe id=inputAboutMe rows=5 ng-model=vm.user.about required placeholder=\"Contanos algo mas sobre vos, tus habilidades, hobbies. ¿Por qué deberían jugar con vos?\"></textarea>\n            </div>\n        </div>\n        <button type=submit class=btn ng-disabled=vm.stopSave>Guardar</button>\n\n    </form>\n</div>\n<sb-footer></sb-footer>\n\n<script type=text/ng-template id=availability-profile>\n    <div id=\"availabilityModal\" style=\"height:525px;\">\n        <div class=\"titleDiv\">\n            <div class=\"side\">\n                <div class=\"dot\"></div>\n                <div class=\"line\"></div>\n            </div>\n            <div class=\"centerTitle\">\n                Disponibilidad\n            </div>\n            <div class=\"side\">\n                <div class=\"line\"></div>\n                <div class=\"dot\"></div>\n            </div>\n        </div>\n        <div class=\"titleLine\"></div>\n        <div class=\"legend\">\n            Indica al resto de los jugadores cuando estás dispuesto a jugar. Cuanto mayor disponibilidad tengas más fácil será jugar.\n        </div>\n\n        <div class=\"separator\"></div>\n        <form>\n            <uib-tabset justified=\"true\">\n                <uib-tab class=\"mondayTab\" index=\"0\" select=\"vm.tabIndex = 0\"></uib-tab>\n                <uib-tab class=\"tuesdayTab\" index=\"1\" select=\"vm.tabIndex = 1\"></uib-tab>\n                <uib-tab class=\"wednesdayTab\" index=\"2\" select=\"vm.tabIndex = 2\"></uib-tab>\n                <uib-tab class=\"thursdayTab\" index=\"3\" select=\"vm.tabIndex = 3\"></uib-tab>\n                <uib-tab class=\"fridayTab\" index=\"4\" select=\"vm.tabIndex = 4\"></uib-tab>\n                <uib-tab class=\"saturdayTab\" index=\"5\" select=\"vm.tabIndex = 5\"></uib-tab>\n                <uib-tab class=\"sundayTab\" index=\"6\" select=\"vm.tabIndex = 6\"></uib-tab>\n             </uib-tabset>\n\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Todo el día</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('allDay', vm.availability[vm.tabIndex].allDay)\">\n                    </div>\n                    <label>DE 8 A 23HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Mañana</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('morning', vm.availability[vm.tabIndex].morning)\">\n                    </div>\n                    <label>DE 8 A 12HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Tarde</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('evening', vm.availability[vm.tabIndex].evening)\">\n                    </div>\n                    <label>DE 12 A 19HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Noche</label>\n                    <div class=\"checkBox\"\n                         ng-class=\"vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'\"\n                         ng-click=\"vm.updateChecks('night', vm.availability[vm.tabIndex].night)\">\n                    </div>\n                    <label>DE 19 A 23HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <label class=\"form-control allCheck\">Puedo jugar todos los días en cualquier horario.</label>\n                <div class=\"checkBox\"\n                     ng-class=\"vm.always ? 'checked' : 'noChecked'\"\n                     ng-click=\"vm.updateChecks('always', vm.always)\">\n                </div>\n            </div>\n        </form>\n        <button type=\"submit\" class=\"btn\" ng-click=\"save()\">Guardar</button>\n    </div>\n</script>\n<script type=text/ng-template id=game-level-table>\n    <div id=\"tableNTRP\" style=\"height: 475\">\n        <div class=\"titleDiv\">\n            <div class=\"side\">\n                <div class=\"dot\"></div>\n                <div class=\"line\"></div>\n            </div>\n            <div class=\"centerTitle\">\n                Tabla NTRP\n            </div>\n            <div class=\"side\">\n                <div class=\"line\"></div>\n                <div class=\"dot\"></div>\n            </div>\n        </div>\n        <div class=\"titleLine\"></div>\n        <div class=\"legend\">\n            Indicanos cuál es el nivel que mejor te describe.\n        </div>\n\n        <uib-tabset justified=\"true\">\n            <uib-tab heading=\"2.5\" index=\"2.5\" select=\"vm.updateLevel('2.5')\">\n                <span>\n                    Este jugador esta aprendiendo a moverse según la dirección de la bola, sin embargo la cobertura de la cancha es débil. También puede sostener un rally corto de poca intensidad con otro jugador del mismo nivel.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"3.0\" index=\"3.0\" select=\"vm.updateLevel('3.0')\">\n                <span>\n                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"3.5\" index=\"3.5\" select=\"vm.updateLevel('3.5')\">\n                <span>\n                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"4.0\" index=\"4.0\" select=\"vm.updateLevel('4.0')\">\n                <span>\n                    Este jugador tiene golpes confiables, incluyendo la dirección y profundidad de la bola en los dos golpes de derecha y revés. Usted puede hacer approach y boleas con éxito pero comete algunos errores al servir al servir. Puede perder en los rallies por impaciencia. Es conciente que en dobles se necesita trabajo en equipo y lo practica.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"4.5\" index=\"4.5\" select=\"vm.updateLevel('4.5')\">\n                <span>\n                    Este jugador es consistente cuando golpea la pelota con poca intensidad, pero todavía no se siente cómodo con todos los golpes y le falta tener control sobre la dirección e intensidad de la bola. La formación más común en dobles es uno arriba en la maya y otro atrás en la línea de fondo.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"5.0\" index=\"5.0\" select=\"vm.updateLevel('5.0')\">\n                <span>\n                    Este jugador ha mejorado el control y dirección de la bola pero le falta profundidad y variedad. También muestra un juego más agresivo en la maya, ha mejorado la cobertura en la cancha, y comprende mas la dinámica de el juego en equipo en dobles.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"5.5\" index=\"5.5\" select=\"vm.updateLevel('5.5')\">\n                <span>\n                    Tiene consistencia y control en los golpes. Puede variar las estrategias y golpea con confianza en jugadas o situaciones de presión/estrés.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"6.0\" index=\"6.0\" select=\"vm.updateLevel('6.0')\">\n                <span>\n                    Usted ha tenido entrenamiento intensivo y ha participado en competencias que le han otorgado un ranking en la sección o a nivel nacional.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"6.5\" index=\"6.5\" select=\"vm.updateLevel('6.5')\">\n                <span>\n                    Usted juega los circuitos USTA y espera tener una carrera tener una carrera profesional en el tenis.\n                </span>\n            </uib-tab>\n            <uib-tab heading=\"7.0\" index=\"7.0\" select=\"vm.updateLevel('7.0')\">\n                <span>\n                    Usted es un jugador de tenis profesional\n                </span>\n            </uib-tab>\n         </uib-tabset>\n        <button class=\"btn\" ng-click=\"vm.modalInstance.close();\">Cerrar</button>\n    </div>\n</script>\n";
 
 /***/ }),
-/* 64 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94335,9 +94106,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('CreateMatch');
-__webpack_require__(65);
+__webpack_require__(59);
 angular.module('CreateMatch').config(['$stateProvider', function ($stateProvider) {
-    var tplAppCreateMatch = __webpack_require__(66);
+    var tplAppCreateMatch = __webpack_require__(60);
     $stateProvider.state('app.createMatch', {
         url: '/create-match',
         template: tplAppCreateMatch,
@@ -94352,11 +94123,17 @@ angular.module('CreateMatch').config(['$stateProvider', function ($stateProvider
 }]);
 
 /***/ }),
-/* 65 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var _moment = __webpack_require__(4);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CreateMatchController = /** @class */function () {
     function CreateMatchController($scope, $http, $state, PATHS, LoginService, toaster, Canchas) {
@@ -94368,7 +94145,7 @@ var CreateMatchController = /** @class */function () {
         this.Canchas = Canchas;
         this.match = {
             date: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-            hour: new Date(moment('15:30', 'HH:mm')),
+            hour: new Date((0, _moment2.default)('15:30', 'HH:mm')),
             id_cancha: null,
             address: '',
             address_lat: '',
@@ -94380,7 +94157,7 @@ var CreateMatchController = /** @class */function () {
         };
         this.partner_club = '0';
         this.date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-        this.mytime = new Date(moment('15:30', 'HH:mm'));
+        this.mytime = new Date((0, _moment2.default)('15:30', 'HH:mm'));
         this.ismeridian = true;
         this.canchas = [];
         this.stopSave = false;
@@ -94404,7 +94181,7 @@ var CreateMatchController = /** @class */function () {
         }
         if (this.match.hour.getMinutes() != 0 && this.match.hour.getMinutes() != 30) {
             this.toaster.pop({ type: 'info', body: 'En la hora del partido, solo se admiten intervalos de 30 minutos.' });
-            this.match.hour = new Date(moment('15:30', 'HH:mm'));
+            this.match.hour = new Date((0, _moment2.default)('15:30', 'HH:mm'));
             return false;
         }
         return true;
@@ -94413,7 +94190,7 @@ var CreateMatchController = /** @class */function () {
         var now = new Date();
         if (this.match.date.getFullYear() == now.getFullYear() && this.match.date.getMonth() == now.getMonth() && this.match.date.getDate() == now.getDate() && this.match.hour < now) {
             this.toaster.pop({ type: 'info', body: 'La fecha y/o hora ya pasarón.' });
-            this.match.hour = new Date(moment('15:30', 'HH:mm'));
+            this.match.hour = new Date((0, _moment2.default)('15:30', 'HH:mm'));
             return false;
         }
         return true;
@@ -94510,13 +94287,13 @@ var CreateMatchController = /** @class */function () {
 angular.module('CreateMatch').controller('CreateMatchController', ['$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster', 'Canchas', CreateMatchController]);
 
 /***/ }),
-/* 66 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=createMatch>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle></div>\n    </div>\n\n    <form name=formMatch ng-submit=vm.save(formMatch)>\n        <div id=imageBox>\n            <div class=leftBracket></div>\n            <div class=centerBracket>\n                <div class=text>\n                    Completá los datos y que el <span>juego empiece.</span> <br/>Te recomendamos reservar la cancha previamente, un partido creado y luego cancelado, restará puntos en Slambow.\n                </div>\n            </div>\n            <div class=rightBracket></div>\n        </div>\n\n        <div class=row-form style=margin-top:5%>\n            <div class=column>\n                <div class=form-group>\n                    <div class=input-group>\n                        <span class=input-group-addon style=\"background:rgba(32,163,212,.5)!important;border:1px solid #5ca3d4!important\">\n                            <i class=\"glyphicon glyphicon-calendar\"></i>\n                        </span>\n                        <input type=date min=\"{{vm.date | date:'yyyy-MM-dd'}}\" class=form-control ng-model=vm.match.date required>\n                    </div>\n\n                    <label for=inputDate>Fecha</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <div class=\"input-group timeContainer\">\n                        <div uib-timepicker show-spinners=false ng-model=vm.match.hour minute-step=30 show-meridian=false>\n                        </div>\n                    </div>\n                    <label for=inputHora>Hora</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=\"column location\">\n                <div class=form-group>\n                    <select class=\"form-control minimal\" ng-change=vm.changePartnerClub() name=inputGender id=inputPartnerClub ng-model=vm.partner_club required tooltip-placement=left-bottom uib-tooltip=\"Seleccioná la cancha donde se disputará el partido. Si la misma no se encuentra en el listado seleccioná OTRA e ingresá la dirección manualmente.\">\n                        <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        <option value=Custom>Otra</option>\n                        <option ng-repeat=\"cancha in vm.canchas\" value={{cancha.id}} ng-if=\"cancha.state == 'confirmed'\" ng-bind=cancha.name></option>\n                    </select>\n                    <label for=inputPlace>Canchas Registradas</label>\n                </div>\n            </div>\n            <div class=column ng-if=\"vm.match.address_lat && vm.match.address_lng\">\n                <ui-gmap-google-map center=vm.map.center zoom=vm.map.zoom options={draggable:false}>\n                    <ui-gmap-marker idkey=1 coords=vm.market options=\"{crossOnDrag:false, draggable:true}\"></ui-gmap-marker>\n                </ui-gmap-google-map>\n            </div>\n        </div>\n        <div class=row-form ng-if=\"vm.partner_club == 'Custom'\">\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control ng-model=vm.match.club_name required>\n                    <label for=inputAddress>Nombre del Club</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputAddress g-places-autocomplete ng-change=vm.changeAddress() ng-model=vm.address placeholder=\"\" required>\n                    <label for=inputAddress>Dirección</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <label class=subtitle>Nivel de juego de tus rivales</label>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputGameLevelFrom id=inputGameLevelFrom ng-model=vm.match.game_level_from required tooltip-placement=left-bottom uib-tooltip=\"Seleccioná el nivel de juego que deberán tener tus rivales para poder jugar.\">\n                            <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                            <option value=2.5>2.5</option>\n                            <option value=3.0>3.0</option>\n                            <option value=3.5>3.5</option>\n                            <option value=4.0>4.0</option>\n                            <option value=4.5>4.5</option>\n                            <option value=5.0>5.0</option>\n                            <option value=5.5>5.5</option>\n                            <option value=6.0>6.0</option>\n                            <option value=6.5>6.5</option>\n                            <option value=7.0>7.0</option>\n                        </select>\n                        <label for=inputGameLevelFrom>Desde</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputGameLevelTo id=inputGameLevelTo ng-model=vm.match.game_level_to required tooltip-placement=left-bottom uib-tooltip=\"Seleccioná el nivel de juego que deberán tener tus rivales para poder jugar.\">\n                            <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                            <option value=2.5>2.5</option>\n                            <option value=3.0>3.0</option>\n                            <option value=3.5>3.5</option>\n                            <option value=4.0>4.0</option>\n                            <option value=4.5>4.5</option>\n                            <option value=5.0>5.0</option>\n                            <option value=5.5>5.5</option>\n                            <option value=6.0>6.0</option>\n                            <option value=6.5>6.5</option>\n                            <option value=7.0>7.0</option>\n                        </select>\n                        <label for=inputGameLevelTo>Hasta</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputGender ng-model=vm.match.sexo required>\n                        <option value=mixto>Mixto</option>\n                        <option value=male>Masculino</option>\n                        <option value=female>Femenino</option>\n                    </select>\n                    <label for=inputGender>Sexo</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputGender ng-model=vm.match.type required tooltip-placement=left-bottom uib-tooltip=\"Querés jugar singles o dobles?\">\n                        <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        <option value=singles>Singles</option>\n                        <option value=dobles>Dobles</option>\n                    </select>\n                    <label for=inputMatchType>Tipo de partido</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <label class=subtitle>Edad de tus rivales</label>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text onkeypress=\"return validaNumber(event)\" maxlength=2 minlength=2 class=\"form-control minimal\" ng-model=vm.match.years_from id=yearsFrom required/>\n                        <label for=inputAgeFrom>Desde</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text onkeypress=\"return validaNumber(event)\" maxlength=2 minlength=2 class=\"form-control minimal\" ng-model=vm.match.years_to id=yearsTo required/>\n                        <label for=inputAgeTo>Hasta</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=form-group>\n                <label for=inputAgeTo>COMENTARIOS</label>\n                <textarea class=form-control name=inputAboutMe id=inputAboutMe rows=5 ng-model=vm.match.about required maxlength=250 placeholder=\"Ingresá un comentario sobre el partido para atraer a tus rivales.\"></textarea>\n            </div>\n        </div>\n        <button type=submit class=btn ng-disabled=vm.stopSave>Crear Partido</button>\n    </form>\n</div>\n\n\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 67 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94527,9 +94304,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Play');
-__webpack_require__(68);
+__webpack_require__(62);
 angular.module('Play').config(['$stateProvider', function ($stateProvider) {
-    var tplAppPlay = __webpack_require__(69);
+    var tplAppPlay = __webpack_require__(63);
     $stateProvider.state('app.play', {
         url: '/play',
         template: tplAppPlay,
@@ -94544,7 +94321,7 @@ angular.module('Play').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 68 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94623,13 +94400,13 @@ var PlayController = /** @class */function () {
 angular.module('Home').controller('PlayController', ['Matchs', 'LoginService', '$uibModal', '$scope', '$http', 'PATHS', '$state', 'toaster', PlayController]);
 
 /***/ }),
-/* 69 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=play>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle>Quiero Jugar</div>\n    </div>\n\n    <div id=imageBox>\n        <div class=leftBracket></div>\n        <div class=centerBracket>\n            <div class=text>\n                Aquí podrás visualizar los partidos que fueron creados por otros usuarios, quienes cumplen <span>tus mismos requisitos</span> y están en la búsqueda de <span>jugadores como vos.</span>\n            </div>\n        </div>\n        <div class=rightBracket></div>\n    </div>\n    <div class=subtitleImg></div>\n    <div class=\"usersGrid container\">\n        <div class=row>\n            <div class=\"userBox col-xs-3\" ng-repeat=\"match in vm.matchs\">\n                <div class=leftBracket></div>\n                <div class=centerBracket>\n                    <div class=level-1>\n                        <div class=imgContainer>\n                            <img ng-src={{match.user.image}} ng-if=\"::match.user.image!= '' && match.user.image!= null\"/>\n                            <img ng-src={{URL_BUCKET}}/img/profile/profile-blank.png ng-if=\"::match.user.image== '' || match.user.image== null\"/>\n                        </div>\n                    </div>\n                    <div class=level-2>\n                        <div class=userName>\n                            {{match.user.first_name}} {{match.user.last_name}}\n                        </div>\n                        <div class=separator></div>\n                        <div class=dateTime>\n                            <span>{{match.date}} - {{match.hour}}</span>\n                            <!--span>17.12.16 - 16:30</span-->\n                        </div>\n                    </div>\n                    <div class=level-3>\n                        <div class=clubName ng-bind=match.club_name>\n                        </div>\n                        <div class=separator></div>\n                        <div class=address ng-bind=\"match.address.substr(0, 30)\">\n                        </div>\n                    </div>\n                    <!--div class=\"level-4\">\n                        <img class=\"mapImg\" src=\"/img/match/mock-map.png\" ng-click=\"vm.openMaps(match.address_lat, match.address_lng)\" />\n                    </div-->\n                    <div class=level-5>\n                        <input type=image name=submit src=/img/play/eye-icon.png border=0 alt=Submit ng-click=vm.openModalPlay(match) />\n                    </div>\n                </div>\n                <div class=rightBracket></div>\n            </div>\n        </div>\n        <div ng-show=!vm.matchs.length class=info>\n            <span>No encontramos ningún partido con tus requisitos. Creá tu partido haciendo click acá <a href=# ui-sref=app.createMatch>Crear Partido!</a></span>\n        </div>\n    </div>\n</div>\n\n<sb-footer></sb-footer>\n\n\n<script type=text/ng-template id=play-modal>\n    <div class=\"modalDetail\" id=\"myModal\" role=\"dialog\">\n        <div class=\"modal-header\">\n            <input type=\"image\" name=\"submit\" ng-click=\"close()\" ng-src=\"/img/play/close.png\" border=\"0\" class=\"close\" />\n        </div>\n        <div id=\"myModal\" class=\"modal-body\">\n            <div class=\"popup-header\">\n                <img src=\"/img/play/openQT.png\" />{{match.about}}<img src=\"/img/play/closeQT.png\" />\n            </div>\n            <div class=\"userInformation\">\n                <div class=\"level-1\">\n                    <div class=\"imgContainer\">\n                        <img ng-src=\"{{match.user.image}}\" ng-if=\"::match.user.image!= '' && match.user.image!= null\" style=\"border-radius: 150px;\" />\n                        <img ng-src=\"{{URL_BUCKET}}/img/profile/profile-blank.png\" ng-if=\"::match.user.image== '' || match.user.image== null\" />\n                    </div>\n                </div>\n                <div class=\"level-2\">\n                    <div class=\"userName\">\n                        {{match.user.first_name}} {{match.user.last_name}}\n                    </div>\n                    <div class=\"separator\"></div>\n                    <div class=\"dateTime\">\n                        <span>{{match.date}} - {{match.hour}}</span>\n                    </div>\n                </div>\n                <div class=\"level-3\">\n                    <div class=\"clubInfo\">\n                        <div class=\"clubName\" ng-bind=\"match.club_name\">\n                        </div>\n                        <div class=\"separator\"></div>\n                        <div class=\"address\" ng-bind=\"match.address.substr(0, 30)\">\n                        </div>\n                    </div>\n                </div>\n                <div class=\"level-3\">\n                    <div class=\"clubMap\">\n                        <ui-gmap-google-map center='map.center' zoom='map.zoom'>{{map}}\n                            <ui-gmap-marker idkey=\"'markerId'\" coords='map.center' options=\"{crossOnDrag:false, draggable:false}\"></ui-gmap-marker>\n                        </ui-gmap-google-map>\n                        \n                    </div>\n                </div>\n                <div class=\"level-4\">\n                    <img src=\"/img/play/{{match.type}}-btn.png\" />\n                </div>\n                <div class=\"level-5\">\n                    <form>\n                        <div class=\"row-form\">\n                            <div class=\"column\">\n                                <div class=\"form-group\">\n                                    <input type=\"text\" class=\"form-control\" name=\"inputGameLevel\" id=\"inputGameLevel\" ng-model=\"match.game_level_from\" disabled=\"true\" />\n                                    <label for=\"inputGameLevel\">Nivel de juego desde</label>\n                                </div>\n                            </div>\n                            <div class=\"column\">\n                                <div class=\"form-group\">\n                                    <input type=\"text\" class=\"form-control\" name=\"inputGameLevel\" id=\"inputGameLevel\" ng-model=\"match.game_level_to\" disabled=\"true\" />\n                                    <label for=\"inputGameLevel\">Nivel de juego hasta</label>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"row-form\">\n                            <div class=\"column\">\n                                <div class=\"column\">\n                                    <div class=\"form-group\">\n                                        <input type=\"text\" class=\"form-control\" name=\"inputAge\" id=\"inputAge\" ng-model=\"match.years_from\" disabled=\"true\" />\n                                        <label for=\"inputAge\">Edad Desde</label>\n                                    </div>\n                                </div>\n                                <div class=\"column\">\n                                    <div class=\"form-group\">\n                                        <input type=\"text\" class=\"form-control\" name=\"inputAge\" id=\"inputAge\" ng-model=\"match.years_to\" disabled=\"true\" />\n                                        <label for=\"inputAge\">Edad Hasta</label>\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"column\">\n                                <div class=\"form-group\">\n                                    <input type=\"text\" class=\"form-control\" name=\"inputGender\" id=\"inputGender\" ng-model=\"match.sexo\" disabled=\"true\" />\n                                    <label for=\"inputGender\">Sexo</label>\n                                </div>\n                            </div>\n                        </div>\n                    </form>\n                </div>\n                <div ng-if=\"match.matchPlayers.length\">\n                    <div class=\"level-5\">\n                        Mirá los jugadores <span>ya anotados</span>\n                    </div>\n                    <div class=\"playerGrid\">\n                        <div class=\"row\">\n                            <div class=\"col-xs-4 col-center-block\" ng-repeat=\"player in match.matchPlayers\">\n                                <div class=\"imgContainer\">\n                                    <img ng-if=\"!player.user.image\" ng-src=\"{{URL_BUCKET}}/img/profile/profile-blank.png\">\n                                    <img ng-if=\"player.user.image\" ng-src=\"{{player.user.image}}\">\n                                </div>\n                                <div class=\"userName\">\n                                    <a ui-sref=\"app.user_detail({user_id: player.user.id})\">{{player.user.first_name}}</a>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <button type=\"submit\" class=\"btn\" ng-if=\"vm.playBtn\" ng-click=\"play()\" ng-disabled=\"stopSave\">QUIERO JUGAR</button>\n            </div>\n        </div>\n    </div>\n</script>\n\n<script type=text/ng-template id=playmap-modal>\n    <div id=\"playMaps\">\n        <ui-gmap-google-map center='map.center' zoom='map.zoom'>\n            <ui-gmap-marker idkey=\"timestime\" coords='map.center' options=\"{crossOnDrag:false, draggable:false}\"></ui-gmap-marker>\n        </ui-gmap-google-map>\n    </div>\n</script>";
 
 /***/ }),
-/* 70 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94640,8 +94417,8 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Login');
-__webpack_require__(71);
-__webpack_require__(72);
+__webpack_require__(65);
+__webpack_require__(66);
 angular.module('Login').config(['$stateProvider', function ($stateProvider) {
     var tplAppLogin = __webpack_require__(8);
     $stateProvider.state('login', {
@@ -94663,7 +94440,7 @@ angular.module('Login').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 71 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94781,7 +94558,7 @@ var AuthTwitterController = /** @class */function () {
 angular.module('Login').controller('LoginController', ['$http', 'PATHS', 'LoginService', 'toaster', '$auth', LoginController]).controller('AuthTwitterController', ['User', 'LoginService', '$stateParams', AuthTwitterController]);
 
 /***/ }),
-/* 72 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94871,7 +94648,7 @@ function LoginService($uibModal, $state, $rootScope, $http, PATHS) {
 angular.module('Login').service('LoginService', ['$uibModal', '$state', '$rootScope', '$http', 'PATHS', LoginService]);
 
 /***/ }),
-/* 73 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94882,9 +94659,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Friends');
-__webpack_require__(74);
+__webpack_require__(68);
 angular.module('Friends').config(['$stateProvider', function ($stateProvider) {
-    var tplAppFriends = __webpack_require__(75);
+    var tplAppFriends = __webpack_require__(69);
     $stateProvider.state('app.friends', {
         url: '/friends',
         template: tplAppFriends,
@@ -94899,7 +94676,7 @@ angular.module('Friends').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 74 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94920,13 +94697,13 @@ var FriendsController = /** @class */function () {
 angular.module('Friends').controller('FriendsController', ['Friends', '$scope', '$http', 'PATHS', FriendsController]);
 
 /***/ }),
-/* 75 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=friends>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle>Amigos</div>\n    </div>\n\n    <div id=imageBox>\n        <div class=leftBracket></div>\n        <div class=centerBracket>\n            <div class=text>\n                Aquí encontrarás todos los amigos con los que has jugado.\n            </div>\n        </div>\n        <div class=rightBracket></div>\n    </div>\n    <div class=\"usersGrid container\">\n        <div class=row>\n            <div class=\"userBox col-xs-3\" ng-repeat=\"user in vm.users\">\n                <div class=leftBracket></div>\n                <div class=centerBracket>\n                    <div class=level-1>\n                        <div class=imgContainer>\n                            <img ng-src=\"{{user.image?user.image:'/img/profile/profile-blank.png'}}\" style=border-radius:150px;width:116px>\n                        </div>\n                    </div>\n                    <div class=level-2>\n                        <div class=userName>\n                            {{user.name}}\n                        </div>\n                        <div class=separator></div>\n                    </div>\n                </div>\n                <div class=rightBracket></div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 76 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94937,9 +94714,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('MatchHistory');
-__webpack_require__(77);
+__webpack_require__(71);
 angular.module('MatchHistory').config(['$stateProvider', function ($stateProvider) {
-    var tplMatchHistory = __webpack_require__(78);
+    var tplMatchHistory = __webpack_require__(72);
     $stateProvider.state('app.matchHistory', {
         url: '/match_history',
         template: tplMatchHistory,
@@ -94954,7 +94731,7 @@ angular.module('MatchHistory').config(['$stateProvider', function ($stateProvide
 }]);
 
 /***/ }),
-/* 77 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94977,13 +94754,13 @@ var MatchHistoryController = /** @class */function () {
 angular.module('MatchHistory').controller('MatchHistoryController', ['Matches', '$state', MatchHistoryController]);
 
 /***/ }),
-/* 78 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=matchHistory>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle>Mis Partidos</div>\n    </div>\n\n    <div class=container>\n        <div class=\"historyTable container-small\">\n            <div class=row>\n                <div class=col-xs-6 ng-repeat=\"match in vm.matches\">\n                    <div class=matchBox ng-class=\"{futureMatch: match.futureMatch}\">\n                        <label class=clubName>{{match.club_name}}</label>\n                        <div class=separator></div>\n                        <label class=date>{{match.date}} - {{match.hour}}</label>\n                        <!--input type=\"image\" name=\"submit\" src=\"/img/play/eye-icon.png\" border=\"0\"  /-->\n                        <a class=viewMatchDetail ng-click=vm.showDetail(match.id)><img src=/img/play/eye-icon.png /></a>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div ng-show=!vm.matches.length class=info>\n            <span>Aún no tenés partidos creados, para crear uno hace click en <a ui-sref=app.createMatch>Crear Partido</a>.</span>\n        </div>\n    </div>\n</div>\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 79 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94994,9 +94771,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('MatchDetail');
-__webpack_require__(80);
+__webpack_require__(74);
 angular.module('MatchDetail').config(['$stateProvider', function ($stateProvider) {
-    var tplMatchDetail = __webpack_require__(81);
+    var tplMatchDetail = __webpack_require__(75);
     $stateProvider.state('app.match_detail', {
         url: '/match_detail/:id',
         template: tplMatchDetail,
@@ -95007,7 +94784,7 @@ angular.module('MatchDetail').config(['$stateProvider', function ($stateProvider
 }]);
 
 /***/ }),
-/* 80 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95089,13 +94866,13 @@ var MatchDetailController = /** @class */function () {
 angular.module('MatchDetail').controller('MatchDetailController', ['$scope', '$http', '$state', 'PATHS', '$stateParams', 'LoginService', 'toaster', MatchDetailController]);
 
 /***/ }),
-/* 81 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=matchDetail>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle>\n            Detalle del Partido\n        </div>\n    </div>\n\n    <form>\n        <div class=row-form>\n            <!--div class=\"column\"-->\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputDate id=inputDate ng-model=vm.match.date disabled=true />\n                        <label for=inputDate>Fecha</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputTime id=inputTime ng-model=vm.match.hour disabled=true />\n                        <label for=inputTime>Hora</label>\n                    </div>\n                </div>\n            <!--/div-->\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputLocation id=inputLocation ng-model=vm.match.address disabled=true />\n                    <label for=inputLocation>Lugar</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputClubName id=inputClubName ng-model=vm.match.club_name disabled=true />\n                    <label for=inputLocation>Nombre de club</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputGameLevel id=inputGameLevel ng-model=vm.match.game_level_from disabled=true />\n                        <label for=inputGameLevel>Nivel de juego desde</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputGameLevel id=inputGameLevel ng-model=vm.match.game_level_to disabled=true />\n                        <label for=inputGameLevel>Nivel de juego hasta</label>\n                    </div>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputType id=inputType ng-model=vm.match.type disabled=true />\n                    <label for=inputType>Tipo de partido</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputAge id=inputAge ng-model=vm.match.years_from disabled=true />\n                        <label for=inputAge>Edad Desde</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=text class=form-control name=inputAge id=inputAge ng-model=vm.match.years_to disabled=true />\n                        <label for=inputAge>Edad Hasta</label>\n                    </div>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputGender id=inputGender ng-model=vm.match.sexo disabled=true />\n                    <label for=inputGender>Sexo</label>\n                </div>\n            </div>\n        </div>\n        <div class=\"row-form players\" ng-repeat=\"matchPlayer in vm.match.matchPlayer\">\n            <div class=\"form-group userFeedback\">\n                <a ui-sref=\"app.user_detail({user_id: matchPlayer.user.id})\"><input type=text class=form-control name=inputPlayer id=inputPlayer ng-model=matchPlayer.user.first_name disabled=true /></a>\n                <label for=inputPlayer>Jugador</label>\n            </div>\n            <div ng-if=\"vm.isPlayer && matchPlayer.user.id != vm.user.id\">\n                <button type=submit class=\"btn feedbackBtn\" ng-if=\"!vm.match.futureMatch && !matchPlayer.user.hasFeedback\" ng-click=\"vm.createFeedback(vm.match.id, matchPlayer.user.id)\">DANOS TU FEEDBACK</button>\n                <div ng-if=\"matchPlayer.state == 'pendingRequest'\">\n                  <button type=submit class=\"btn feedbackBtn\" ng-if=vm.match.futureMatch ng-click=\"vm.acceptUser(matchPlayer.id_user, matchPlayer.id_match)\">ACEPTAR</button>\n                  <button type=submit class=\"btn feedbackBtn\" ng-if=vm.match.futureMatch ng-click=\"vm.refuseUser(matchPlayer.id_user, matchPlayer.id_match)\">RECHAZAR</button>\n                </div>\n                <div class=status ng-if=\"vm.match.futureMatch && matchPlayer.state == 'pendingInvitation'\">\n                  INVITACIÓN ENVIADA\n                </div>\n            </div>\n            <div ng-if=\"vm.isPlayer && vm.match.futureMatch\">\n                <div ng-if=\"matchPlayer.user.id == vm.user.id\">\n                    <div ng-if=\"matchPlayer.state == 'pendingInvitation'\">\n                        <div ng-if=\"vm.match.id_user != vm.user.id\">\n                            <button type=submit class=\"btn feedbackBtn\" ng-click=\"vm.acceptMatch(matchPlayer.id_user, matchPlayer.id_match)\">ACEPTAR</button>\n                            <button type=submit class=\"btn feedbackBtn\" ng-click=\"vm.refuseMatch(matchPlayer.id_user, matchPlayer.id_match)\">RECHAZAR</button>\n                        </div>\n                    </div>\n                    <div class=status ng-if=\"matchPlayer.state == 'pendingRequest'\">\n                        SOLICITUD PENDIENTE\n                    </div>\n                </div>\n                <div class=status ng-if=\"matchPlayer.state == 'confirmed'\">\n                    CONFIRMADO\n                </div>\n                <div class=status ng-if=\"matchPlayer.state == 'rejected'\">\n                    SOLICITUD RECHAZADA\n                </div>\n                <div class=status ng-if=\"matchPlayer.state == 'invitationDeclined'\">\n                    INVITACIÓN RECHAZADA\n                </div>\n            </div>\n        </div>\n        <div ng-if=\"vm.isPlayer && vm.match.futureMatch && vm.match.is_incomplete && vm.match.id_user == vm.user.id\">\n            <button type=submit class=\"btn suggestedPlayers\" ng-if=vm.match.futureMatch ui-sref=\"app.suggested_players({match_id: vm.match.id})\">VER JUGADORES SUGERIDOS</button>\n        </div>\n    </form>\n</div>\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 82 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95106,9 +94883,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('UserDetail');
-__webpack_require__(83);
+__webpack_require__(77);
 angular.module('UserDetail').config(['$stateProvider', function ($stateProvider) {
-    var tplUserDetail = __webpack_require__(84);
+    var tplUserDetail = __webpack_require__(78);
     $stateProvider.state('app.user_detail', {
         url: '/user-detail/:user_id',
         template: tplUserDetail,
@@ -95123,7 +94900,7 @@ angular.module('UserDetail').config(['$stateProvider', function ($stateProvider)
 }]);
 
 /***/ }),
-/* 83 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95170,13 +94947,13 @@ var UserDetailController = /** @class */function () {
 angular.module('UserDetail').controller('UserDetailController', ['Load', '$http', '$state', '$scope', 'PATHS', '$uibModal', '$stateParams', 'toaster', UserDetailController]);
 
 /***/ }),
-/* 84 */
+/* 78 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=userDetail>\n    <div class=solidHeader></div>\n\n   <div class=titleDiv>\n        <div class=centerTitle>\n            Perfil del usuario\n        </div>\n    </div>\n\n    <form name=formProfile novalidate>\n        <div id=imageBox>\n            <div class=leftBracket></div>\n            <div class=centerBracket class=button>\n                <div class=imgContainer>\n                    <img class=profileImg ng-src={{vm.avatar}} />\n                </div>\n            </div>\n            <div class=rightBracket></div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputName id=inputName ng-model=vm.user.first_name disabled=true />\n                    <label for=inputName>Nombre</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputSurname id=inputSurname ng-model=vm.user.last_name disabled=true />\n                    <label for=inputSurname>Apellido</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputAge id=inputAge onkeypress=\"return validaNumber(event)\" ng-model=vm.user.years disabled=true />\n                    <label for=inputAge>Edad</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputGender ng-model=vm.user.sexo disabled=true>\n                        <option value=male>Masculino</option>\n                        <option value=female>Femenino</option>\n                    </select>\n                    <label for=inputGender>Sexo</label>\n                </div>\n            </div>\n            <!--div class=\"column\">\n                <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control\" name=\"inputCountry\" id=\"inputCountry\" g-places-autocomplete ng-model=\"vm.country\" />\n                    <label for=\"inputCountry\">País</label>\n                </div>\n            </div-->\n        </div>\n        <!--div class=\"row-form\">\n            <div class=\"column\">\n                <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.city\" />\n                    <label for=\"inputCity\">Ciudad</label>\n                </div>\n            </div>\n            <div class=\"column\">\n                <div class=\"form-group\">\n                    <input type=\"text\" class=\"form-control\" name=\"inputCity\" id=\"inputCity\" g-places-autocomplete ng-model=\"vm.address\" />\n                    <label for=\"inputCity\">Dirección</label>\n                </div>\n            </div>\n        </div-->\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputGameLevel id=inputGameLevel ng-model=vm.user.game_level disabled=true />\n                    <label for=inputITN>Nivel de juego</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.single disabled=disabled />\n                        <label for=inputCity>Singles</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <input type=checkbox class=form-control ng-model=vm.user.double disabled=disabled />\n                        <label for=inputCity>Dobles</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputCoachProfessor id=inputCoachProfessor ng-model=vm.user.coach disabled=disabled>\n                    <label for=inputCoachProfessor>Coach/Professor</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputAvailability id=inputAvailability ng-click=vm.openModalAvailable() value=\"Click para ver su disponibilidad\" readonly=readonly>\n                    <label for=inputAvailability>Disponibilidad</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputDistance id=inputDistance ng-model=vm.user.distance disabled=disabled>\n                    <label for=inputDistance>Distancia para jugar un partido</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputGender id=inputPartnerClub ng-model=vm.user.club_member disabled=disabled> \n                        <option value=0>Ninguno</option> \n                    </select>\n                    <label for=inputPartnerClub>Sos socio de algun club?</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=form-group>\n                <label for=inputAboutMe>SOBRE MI</label>\n                <textarea class=form-control name=inputAboutMe id=inputAboutMe rows=5 ng-model=vm.user.about disabled=disabled></textarea>\n            </div>\n        </div>\n    </form>\n</div>\n<sb-footer></sb-footer>\n\n<script type=text/ng-template id=availability-profile>\n    <div id=\"availabilityModal\" style=\"height:525px;\">\n        <div class=\"titleDiv\">\n            <div class=\"side\">\n                <div class=\"dot\"></div>\n                <div class=\"line\"></div>\n            </div>\n            <div class=\"centerTitle\">\n                Disponibilidad\n            </div>\n            <div class=\"side\">\n                <div class=\"line\"></div>\n                <div class=\"dot\"></div>\n            </div>\n        </div>\n        <div class=\"titleLine\"></div>\n        <div class=\"legend\">\n            Acá podes ver los días y horarios en el que el usuario puede jugar.\n        </div>\n\n        <div class=\"separator\"></div>\n        <form>\n            <uib-tabset justified=\"true\">\n                <uib-tab class=\"mondayTab\" index=\"0\" select=\"vm.tabIndex = 0\"></uib-tab>\n                <uib-tab class=\"tuesdayTab\" index=\"1\" select=\"vm.tabIndex = 1\"></uib-tab>\n                <uib-tab class=\"wednesdayTab\" index=\"2\" select=\"vm.tabIndex = 2\"></uib-tab>\n                <uib-tab class=\"thursdayTab\" index=\"3\" select=\"vm.tabIndex = 3\"></uib-tab>\n                <uib-tab class=\"fridayTab\" index=\"4\" select=\"vm.tabIndex = 4\"></uib-tab>\n                <uib-tab class=\"saturdayTab\" index=\"5\" select=\"vm.tabIndex = 5\"></uib-tab>\n                <uib-tab class=\"sundayTab\" index=\"6\" select=\"vm.tabIndex = 6\"></uib-tab>\n             </uib-tabset>\n            \n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Todo el día</label> \n                    <div class=\"checkBox\" \n                         ng-class=\"vm.availability[vm.tabIndex].allDay ? 'checked' : 'noChecked'\">\n                    </div>\n                    <label>DE 8 A 23HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Mañana</label>\n                    <div class=\"checkBox\" \n                         ng-class=\"vm.availability[vm.tabIndex].morning ? 'checked' : 'noChecked'\">\n                    </div>\n                    <label>DE 8 A 12HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <label class=\"form-control\">Tarde</label>\n                    <div class=\"checkBox\" \n                         ng-class=\"vm.availability[vm.tabIndex].evening ? 'checked' : 'noChecked'\">\n                    </div>\n                    <label>DE 12 A 19HS.</label>\n                </div>\n                <div class=\"column\">\n                    <label class=\"form-control\">Noche</label>\n                    <div class=\"checkBox\" \n                         ng-class=\"vm.availability[vm.tabIndex].night ? 'checked' : 'noChecked'\">\n                    </div>\n                    <label>DE 19 A 23HS.</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <label class=\"form-control allCheck\">Puedo jugar todos los días en cualquier horario.</label> \n                <div class=\"checkBox\" \n                     ng-class=\"vm.always ? 'checked' : 'noChecked'\" \n                     ng-click=\"vm.updateChecks('always', vm.always)\">\n                </div>\n            </div>\n        </form>\n    </div>\n</script>";
 
 /***/ }),
-/* 85 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95187,9 +94964,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('MyCalifications');
-__webpack_require__(86);
+__webpack_require__(80);
 angular.module('MyCalifications').config(['$stateProvider', function ($stateProvider) {
-    var tplMyCalifications = __webpack_require__(87);
+    var tplMyCalifications = __webpack_require__(81);
     $stateProvider.state('app.myCalifications', {
         url: '/my_califications',
         template: tplMyCalifications,
@@ -95204,7 +94981,7 @@ angular.module('MyCalifications').config(['$stateProvider', function ($stateProv
 }]);
 
 /***/ }),
-/* 86 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95244,13 +95021,13 @@ var MyCalificationsController = /** @class */function () {
 angular.module('MyCalifications').controller('MyCalificationsController', ['Califications', '$state', '$uibModal', 'PATHS', '$http', '$scope', MyCalificationsController]);
 
 /***/ }),
-/* 87 */
+/* 81 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=myCalifications>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle>¿Qué opinaron de mí?</div>\n    </div>\n\n    <div class=container>\n        <div class=boxItem ng-repeat=\"feedback in vm.feedbacks\">\n            <div class=imgContainer>\n                <img src={{feedback.image}}>\n            </div>\n            <div class=textContainer>\n                <div class=boxTitle>\n                    <div class=userName>\n                        {{feedback.name}}\n                    </div>\n                    <div class=dateTime>\n                        {{feedback.date}}\n                    </div>\n                </div>\n                <div class=conntent>\n                    <div class=comment>\n                        <img src=/img/play/openQT.png />\n                        <div class=text>\n                            {{feedback.comment}}\n                        </div>\n                        <img class=closeQT src=/img/play/closeQT.png />\n                    </div>\n                    <div class=btnContainer>\n                        <input type=image name=submit src=/img/play/eye-icon.png border=0 alt=Submit ng-click=vm.openModalFeedback(feedback) />\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div ng-show=!vm.feedbacks.length class=info>\n            <span>Aún no tenés calificaciones.</span>\n        </div>\n    </div>\n</div>\n<sb-footer></sb-footer>\n<script type=text/ng-template id=feedback-detail>\n    <div id=\"feedbackDetailModal\">\n        <form>\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <div class=\"imgContainer\">\n                        <img class=\"profileImg\" src=\"{{user_from.image}}\" />\n                    </div>\n                </div>\n                <div class=\"column\" style=\"vertical-align: middle;\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"user_from.name\">\n                    <label>JUGADOR</label>\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.address\">\n                    <label>LUGAR</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column-med\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.date\">\n                    <label>FECHA</label>\n                </div>\n                <div class=\"column-med\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.hour\">\n                    <label>HORA</label>\n                </div>\n                <div class=\"column-med\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.type\">\n                    <label>TIPO DE PARTIDO</label>\n                </div>\n            </div>\n            <div class=\"row-form \">\n                <div class=\"column\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.date\">\n                    <label>NIVEL DE JUEGO</label>\n                </div>\n                <div class=\"column\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"match.hour\">\n                    <label>EDAD</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"feedback.punctuality\">\n                    <label>PUNTUALIDAD</label>\n                </div>\n                <div class=\"column\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"feedback.respect\">\n                    <label>RESPETO</label>\n                </div>\n            </div>\n            <div class=\"row-form\">\n                <div class=\"column-med\">\n                    <input type=\"text\" class=\"form-control\" ng-value=\"feedback.has_attended?'SI':'NO'\">\n                    <label>ASISTIO AL PARTIDO</label>\n                </div>\n            </div>\n            <div class=\"form-group textarea\" ng-if=\"!feedback.has_attended\">\n                <label for=\"inputAboutMe\">¿CUÁL FUE EL MOTIVO?</label>\n                <textarea class=\"form-control\" rows=\"5\" ng-model=\"feedback.reason\"></textarea>\n            </div>\n            <div class=\"row-form textarea\">\n                <label for=\"inputAboutMe\">COMENTARIOS</label>\n                <textarea class=\"form-control\" rows=\"5\" ng-model=\"feedback.comment\"></textarea>\n            </div>\n        </form>\n    </div>\n</script>";
 
 /***/ }),
-/* 88 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95261,9 +95038,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Feedback');
-__webpack_require__(89);
+__webpack_require__(83);
 angular.module('Feedback').config(['$stateProvider', function ($stateProvider) {
-    var tplFeedback = __webpack_require__(90);
+    var tplFeedback = __webpack_require__(84);
     $stateProvider.state('app.feedback', {
         url: '/feedback/:match_id/:user_id',
         template: tplFeedback,
@@ -95278,7 +95055,7 @@ angular.module('Feedback').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 89 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95323,13 +95100,13 @@ var FeedbackController = /** @class */function () {
 angular.module('Feedback').controller('FeedbackController', ['Load', '$http', '$state', 'PATHS', '$stateParams', 'toaster', FeedbackController]);
 
 /***/ }),
-/* 90 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=feedback>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle>\n            Feedback\n        </div>\n    </div>\n\n    <form>\n        <input type=hidden class=form-control name=inputUserId id=inputUserId ng-model=vm.feedback.user_id />\n        <input type=hidden class=form-control name=inputUserId id=inputUserId ng-model=vm.feedback.match_id />\n        <div id=imageBox>\n            <div class=leftBracket></div>\n            <div class=centerBracket>\n                <div class=imgContainer>\n                    <img class=profileImg ng-src=\"{{vm.avatar?vm.avatar:'/img/profile/profile-blank.png'}}\"/>\n                </div>\n                <div class=userInfo>\n                    {{vm.user.name}}\n                    <div class=separator></div>\n                    <label>JUGADOR</label>\n                </div>\n            </div>\n            <div class=rightBracket></div>\n        </div>\n\n        <label class=subtitle>Datos del partido</label>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputDate id=inputDate ng-model=vm.match.date disabled=true />\n                    <label for=inputDate>Fecha</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputTime id=inputTime ng-model=vm.match.hour disabled=true />\n                    <label for=inputTime>Hora</label>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputLocation id=inputLocation ng-model=vm.match.address disabled=true />\n                    <label for=inputLocation>Lugar</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputAge id=inputAge ng-model=vm.match.years_from disabled=true />\n                    <label for=inputAge>Edad</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputMatchType id=inputMatchType ng-model=vm.match.sexo disabled=true />\n                    <label for=inputMatchType>Tipo de partido</label>\n                </div>\n            </div>\n            <div class=column>\n                <div class=form-group>\n                    <input type=text class=form-control name=inputMatchType id=inputMatchType ng-model=vm.user.game_level disabled=true />\n                    <label for=inputGameLevel>Nivel de juego</label>\n                </div>\n            </div>\n        </div>        \n        <label class=subtitle>Ingresa a tu criterio el nivel del jugador y completa el resto de los campos</label>\n        <div class=row-form>\n            <div class=column-sm>\n                <div class=form-group>\n                    <select class=\"form-control minimal\" name=inputHasAttended id=inputHasAttended ng-model=vm.feedback.has_attended required>\n                        <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        <option value=1>SI</option>\n                        <option value=0>NO</option>\n                    </select>\n                    <label for=inputHasAttended>Asistió al partido</label>\n                </div>\n            </div>\n            <div class=column-lg>\n                <div class=form-group>\n                    <textarea class=form-control rows=3 name=inputReason id=inputReason placeholder=\"¿Cuál fue el motivo?\" ng-model=vm.feedback.reason ng-if=\"vm.feedback.has_attended==0\" ng-required=\"vm.feedback.has_attended==0\"></textarea>\n                </div>\n            </div>\n        </div>\n        <div class=row-form ng-if=\"vm.feedback.has_attended==1\">\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputGameLevel id=inputGameLevel ng-model=vm.feedback.game_level ng-options=\"punctuality for punctuality in ::['2.5','3.0','3.5','4.0','4.5','5.0','5.5','6.0','6.5','7.0']\" required>\n                            <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        </select>\n                        <label for=inputGameLevel>Nivel de juego</label>\n                    </div>\n                </div>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputPunctuality id=inputPunctuality ng-model=vm.feedback.punctuality ng-options=\"punctuality for punctuality in ::[1,2,3,4,5,6,7,8,9,10]\" required>\n                            <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        </select>\n                        <label for=inputPunctuality>Puntualidad</label>\n                    </div>\n                </div>\n            </div>\n            <div class=column>\n                <div class=column>\n                    <div class=form-group>\n                        <select class=\"form-control minimal\" name=inputRespect id=inputRespect ng-model=vm.feedback.respect ng-options=\"respect for respect in ::[1,2,3,4,5,6,7,8,9,10]\" required>\n                            <option value=\"\" disabled=disabled selected=selected hidden>Seleccioná</option>\n                        </select>\n                        <label for=inputRespect>Respeto</label>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=row-form>\n            <div class=column-x-lg>\n                <textarea class=form-control rows=3 name=inputComments id=inputComments placeholder=\"Dejanos tu comentario...\" ng-model=vm.feedback.comment required></textarea>\n            </div>\n        </div>\n\n        <button type=submit class=\"btn btn-lg\" ng-click=vm.saveFeedback() ng-disabled=vm.complete>Guardar</button>\n    </form>\n</div>\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 91 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95338,9 +95115,9 @@ module.exports = "<div class=feedback>\n    <div class=solidHeader></div>\n    <
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Achievements');
-__webpack_require__(92);
+__webpack_require__(86);
 angular.module('Achievements').config(['$stateProvider', function ($stateProvider) {
-    var tplApp = __webpack_require__(93);
+    var tplApp = __webpack_require__(87);
     $stateProvider.state('app.logros', {
         url: '/logros',
         template: tplApp,
@@ -95355,7 +95132,7 @@ angular.module('Achievements').config(['$stateProvider', function ($stateProvide
 }]);
 
 /***/ }),
-/* 92 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95378,13 +95155,13 @@ var AchievementsController = /** @class */function () {
 angular.module('Achievements').controller('AchievementsController', ['Logros', '$scope', '$http', '$state', 'PATHS', 'LoginService', 'toaster', AchievementsController]);
 
 /***/ }),
-/* 93 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=feedback>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle>\n            Mis Logros\n        </div>\n    </div>\n    <div class=container>\n        <div class=group style=justify-content:center;align-items:flex-end>\n            <div class=item>\n                <p style=font-size:37px>1000</p>\n                <hr style=\"border-top:1px solid #000;margin:10px 0\">\n                <p style=font-size:20px;color:#5ca3d4>PUNTAJE SLAMBOW</p>\n            </div>\n            <div class=item>\n                <div id=imageBox>\n                    <img ng-if=\"vm.user != null\" class=profileImg ng-src={{vm.avatar}} style=\"margin:10px 35px 35px\"/>\n                </div>\n            </div>\n            <div class=item>\n                <div style=display:flex;justify-content:flex-end;align-items:center>\n                    <img src=/img/copa.jpg>\n                    <span style=font-family:CookieRegular;font-size:85px;text-align:center>[5]</span>\n                </div>\n\n            </div>\n        </div>\n        <div class=detail>\n            <h5 style=font-family:CookieRegular;font-size:60px;text-align:center;margin-top:4%;margin-bottom:4%>Matchs</h5>\n            <div class=group style=justify-content:center;align-items:center>\n                <div class=item>\n                    <p style=font-size:20px;color:#5ca3d4>GANADOS</p>\n                    <hr style=\"border-top:2px solid #5ca3d4;margin:10px 0;color:#5ca3d4\">\n                    <p style=font-family:CookieRegular;font-size:85px;text-align:center;color:#5ca3d4;line-height:50px>10</p>\n                </div>\n                <div class=item>\n                    <img src=/img/vs.jpg style=\"margin:0 25px\"/>\n                </div>\n                <div class=item>\n                    <p style=font-size:20px>PERDIDOS</p>\n                    <hr style=\"border-top:2px solid #000;margin:10px 0\">\n                    <p style=font-family:CookieRegular;font-size:85px;text-align:center;line-height:50px>5</p>\n                </div>\n            </div>\n            <hr style=width:500px>\n            <h5 style=font-family:CookieRegular;font-size:60px;text-align:center;margin-top:4%;margin-bottom:4%>\n                Partidos\n            </h5>\n            <div class=group style=justify-content:center;font-size:16px>\n                <div class=item style=margin-right:30px>\n                    <p>12</p>\n                    <hr style=\"border-top:1px solid #5ca3d4;margin:0\">\n                    <p>JUGADOS</p>\n                </div>\n                <div class=item style=margin-right:30px>\n                    <p>10</p>\n                    <hr style=\"border-top:1px solid #5ca3d4;margin:0\">\n                    <p>CREADOS</p>\n                </div>\n                <div class=item>\n                    <p>2</p>\n                    <hr style=\"border-top:1px solid #5ca3d4;margin:0\">\n                    <p>CANCELADOS</p>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 94 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95393,9 +95170,9 @@ module.exports = "<div class=feedback>\n    <div class=solidHeader></div>\n\n   
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('Courts');
-__webpack_require__(95);
+__webpack_require__(89);
 angular.module('Courts').config(['$stateProvider', function ($stateProvider) {
-    var tplApp = __webpack_require__(96);
+    var tplApp = __webpack_require__(90);
     $stateProvider.state('app.canchas', {
         url: '/canchas',
         template: tplApp,
@@ -95410,7 +95187,7 @@ angular.module('Courts').config(['$stateProvider', function ($stateProvider) {
 }]);
 
 /***/ }),
-/* 95 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95439,13 +95216,13 @@ var CourtsController = /** @class */function () {
 angular.module('Courts').controller('CourtsController', ['Canchas', CourtsController]);
 
 /***/ }),
-/* 96 */
+/* 90 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=courts>\n    <div class=solidHeader></div>\n\n    <div class=titleDiv>\n        <div class=centerTitle>\n            Canchas\n        </div>\n    </div>\n    <div class=container>\n        <div class=group style=justify-content:center;margin-top:5%>\n            <div class=item></div>\n            <div class=item>\n                <p style=font-family:Roboto;font-size:20px>Encontra la cancha que estas buscando y <span style=color:#20a3d4>¡a jugar!</span> <input type=text ng-model=courtFilter.name />\n            </p></div>\n            <div class=item></div>\n        </div>\n\n        <div ng-repeat=\"court in vm.courts | filter:courtFilter\">\n\n            <!-- LISTADO -->\n            <div class=courtDetail>\n                <div class=leftBracket></div>\n                <div class=centerBracket>\n                    <h5 class=courtTitle>{{court.name}}</h5>\n                    <div class=flexContainer>\n                        <div class=courtImage>\n                            <img ng-src=/img/cancha.jpg />\n                        </div>\n                        <div class=locationDiv>\n                            <p class=courtAddress><img src=/img/pointer-icon.jpg /> {{court.address}}</p>\n                            <div class=courtMap>\n                                <ui-gmap-google-map center=court.center zoom=map.zoom>\n                                    <ui-gmap-marker idkey=\"'markerId'\" coords=court.center options=\"{crossOnDrag:false, draggable:false}\"></ui-gmap-marker>\n                                </ui-gmap-google-map>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=flexContainer>\n                        <div class=\"item courtDetails\">\n                            <p><img src=/img/phone-icon.jpg /> {{court.phone}}</p>\n                            <hr style=\"margin:10px 0\">\n                            <p><img src=/img/reloj-icon.jpg /> Hoy abierto: 8 a 00hs</p>\n                        </div>\n                        <div class=courtDescription>\n                            <p>{{court.about}}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=rightBracket></div>\n            </div>\n        </div>\n    </div>\n</div>\n<sb-footer></sb-footer>";
 
 /***/ }),
-/* 97 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95456,9 +95233,9 @@ var angular = __webpack_require__(0);
 __webpack_require__(2);
 var config_ts_1 = __webpack_require__(1);
 config_ts_1.APP.ADD_MODULE('SuggestedPlayers');
-__webpack_require__(98);
+__webpack_require__(92);
 angular.module('SuggestedPlayers').config(['$stateProvider', function ($stateProvider) {
-    var tplAppSuggestedPlayers = __webpack_require__(99);
+    var tplAppSuggestedPlayers = __webpack_require__(93);
     $stateProvider.state('app.suggested_players', {
         url: '/suggested-players/:match_id',
         template: tplAppSuggestedPlayers,
@@ -95473,7 +95250,7 @@ angular.module('SuggestedPlayers').config(['$stateProvider', function ($statePro
 }]);
 
 /***/ }),
-/* 98 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95509,13 +95286,13 @@ var SuggestedPlayersController = /** @class */function () {
 angular.module('SuggestedPlayers').controller('SuggestedPlayersController', ['Players', '$scope', '$http', '$stateParams', 'PATHS', 'toaster', SuggestedPlayersController]);
 
 /***/ }),
-/* 99 */
+/* 93 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=suggestedPlayers>\n    <div class=solidHeader></div>\n    <div class=titleDiv>\n        <div class=centerTitle>Queres invitar a alguien?</div>\n    </div>\n\n    <div id=imageBox>\n        <div class=leftBracket></div>\n        <div class=centerBracket>\n            <div class=text>\n                Aquí encontrarás los usuarios que les puede interesar tu partido\n            </div>\n        </div>\n        <div class=rightBracket></div>\n    </div>\n    <div class=\"usersGrid container\">\n        <div class=row ng-show=vm.users.length>\n            <div class=\"userBox col-xs-3\" ng-repeat=\"user in vm.users\">\n                <div class=leftBracket></div>\n                <div class=centerBracket>\n                    <div class=level-1>\n                        <div class=imgContainer>\n                            <img ng-src=\"{{user.image?user.image:'/img/profile/profile-blank.png'}}\" style=border-radius:150px;width:116px>\n                        </div>\n                    </div>\n                    <div class=level-2>\n                        <div class=userName>\n                            <a ui-sref=\"app.user_detail({user_id: user.id})\">{{user.first_name}}</a>\n                        </div>\n                        <div class=userName>\n                            <a ui-sref=\"app.user_detail({user_id: user.id})\">{{user.last_name}}</a>\n                        </div>\n                        <button type=button class=btn ng-click=vm.invite(user) ng-disabled=user.disabled>Invitar</button>\n                    </div>\n                </div>\n                <div class=rightBracket></div>\n            </div>\n        </div>\n        <div ng-show=\"!vm.users.length && vm.other_players.length\" class=info>\n            <span>No encontramos ningún jugador con tus requisitos, debajo verás otros con requisitos similares.</span>\n            <div class=row ng-show=vm.other_players.length>\n            <div class=\"userBox col-xs-3\" ng-repeat=\"user in vm.other_players\">\n                <div class=leftBracket></div>\n                    <div class=centerBracket>\n                        <div class=level-1>\n                            <div class=imgContainer>\n                                <img ng-src=\"{{user.image?user.image:'/img/profile/profile-blank.png'}}\" style=border-radius:150px;width:116px>\n                            </div>\n                        </div>\n                        <div class=level-2>\n                            <div class=userName>\n                                <a ui-sref=\"app.user_detail({user_id: user.id})\">{{user.name}}</a>\n                            </div>\n                            <button type=button class=btn ng-click=vm.invite(user) ng-disabled=user.disabled>Invitar</button>\n                        </div>\n                    </div>\n                    <div class=rightBracket></div>\n                </div>\n            </div>\n        </div>\n        <div ng-show=\"!vm.users.length && !vm.other_players.length\" class=info>\n            <span>No encontramos ningún jugador con tus requisitos, ni con requisitos similares.</span>\n        </div>\n    </div>\n</div>\n\n<sb-footer></sb-footer>\n";
 
 /***/ }),
-/* 100 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -95542,7 +95319,7 @@ if(true) {
 				check();
 			}
 
-			__webpack_require__(101)(updatedModules, updatedModules);
+			__webpack_require__(95)(updatedModules, updatedModules);
 
 			if(upToDate()) {
 				log("info", "[HMR] App is up to date.");
@@ -95574,7 +95351,7 @@ if(true) {
 
 
 /***/ }),
-/* 101 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -95618,7 +95395,7 @@ module.exports = function(updatedModules, renewedModules) {
 
 
 /***/ }),
-/* 102 */
+/* 96 */
 /***/ (function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -95926,7 +95703,7 @@ function isUndefined(arg) {
 
 
 /***/ }),
-/* 103 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95935,11 +95712,11 @@ function isUndefined(arg) {
 /* global __resourceQuery WorkerGlobalScope self */
 /* eslint prefer-destructuring: off */
 
-const url = __webpack_require__(104);
-const stripAnsi = __webpack_require__(110);
-const log = __webpack_require__(111).getLogger('webpack-dev-server');
-const socket = __webpack_require__(112);
-const overlay = __webpack_require__(114);
+const url = __webpack_require__(98);
+const stripAnsi = __webpack_require__(104);
+const log = __webpack_require__(105).getLogger('webpack-dev-server');
+const socket = __webpack_require__(106);
+const overlay = __webpack_require__(108);
 
 function getCurrentScriptSource() {
   // `document.currentScript` is the most accurate way to find the current script,
@@ -96023,7 +95800,7 @@ const onSocketMsg = {
     sendMsg('StillOk');
   },
   'log-level': function logLevel(level) {
-    const hotCtx = __webpack_require__(119);
+    const hotCtx = __webpack_require__(113);
     if (hotCtx.keys().indexOf('./log') !== -1) {
       hotCtx('./log').setLogLevel(level);
     }
@@ -96176,7 +95953,7 @@ function reloadApp() {
 /* WEBPACK VAR INJECTION */}.call(exports, "?http://www.socialtenis.com:8083"))
 
 /***/ }),
-/* 104 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96203,8 +95980,8 @@ function reloadApp() {
 
 
 
-var punycode = __webpack_require__(105);
-var util = __webpack_require__(106);
+var punycode = __webpack_require__(99);
+var util = __webpack_require__(100);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -96279,7 +96056,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(107);
+    querystring = __webpack_require__(101);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -96915,7 +96692,7 @@ Url.prototype.parseHost = function() {
 
 
 /***/ }),
-/* 105 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.3.2 by @mathias */
@@ -97451,7 +97228,7 @@ Url.prototype.parseHost = function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module), __webpack_require__(3)))
 
 /***/ }),
-/* 106 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97474,18 +97251,18 @@ module.exports = {
 
 
 /***/ }),
-/* 107 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(108);
-exports.encode = exports.stringify = __webpack_require__(109);
+exports.decode = exports.parse = __webpack_require__(102);
+exports.encode = exports.stringify = __webpack_require__(103);
 
 
 /***/ }),
-/* 108 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97576,7 +97353,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 109 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97668,7 +97445,7 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 110 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97679,7 +97456,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 111 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -97933,13 +97710,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 
 
 /***/ }),
-/* 112 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const SockJS = __webpack_require__(113);
+const SockJS = __webpack_require__(107);
 
 let retries = 0;
 let sock = null;
@@ -97982,7 +97759,7 @@ module.exports = socket;
 
 
 /***/ }),
-/* 113 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var require;var require;/* sockjs-client v1.1.4 | http://sockjs.org | MIT license */
@@ -103722,7 +103499,7 @@ module.exports = function lolcation(loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 114 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -103731,8 +103508,8 @@ module.exports = function lolcation(loc) {
 // The error overlay is inspired (and mostly copied) from Create React App (https://github.com/facebookincubator/create-react-app)
 // They, in turn, got inspired by webpack-hot-middleware (https://github.com/glenjamin/webpack-hot-middleware).
 
-const ansiHTML = __webpack_require__(115);
-const Entities = __webpack_require__(116).AllHtmlEntities;
+const ansiHTML = __webpack_require__(109);
+const Entities = __webpack_require__(110).AllHtmlEntities;
 
 const entities = new Entities();
 
@@ -103857,7 +103634,7 @@ exports.showMessage = function handleMessage(messages) {
 
 
 /***/ }),
-/* 115 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104040,19 +103817,19 @@ ansiHTML.reset()
 
 
 /***/ }),
-/* 116 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  XmlEntities: __webpack_require__(117),
-  Html4Entities: __webpack_require__(118),
+  XmlEntities: __webpack_require__(111),
+  Html4Entities: __webpack_require__(112),
   Html5Entities: __webpack_require__(10),
   AllHtmlEntities: __webpack_require__(10)
 };
 
 
 /***/ }),
-/* 117 */
+/* 111 */
 /***/ (function(module, exports) {
 
 var ALPHA_INDEX = {
@@ -104213,7 +103990,7 @@ module.exports = XmlEntities;
 
 
 /***/ }),
-/* 118 */
+/* 112 */
 /***/ (function(module, exports) {
 
 var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'OElig', 'oelig', 'Scaron', 'scaron', 'Yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'Dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'Prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'lArr', 'uArr', 'rArr', 'dArr', 'hArr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
@@ -104366,7 +104143,7 @@ module.exports = Html4Entities;
 
 
 /***/ }),
-/* 119 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -104386,7 +104163,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 119;
+webpackContext.id = 113;
 
 /***/ })
 /******/ ]);
