@@ -29,18 +29,19 @@
         display: block;
     }
     .centerBracket {
-        width: 65%;
-        height: 420px;
+        height: 290px;
         display: block;
-        position: absolute;
-        padding: 30px;
-        padding-top: 18px;
         spam {
             font-weight: bold;
         }
         .courtTitle{
             font-family:Roboto;
-            font-size:19px
+            font-size:19px;
+            background-color: #00a5d7;
+            color: white;
+            text-transform: uppercase;
+            padding: 7px;
+            border-radius: 5px 5px 0 0;
         }
         .locationDiv{
             margin-left: 25px;
@@ -72,6 +73,7 @@
         .flexContainer{
             display: flex;
             margin-bottom: 25px;
+            padding: 0 10px;
         }
         .courtDetails p {
             width: 230px;
@@ -90,9 +92,10 @@
     }
 
     .courtDetail{
-        height: 420px;
+        height: 290px;
         width: 850px;
         margin: auto;
-        margin-bottom: 30px;
+        background-color: #eeeeee;
+        border-radius: 5px;
     }
 }

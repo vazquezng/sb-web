@@ -17,16 +17,35 @@
         </div>
 
         <div ng-repeat="court in vm.courts | filter:courtFilter">
-
             <!-- LISTADO -->
             <div class="courtDetail">
-                <div class="leftBracket"></div>
                 <div class="centerBracket">
                     <h5 class="courtTitle">{{court.name}}</h5>
                     <div class="flexContainer">
-                        <div class="courtImage">
-                            <img ng-src="/img/cancha.jpg" />
+                        <div style="width: 50%;">
+                            <div>
+                                <p>{{court.about}}</p>
+                            </div>
+                            <div class="item courtDetails" style="width: 100%;">
+                                <hr style="margin: 10px 0;border-style: dashed;border-color: #00a4d7;">
+                                <p>
+                                  <img src="/img/reloj-icon.jpg" />
+                                  Hoy abierto: 8 a 00hs
+                                </p>
+                                <hr style="margin: 10px 0;border-style: dashed;border-color: #00a4d7;">
+                                <p>
+                                  <img src="/img/phone-icon.jpg" />
+                                  {{court.phone}}
+                                </p>
+                                <hr style="margin: 10px 0;border-style: dashed;border-color: #00a4d7;">
+                                <p>
+                                  {{court.email}}
+                                </p>
+                            </div>
                         </div>
+                        <!--div class="courtImage">
+                            <img ng-src="/img/cancha.jpg" />
+                        </div-->
                         <div class="locationDiv">
                             <p class="courtAddress"><img src="/img/pointer-icon.jpg" /> {{court.address}}</p>
                             <div class="courtMap">
@@ -36,18 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flexContainer">
-                        <div class="item courtDetails">
-                            <p><img src="/img/phone-icon.jpg" /> {{court.phone}}</p>
-                            <hr style="margin: 10px 0;">
-                            <p><img src="/img/reloj-icon.jpg" /> Hoy abierto: 8 a 00hs</p>
-                        </div>
-                        <div class="courtDescription">
-                            <p>{{court.about}}</p>
-                        </div>
-                    </div>
                 </div>
-                <div class="rightBracket"></div>
             </div>
         </div>
     </div>
