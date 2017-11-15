@@ -12,12 +12,12 @@ Object.keys(webpackConfig.entry).forEach((entry) => {
   }
   if (Array.isArray(webpackConfig.entry[entry])) {
     webpackConfig.entry[entry].push('webpack/hot/dev-server');
-    webpackConfig.entry[entry].push('webpack-dev-server/client?http://www.socialtenis.com:8083');
+    webpackConfig.entry[entry].push('webpack-dev-server/client?http://www.socialtenis.dev:8083');
   }
 });
 
 
-webpackConfig.output.publicPath = 'http://www.socialtenis.com:8083/';
+webpackConfig.output.publicPath = 'http://www.socialtenis.dev:8083/';
 webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 webpackConfig.devServer = {
   contentBase: path.join(__dirname, 'app'),
