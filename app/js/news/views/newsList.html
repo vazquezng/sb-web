@@ -1,0 +1,25 @@
+<div id="newsList">
+  <div class="solidHeader"></div>
+
+  <div class="titleDiv">
+      <div class="centerTitle">
+          Noticias
+      </div>
+  </div>
+  <div class="container">
+    <div ng-repeat="news in vm.news">
+      <!-- LISTADO -->
+      <div class="newsDetail">
+        <div class="centerBracket">
+          <h5 class="newsTitle">{{news.title}}</h5>
+          <div style="padding-left: 20px;">
+            <p class="date" ng-bind="news.date | date : 'MMM.dd-yyyy' " style="font-size: 25px;color: #20a3d4;text-transform: uppercase;"></p>
+            <p class="description" ng-bind="news.short_description" style="font-size: 16px;color: #252525;text-transform: uppercase;"></p>
+            <a class="more" ui-sref="app.newsDetails({id:news.id })">+</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

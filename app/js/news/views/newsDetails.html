@@ -1,0 +1,12 @@
+<div id="newsDetails">
+  <div class="header" style="max-height: 300px;overflow: hidden;">
+    <img ng-src="{{vm.newsDetails.image}}">
+  </div>
+  <div class="container">
+    <p class="date" ng-bind="vm.newsDetails.date | date : 'MMM.dd-yyyy' " style="background:#00a5d7;color:white;padding: 4px 10px;
+"></p>
+    <h2 ng-bind="vm.newsDetails.title" style="color:#00a5d7;margin-bottom:0"></h2>
+    <hr style="margin-top:10px"/>
+    <p ng-bind="vm.newsDetails.description"></p>
+  </div>
+</div>

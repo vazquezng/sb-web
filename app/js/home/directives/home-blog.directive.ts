@@ -6,7 +6,7 @@ function homeBlog(PATHS, $http){
 
     function link(scope, element, attrs) {
       $http.get(`${PATHS.api}/news`).then((resp) => {
-        scope.news = resp.data.news.reverse();
+        scope.news = resp.data.news.reverse().filter((n) => n.status ===1);
       });
     }
     return {
