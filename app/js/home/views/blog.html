@@ -15,7 +15,11 @@
             </div>
         </div>
         <div class="item">
-            <img ng-src="{{news[1].image}}" />
+            <div style="min-height: 195px;
+              overflow: hidden;
+              max-height: 195px;">
+              <img ng-src="{{news[1].image}}" />
+            </div>
             <p class="date" ng-bind="news[1].date | date : 'MMM.dd-yyyy' "></p>
             <div class="inline">
                 <p class="desc" ng-bind="news[1].short_description"></p>
